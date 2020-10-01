@@ -1,7 +1,3 @@
-/**
-  * Created by psc on 1/10/20.
-  */
-
 import helloworld.HelloWorld
 
 object Main extends App {

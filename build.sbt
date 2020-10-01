@@ -1,6 +1,6 @@
 name := "helloworld2-with-sbt"
 
-organization := "au.com.carringbushsw"
+organization := "au.com.example"
 
 version := "1.0-SNAPSHOT"
 

@@ -1,7 +1,3 @@
-/**
-  * Created by psc on 30/03/17.
-  */
-
 package helloworld
 
 class HelloWorld {

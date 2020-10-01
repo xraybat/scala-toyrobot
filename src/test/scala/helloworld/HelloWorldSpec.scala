@@ -1,7 +1,3 @@
-/**
-  * Created by psc on 1/10/20.
-  */
-
 package helloworld
 
 import org.scalatest.FlatSpec
