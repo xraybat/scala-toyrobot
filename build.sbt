@@ -1,4 +1,4 @@
-name := "helloworld2-with-sbt"
+name := "toyrobot"
 
 organization := "au.com.example"
 
