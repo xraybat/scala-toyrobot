@@ -1,11 +1,14 @@
-import helloworld.HelloWorld
+import board.Board
+import point.Point
 
 object Main extends App {
 //object Main {
 //  def main(args: Array[String]): Unit = {
-    new HelloWorld().print
+    val b = new Board
+    println(s"${b.xExtent}x${b.yExtent}")
 
-    val helloworld = new HelloWorld
-    println(helloworld.sayThis("done!"))
+    val p = new Point
+    println(s"(${p.x}, ${p.y})")
+
 //  }
 } // Main
