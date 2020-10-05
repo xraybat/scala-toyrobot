@@ -1,6 +1,6 @@
-import board.Board
-import point.Point
-import scala.io.StdIn.readLine
+import board._
+import point._
+import directions._
 
 object Main extends App {
 //object Main {
@@ -11,10 +11,6 @@ object Main extends App {
     val p = new Point
     println(s"(${p.x}, ${p.y})")
 
-    val in = Iterator
-              .continually(readLine)
-              .takeWhile(Option(_).fold(false)(_.nonEmpty))
-              .toList
-    print(in)
+    print(Directions.fromStdIn)
 //  }
 } // Main
