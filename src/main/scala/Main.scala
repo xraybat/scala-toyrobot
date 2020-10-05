@@ -11,6 +11,7 @@ object Main extends App {
     val p = new Point
     println(s"(${p.x}, ${p.y})")
 
-    print(Directions.fromStdIn)
+    val in = Directions.fromStdIn
+    print(in)
 //  }
 } // Main
