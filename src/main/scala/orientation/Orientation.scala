@@ -8,5 +8,3 @@ object Orientation extends Enumeration {
   val South = Value("SOUTH")
   val West = Value("WEST")
 }
-
-//import Orientation._

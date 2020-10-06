@@ -9,5 +9,3 @@ object Commands extends Enumeration {
   val Right = Value("RIGHT")
   val Report = Value("REPORT")
 }
-
-//import Commands._

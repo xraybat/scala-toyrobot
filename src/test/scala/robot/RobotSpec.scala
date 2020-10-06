@@ -23,10 +23,18 @@ class RobotSpec extends FlatSpec {
     val r = new Robot(b, p, in)
     assert(!r.inPlace && !r.inBounds && r.outBounds)
   }
+
   "A simple Robot" should "be able to walk the DirectionsList without exception" in {
     val r = new Robot(b, p, in)
     r.walk
     assert(true)
+  }
+
+  "A Robot" should "ignore directions until PLACE" in {
+    val place = SourceDirections.fromList("LEFT" :: "RIGHT" :: "PLACE 1, 1, NORTH" :: Nil)
+    val r = new Robot(b, p, place)
+    r.walk
+    assert(r.inPlace)
   }
 
 } // RobotSpec

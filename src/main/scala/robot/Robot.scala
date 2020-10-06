@@ -5,6 +5,9 @@ import board._
 import point._
 import directions.SourceDirections.DirectionsList
 
+import fastparse._, NoWhitespace._
+import commands._
+
 class Robot(val board: Board, val point: Point, val directions: DirectionsList) {
 
   private var _inPlace: Boolean = false
@@ -14,9 +17,13 @@ class Robot(val board: Board, val point: Point, val directions: DirectionsList) 
   def outBounds: Boolean = !inBounds
   
   def walk(): Unit = {
-    directions.foreach { 
-      println
-    }
+    def parser[_: P] = P(Commands.Place.toString)
+
+    for (command <- directions) { 
+      if (fastparse.parse(command, parser(_)) == Parsed.Success((), 5))
+        _inPlace = true
+      
+    } // for
   } // walk
 
 } // Robot
