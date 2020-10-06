@@ -3,6 +3,8 @@ package directions
 import scala.io.StdIn.readLine
 import scala.io.Source
 
+// @TODO: complete lack of input parsing here, atm, concentrating on
+// core solution first...
 object SourceDirections {
   type DirectionsList = List[String]
 
