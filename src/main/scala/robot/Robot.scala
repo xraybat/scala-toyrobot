@@ -8,5 +8,6 @@ import directions.SourceDirections.DirectionsList
 class Robot(val board: Board, val point: Point, val directions: DirectionsList) {
 
   def walk() = ???
+  def isPlaced() = ???
   
 } // Robot
