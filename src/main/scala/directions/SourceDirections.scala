@@ -3,7 +3,7 @@ package directions
 import scala.io.StdIn.readLine
 import scala.io.Source
 
-object Directions {
+object SourceDirections {
   type DirectionsList = List[String]
 
   def fromStdIn: DirectionsList =
@@ -18,4 +18,4 @@ object Directions {
   def fromFile(fileName: String): DirectionsList =
     Source.fromFile(fileName).getLines.toList
 
-} // Directions
+} // SourceDirections

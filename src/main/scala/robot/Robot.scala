@@ -3,7 +3,7 @@ package robot
 
 import board._
 import point._
-import directions.Directions.DirectionsList
+import directions.SourceDirections.DirectionsList
 
 class Robot(val board: Board, val point: Point, val directions: DirectionsList) {
 

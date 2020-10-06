@@ -9,7 +9,7 @@ class RobotSpec extends FlatSpec {
 
   private val b = new Board
   private val p = new Point
-  private val in = Directions.fromList("hello," :: "how" :: "are" :: "you?" :: Nil)
+  private val in = SourceDirections.fromList("hello," :: "how" :: "are" :: "you?" :: Nil)
 
   "A simple Robot" should "have a default Board, Point, and DirectionsList" in {
     val r = new Robot(b, p, in)
