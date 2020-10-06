@@ -7,7 +7,16 @@ import directions.SourceDirections.DirectionsList
 
 class Robot(val board: Board, val point: Point, val directions: DirectionsList) {
 
-  def walk() = ???
-  def isPlaced() = ???
+  private var _inPlace: Boolean = false
+  def inPlace: Boolean = _inPlace
+
+  def inBounds: Boolean = if (_inPlace) board.inBounds(point) else false
+  def outBounds: Boolean = !inBounds
   
+  def walk(): Unit = {
+    directions.foreach { 
+      println
+    }
+  } // walk
+
 } // Robot

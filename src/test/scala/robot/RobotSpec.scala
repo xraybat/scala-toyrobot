@@ -5,6 +5,7 @@ import board._
 import point._
 import directions._
 
+// TDD-ing through the Robot setup and walk()
 class RobotSpec extends FlatSpec {
 
   private val b = new Board
@@ -17,6 +18,15 @@ class RobotSpec extends FlatSpec {
       r.board.xExtent == 5 && r.board.yExtent == 5
       && r.point.x == 0 && r.point.y == 0
       && r.directions == "hello," :: "how" :: "are" :: "you?" :: Nil)
+  }
+  "A simple Robot" should "start as not inPlace, not inBounds, and outBounds" in {
+    val r = new Robot(b, p, in)
+    assert(!r.inPlace && !r.inBounds && r.outBounds)
+  }
+  "A simple Robot" should "be able to walk the DirectionsList without exception" in {
+    val r = new Robot(b, p, in)
+    r.walk
+    assert(true)
   }
 
 } // RobotSpec
