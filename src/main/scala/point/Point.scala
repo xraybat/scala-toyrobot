@@ -1,5 +1,5 @@
 package point
 
-class Point(val x: Int = 0, val y: Int = 0) {
+class Point(val x: Int = -1, val y: Int = -1) {
 
 } // Point

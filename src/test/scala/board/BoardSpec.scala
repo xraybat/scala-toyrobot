@@ -13,35 +13,41 @@ class BoardSpec extends FlatSpec {
     assert(b.xExtent == 10 && b.yExtent == 10)
   }
 
+  "A default Board" should "have a Point (0, 0) inBounds" in {
+    assert(!new Board().inBounds(new Point))
+  }
   "A default Board" should "have Point (1, 1) inBounds" in {
     assert(new Board().inBounds(new Point(1, 1)))
   }
-  "A default Board" should "have a default Point (0, 0) not inBounds" in {
+  "A default Board" should "have Point (4, 4) inBounds" in {
+    assert(new Board().inBounds(new Point(4, 4)))
+  }
+  "A default Board" should "have a default Point (-1, -1) not inBounds" in {
     assert(!new Board().inBounds(new Point))
   }
-  "A default Board" should "have Point (5, 5) inBounds" in {
-    assert(new Board().inBounds(new Point(5, 5)))
+  "A default Board" should "have Point (5, 5) not inBounds" in {
+    assert(!new Board().inBounds(new Point(5, 5)))
   }
-  "A default Board" should "have Point (6, 5) not inBounds" in {
-    assert(!new Board().inBounds(new Point(6, 5)))
-  }
-  "A default Board" should "have Point (5, 6) not inBounds" in {
-    assert(!new Board().inBounds(new Point(5, 6)))
+  "A 10x10 Board" should "have Point (0, 0) inBounds" in {
+    assert(new Board(10, 10).inBounds(new Point(0, 0)))
   }
   "A 10x10 Board" should "have Point (1, 1) inBounds" in {
     assert(new Board(10, 10).inBounds(new Point(1, 1)))
   }
-  "A 10x10 default Board" should "have a default Point (0, 0) not inBounds" in {
+  "A 10x10 Board" should "have Point (9, 9) inBounds" in {
+    assert(new Board(10, 10).inBounds(new Point(9, 9)))
+  }
+  "A 10x10 default Board" should "have a default Point (-1, -1) not inBounds" in {
     assert(!new Board(10, 10).inBounds(new Point))
   }
-  "A 10x10 default Board" should "have a default Point (11, 11) not inBounds" in {
-    assert(!new Board(10, 10).inBounds(new Point(11, 11)))
+  "A 10x10 default Board" should "have a default Point (10, 10) not inBounds" in {
+    assert(!new Board(10, 10).inBounds(new Point(10, 10)))
   }
 
-  "A default Board" should "have Point (1, 1) not outBounds" in {
-    assert(!new Board().outBounds(new Point(1, 1)))
+  "A default Board" should "have Point (0, 0) not outBounds" in {
+    assert(!new Board().outBounds(new Point(0, 0)))
   }
-  "A default Board" should "have a default Point (0, 0) outBounds" in {
+  "A default Board" should "have a default Point (-1, -1) outBounds" in {
     assert(new Board().outBounds(new Point))
   }
 

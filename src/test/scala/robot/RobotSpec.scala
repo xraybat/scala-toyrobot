@@ -8,7 +8,7 @@ import directions._
 class RobotSpec extends FlatSpec {
 
   private val b = new Board
-  private val p = new Point
+  private val p = new Point(0, 0)
   private val in = SourceDirections.fromList("hello," :: "how" :: "are" :: "you?" :: Nil)
 
   "A simple Robot" should "have a default Board, Point, and DirectionsList" in {

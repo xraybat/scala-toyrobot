@@ -8,7 +8,7 @@ object Main extends App {
     val b = new Board
     println(s"${b.xExtent}x${b.yExtent}")
 
-    val p = new Point
+    val p = new Point(0, 0)
     println(s"(${p.x}, ${p.y})")
 
     val in = SourceDirections.fromStdIn
