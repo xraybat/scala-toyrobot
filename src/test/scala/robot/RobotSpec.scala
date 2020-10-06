@@ -31,7 +31,7 @@ class RobotSpec extends FlatSpec {
   }
 
   "A Robot" should "ignore directions until PLACE" in {
-    val place = SourceDirections.fromList("LEFT" :: "RIGHT" :: "PLACE 1, 1, NORTH" :: Nil)
+    val place = SourceDirections.fromList("LEFT" :: "RIGHT" :: "PLACE 1, 1, NORTH" :: "REPORT" :: Nil)
     val r = new Robot(b, p, place)
     r.walk
     assert(r.inPlace)

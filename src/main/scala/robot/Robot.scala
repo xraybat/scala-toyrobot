@@ -19,8 +19,9 @@ class Robot(val board: Board, val point: Point, val directions: DirectionsList) 
   def walk(): Unit = {
     def parser[_: P] = P(Commands.Place.toString)
 
-    for (command <- directions) { 
-      if (fastparse.parse(command, parser(_)) == Parsed.Success((), 5))
+    for (command <- directions) {
+      // once only
+      if (!_inPlace && (fastparse.parse(command, parser(_)) == Parsed.Success((), 5)))
         _inPlace = true
       
     } // for
