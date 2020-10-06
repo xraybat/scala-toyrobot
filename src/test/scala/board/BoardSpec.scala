@@ -38,4 +38,11 @@ class BoardSpec extends FlatSpec {
     assert(!new Board(10, 10).inBounds(new Point(11, 11)))
   }
 
+  "A default Board" should "have Point (1, 1) not outBounds" in {
+    assert(!new Board().outBounds(new Point(1, 1)))
+  }
+  "A default Board" should "have a default Point (0, 0) outBounds" in {
+    assert(new Board().outBounds(new Point))
+  }
+
 } // BoardSpec
