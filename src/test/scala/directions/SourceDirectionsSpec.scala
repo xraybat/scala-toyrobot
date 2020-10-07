@@ -14,5 +14,14 @@ class SourceDirectionsSpec extends FlatSpec {
     val in = SourceDirections.fromFile((os.pwd/"src"/"resources"/"hello.txt").toString)
     assert(l == in)
   }
-
 } // SourceDirectionsSpec
+
+class DirectionsSpec extends FlatSpec {
+  "A DirectionsList parse" should "find 'PLACE'" in {
+    val place = SourceDirections.fromList(
+      "LEFT" :: "RIGHT" :: "PLACE 1, 1, NORTH" :: "REPORT" :: Nil)
+    val d = new Directions
+    d.parse(place)
+    assert(true)
+  }
+} // DirectionsSpec

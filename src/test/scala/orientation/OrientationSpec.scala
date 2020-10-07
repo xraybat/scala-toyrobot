@@ -2,7 +2,8 @@ package orientation
 
 import org.scalatest.FlatSpec
 
-class OrientationSpec extends FlatSpec {
+//@Ignore
+class OrientationSpec(ignore: String) extends FlatSpec {
   "The Orientation enumeration" should "have uppercase values" in {
     assert(Orientation.North.toString == "NORTH"
            && Orientation.East.toString == "EAST"

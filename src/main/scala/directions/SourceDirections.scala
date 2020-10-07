@@ -3,8 +3,9 @@ package directions
 import scala.io.StdIn.readLine
 import scala.io.Source
 
-// @TODO: complete lack of input parsing here, atm, concentrating on
-// core solution first...
+import fastparse._, NoWhitespace._
+import commands._
+
 object SourceDirections {
   type DirectionsList = List[String]
 
@@ -21,3 +22,17 @@ object SourceDirections {
     Source.fromFile(fileName).getLines.toList
 
 } // SourceDirections
+
+class Directions {
+  def parse(dl: SourceDirections.DirectionsList): Unit = {
+    def parser[_: P] = P(Commands.Place.toString)
+
+    for (command <- dl) {
+      fastparse.parse(command, parser(_)) match {
+        case Parsed.Success((), 5) => println("found PLACE")
+        case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
+        case _ => println("Problem parsing directions.") 
+      }
+    } // for
+  } // parse
+} // Directions
