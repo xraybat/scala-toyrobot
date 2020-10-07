@@ -2,7 +2,8 @@ package directions
 
 import org.scalatest.FlatSpec
 
-class SourceDirectionsSpec extends FlatSpec {
+//@Ignore
+class SourceDirectionsSpec(ignore: String) extends FlatSpec {
   "A Directions list" should "be returned unchanged (for testing)" in {
     val l = "hello," :: "how" :: "are" :: "you?" :: Nil
     val in = SourceDirections.fromList(l)

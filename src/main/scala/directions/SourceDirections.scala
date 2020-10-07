@@ -25,14 +25,30 @@ object SourceDirections {
 
 class Directions {
   def parse(dl: SourceDirections.DirectionsList): Unit = {
-    def parser[_: P] = P(Commands.Place.toString)
+    def parser[_: P] = 
+      P(Commands.Place.toString.!
+        | Commands.Move.toString.!
+        | Commands.Left.toString.!
+        | Commands.Right.toString.!
+        | Commands.Report.toString.!)
 
     for (command <- dl) {
       fastparse.parse(command, parser(_)) match {
-        case Parsed.Success((), 5) => println("found PLACE")
+        case Parsed.Success(value, index) => {
+          //println(s"found ${value} at ${index}")
+          // @TODO: need to find a way to match on enum string...
+          value match {
+            case "PLACE" => println("add PLACE")
+            case "MOVE" => println("add MOVE")
+            case "LEFT" => println("add LEFT")
+            case "RIGHT" => println("add RIGHT")
+            case "REPORT" => println("add MOVE")
+
+          } // match
+        }
         case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
         case _ => println("Problem parsing directions.") 
-      }
+      } // match
     } // for
   } // parse
 } // Directions
