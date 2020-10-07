@@ -8,6 +8,7 @@ import directions.SourceDirections.DirectionsList
 import fastparse._, NoWhitespace._
 import commands._
 
+// @TODO: keep point arg for recursion???
 class Robot(val board: Board, val point: Point, val directions: DirectionsList) {
 
   private var _inPlace: Boolean = false
@@ -16,6 +17,7 @@ class Robot(val board: Board, val point: Point, val directions: DirectionsList) 
   def inBounds: Boolean = if (_inPlace) board.inBounds(point) else false
   def outBounds: Boolean = !inBounds
   
+  // @TODO: make walk() recursive walk(point)??
   def walk(): Unit = {
     def parser[_: P] = P(Commands.Place.toString)
 
