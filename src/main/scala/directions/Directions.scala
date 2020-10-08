@@ -31,7 +31,9 @@ class Directions {
   def parse(dl: SourceDirections.DirectionsList): Unit = {
     def parserPlace[_: P] = 
       P(Commands.Place.toString.!
-        ~ CharIn("0-9").rep(1).! ~ "," ~ CharIn("0-9").rep(1).!
+        ~ CharIn("0-9").rep(1).!.map(_.toInt)
+          ~ ","
+          ~ CharIn("0-9").rep(1).!.map(_.toInt)
         ~ ","
         ~ (Orientation.North.toString.!
           | Orientation.East.toString.!
@@ -40,21 +42,22 @@ class Directions {
         ~ End)
 
     def parserCommands[_: P] = 
-      P(Commands.Place.toString.!
+      P(parserPlace
         | Commands.Move.toString.!
         | Commands.Left.toString.!
         | Commands.Right.toString.!
-        | Commands.Report.toString.!)
+        | Commands.Report.toString.!
+        ~ End)
 
     for (command <- dl) {
       if (!_inPlace) {
         fastparse.parse(command, parserPlace(_)) match {
           case Parsed.Success(value, index) => {
              println(s"found PLACE, value = ${value}, index = ${index}")
-             /*println(s"value._1 = ${value._1}")
+             println(s"value._1 = ${value._1}")
              println(s"value._2 = ${value._2}")
              println(s"value._3 = ${value._3}")
-             println(s"value._4 = ${value._4}")*/
+             println(s"value._4 = ${value._4}")
             _inPlace = true
           }
           case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
