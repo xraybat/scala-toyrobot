@@ -7,7 +7,7 @@ import directions._
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
-class RobotSpec(ignore: String) extends FlatSpec {
+class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
 
   private val b = new Board
   private val p = new Point(0, 0)
