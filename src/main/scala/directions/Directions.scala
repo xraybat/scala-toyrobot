@@ -3,8 +3,9 @@ package directions
 import scala.io.StdIn.readLine
 import scala.io.Source
 
-import fastparse._, NoWhitespace._
+import fastparse._, SingleLineWhitespace._
 import commands._
+import orientation._
 
 object SourceDirections {
   type DirectionsList = List[String]
@@ -29,7 +30,15 @@ class Directions {
 
   def parse(dl: SourceDirections.DirectionsList): Unit = {
     def parserPlace[_: P] = 
-      P(Commands.Place.toString.!)
+      P(Commands.Place.toString.!
+        ~ CharIn("0-9").rep(1).! ~ "," ~ CharIn("0-9").rep(1).!
+        ~ ","
+        ~ (Orientation.North.toString.!
+          | Orientation.East.toString.!
+          | Orientation.South.toString.!
+          | Orientation.West.toString.!)
+        ~ End)
+
     def parserCommands[_: P] = 
       P(Commands.Place.toString.!
         | Commands.Move.toString.!
@@ -40,9 +49,16 @@ class Directions {
     for (command <- dl) {
       if (!_inPlace) {
         fastparse.parse(command, parserPlace(_)) match {
-          case Parsed.Success(value, index) => _inPlace = true; println("found PLACE")
+          case Parsed.Success(value, index) => {
+             println(s"found PLACE, value = ${value}, index = ${index}")
+             /*println(s"value._1 = ${value._1}")
+             println(s"value._2 = ${value._2}")
+             println(s"value._3 = ${value._3}")
+             println(s"value._4 = ${value._4}")*/
+            _inPlace = true
+          }
           case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
-          case _ => println("Problem parsing directions.") 
+          case _ => println("Problem parsing for PLACE.") 
         } // match
       } // if
       else { // inPlace
@@ -60,7 +76,7 @@ class Directions {
             } // match
           }
           case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg) // @TODO: ignore
-          case _ => println("Problem parsing directions.") 
+          case _ => println("Problem parsing commands.") 
         } // match
       } // else
     } // for
