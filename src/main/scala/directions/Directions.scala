@@ -24,8 +24,13 @@ object SourceDirections {
 } // SourceDirections
 
 class Directions {
+  private var _inPlace: Boolean = false
+  def inPlace: Boolean = _inPlace
+
   def parse(dl: SourceDirections.DirectionsList): Unit = {
-    def parser[_: P] = 
+    def parserPlace[_: P] = 
+      P(Commands.Place.toString.!)
+    def parserCommands[_: P] = 
       P(Commands.Place.toString.!
         | Commands.Move.toString.!
         | Commands.Left.toString.!
@@ -33,22 +38,31 @@ class Directions {
         | Commands.Report.toString.!)
 
     for (command <- dl) {
-      fastparse.parse(command, parser(_)) match {
-        case Parsed.Success(value, index) => {
-          //println(s"found ${value} at ${index}")
-          // @TODO: need to find a way to match on enum string...
-          value match {
-            case "PLACE" => println("add PLACE")
-            case "MOVE" => println("add MOVE")
-            case "LEFT" => println("add LEFT")
-            case "RIGHT" => println("add RIGHT")
-            case "REPORT" => println("add MOVE")
+      if (!_inPlace) {
+        fastparse.parse(command, parserPlace(_)) match {
+          case Parsed.Success(value, index) => _inPlace = true; println("found PLACE")
+          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
+          case _ => println("Problem parsing directions.") 
+        } // match
+      } // if
+      else { // inPlace
+        fastparse.parse(command, parserCommands(_)) match {
+          case Parsed.Success(value, index) => {
+            //println(s"found ${value} at ${index}")
+            // @TODO: need to find a way to match on enum string...
+            value match {
+              case "PLACE" => println("add PLACE")
+              case "MOVE" => println("add MOVE")
+              case "LEFT" => println("add LEFT")
+              case "RIGHT" => println("add RIGHT")
+              case "REPORT" => println("add REPORT")
 
-          } // match
-        }
-        case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
-        case _ => println("Problem parsing directions.") 
-      } // match
+            } // match
+          }
+          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg) // @TODO: ignore
+          case _ => println("Problem parsing directions.") 
+        } // match
+      } // else
     } // for
   } // parse
 } // Directions

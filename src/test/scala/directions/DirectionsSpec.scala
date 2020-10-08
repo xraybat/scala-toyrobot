@@ -18,11 +18,18 @@ class SourceDirectionsSpec(ignore: String) extends FlatSpec {
 } // SourceDirectionsSpec
 
 class DirectionsSpec extends FlatSpec {
-  "A DirectionsList parse" should "find 'PLACE'" in {
+  "A DirectionsList parse" should "find 'PLACE' first" in {
     val place = SourceDirections.fromList(
       "LEFT" :: "RIGHT" :: "PLACE 1, 1, NORTH" :: "REPORT" :: Nil)
     val d = new Directions
     d.parse(place)
-    assert(true)
+    assert(d.inPlace)
+  }
+  "A DirectionsList parse" should "not find 'PLACE'" in {
+    val place = SourceDirections.fromList(
+      "LEFT" :: "RIGHT" :: "REPORT" :: Nil)
+    val d = new Directions
+    d.parse(place)
+    assert(!d.inPlace)
   }
 } // DirectionsSpec
