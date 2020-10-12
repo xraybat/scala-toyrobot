@@ -79,7 +79,8 @@ class Directions {
             } // match
           }
           case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg) // @TODO: ignore
-          case _ => println("Problem parsing commands.") 
+          case _ => println("Problem parsing commands.")
+
         } // match
       } // else
     } // for
