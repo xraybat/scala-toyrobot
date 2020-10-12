@@ -39,11 +39,11 @@ class DirectionsSpec extends FlatSpec {
     d.parse(place)
     assert(d.inPlace)
   }
-  /*"A DirectionsList parse" should "handle multiple 'PLACE's" in {
+  "A DirectionsList parse" should "handle multiple 'PLACE's" in {
     val place = SourceDirections.fromList(
       "PLACE 1,2,NORTH" :: "REPORT" :: "PLACE 3,4,SOUTH" :: Nil)
     val d = new Directions
     d.parse(place)
     assert(d.inPlace)
-  }*/
+  }
 } // DirectionsSpec

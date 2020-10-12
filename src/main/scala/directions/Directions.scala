@@ -53,32 +53,40 @@ class Directions {
       if (!_inPlace) {
         fastparse.parse(command, parserPlace(_)) match {
           case Parsed.Success(value, index) => {
-             println(s"found PLACE, value = ${value}, index = ${index}")
-             println(s"value._1 = ${value._1}")
-             println(s"value._2 = ${value._2}")
-             println(s"value._3 = ${value._3}")
-             println(s"value._4 = ${value._4}")
-            _inPlace = true
+            println(s"found PLACE, value = ${value}, index = ${index}")
+            value match {
+              case (p: String, x: Int, y: Int, o: String) => {
+                println(s"p = ${p}")
+                println(s"x = ${x}")
+                println(s"y = ${y}")
+                println(s"o = ${o}")
+                _inPlace = true
+              }
+              case _ => println("problem matching PLACE value, ${value}") 
+            }
           }
           case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
-          case _ => println("Problem parsing for PLACE.") 
+          case _ => println("Problem parsing for PLACE.")
+
         } // match
       } // if
       else { // inPlace
         fastparse.parse(command, parserCommands(_)) match {
           case Parsed.Success(value, index) => {
-            //println(s"found ${value} at ${index}")
-            // @TODO: need to find a way to match on enum string...
             value match {
-              case "PLACE" => println("add PLACE")
-              case "MOVE" => println("add MOVE")
-              case "LEFT" => println("add LEFT")
-              case "RIGHT" => println("add RIGHT")
-              case "REPORT" => println("add REPORT")
+              case (p: String, x: Int, y: Int, o: String) => {
+                println(s"p = ${p}")
+                println(s"x = ${x}")
+                println(s"y = ${y}")
+                println(s"o = ${o}")
+                _inPlace = true
+              }
+              case c: String => println(s"c = ${c}")
+              case _ => println("problem matching command value, ${value}") 
 
             } // match
-          }
-          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg) // @TODO: ignore
+          } // match
+          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
           case _ => println("Problem parsing commands.")
 
         } // match
