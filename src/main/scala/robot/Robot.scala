@@ -3,13 +3,16 @@ package robot
 
 import board._
 import point._
-import directions.SourceDirections.DirectionsList
+import directions.SourceDirections.PreParsedDirectionsList
 
 import fastparse._, NoWhitespace._
 import commands._
 
 // @TODO: keep point arg for recursion???
-class Robot(val board: Board, val point: Point, val directions: DirectionsList) {
+class Robot(
+  val board: Board,
+  val point: Point,
+  val directions: PreParsedDirectionsList) {  // @TODO: to CleanDirectionsList
 
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace

@@ -13,7 +13,7 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
   private val p = new Point(0, 0)
   private val in = SourceDirections.fromList("hello," :: "how" :: "are" :: "you?" :: Nil)
 
-  "A simple Robot" should "have a default Board, Point, and DirectionsList" in {
+  "A simple Robot" should "have a default Board, Point, and PreParsedDirectionsList" in {
     val r = new Robot(b, p, in)
     assert(
       r.board.xExtent == 5 && r.board.yExtent == 5
@@ -25,7 +25,7 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
     assert(!r.inPlace && !r.inBounds && r.outBounds)
   }
 
-  "A simple Robot" should "be able to walk the DirectionsList without exception" in {
+  "A simple Robot" should "be able to walk the PreParsedDirectionsList without exception" in {
     val r = new Robot(b, p, in)
     r.walk
     assert(true)

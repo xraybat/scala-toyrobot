@@ -8,27 +8,29 @@ import commands._
 import orientation._
 
 object SourceDirections {
-  type DirectionsList = List[String]
+  type PreParsedDirectionsList = List[String]
 
-  def fromStdIn: DirectionsList =
+  def fromStdIn: PreParsedDirectionsList =
     Iterator
       .continually(readLine)
       .takeWhile(Option(_).fold(false)(_.nonEmpty))
       .toList
 
   // simple list pass-through for testing
-  def fromList(l: DirectionsList): DirectionsList = l
+  def fromList(l: PreParsedDirectionsList): PreParsedDirectionsList = l
 
-  def fromFile(fileName: String): DirectionsList =
+  def fromFile(fileName: String): PreParsedDirectionsList =
     Source.fromFile(fileName).getLines.toList
 
 } // SourceDirections
 
 class Directions {
+  type CleanDirectionsList = List[String]
+
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
 
-  def parse(dl: SourceDirections.DirectionsList): Unit = {
+  def parse(dl: SourceDirections.PreParsedDirectionsList): Unit = {
     def parserPlace[_: P] = 
       P(Commands.Place.toString.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
