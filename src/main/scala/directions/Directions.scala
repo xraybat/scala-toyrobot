@@ -26,6 +26,11 @@ object SourceDirections {
 
 } // SourceDirections
 
+// companion object
+object Directions {
+  type CleanDirectionsList = List[Command]
+}
+
 class Directions {
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
@@ -34,8 +39,7 @@ class Directions {
   private var _directionsList: CleanDirectionsListBuffer =
     new CleanDirectionsListBuffer()
 
-  type CleanDirectionsList = List[Command]
-  def directionsList: CleanDirectionsList = _directionsList.toList
+  def directionsList: Directions.CleanDirectionsList = _directionsList.toList
 
   def parse(dl: SourceDirections.PreParsedDirectionsList): Unit = {
     def parserPlace[_: P] = 
