@@ -3,6 +3,8 @@ package directions
 import scala.io.StdIn.readLine
 import scala.io.Source
 
+import scala.collection.mutable.ListBuffer
+
 import fastparse._, SingleLineWhitespace._
 import commands._
 import orientation._
@@ -25,10 +27,15 @@ object SourceDirections {
 } // SourceDirections
 
 class Directions {
-  type CleanDirectionsList = List[String]
-
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
+
+  type CleanDirectionsListBuffer = ListBuffer[Command]
+  private var _directionsList: CleanDirectionsListBuffer =
+    new CleanDirectionsListBuffer()
+
+  type CleanDirectionsList = List[Command]
+  def directionsList: CleanDirectionsList = _directionsList.toList
 
   def parse(dl: SourceDirections.PreParsedDirectionsList): Unit = {
     def parserPlace[_: P] = 
@@ -55,13 +62,10 @@ class Directions {
       if (!_inPlace) {
         fastparse.parse(command, parserPlace(_)) match {
           case Parsed.Success(value, index) => {
-            println(s"found PLACE, value = ${value}, index = ${index}")
             value match {
               case (p: String, x: Int, y: Int, o: String) => {
-                println(s"p = ${p}")
-                println(s"x = ${x}")
-                println(s"y = ${y}")
-                println(s"o = ${o}")
+                //println(s"p = ${p}"); println(s"x = ${x}"); println(s"y = ${y}"); println(s"o = ${o}")
+                _directionsList += Place(x, y, o)
                 _inPlace = true
               }
               case _ => println("problem matching PLACE value, ${value}") 
@@ -77,13 +81,14 @@ class Directions {
           case Parsed.Success(value, index) => {
             value match {
               case (p: String, x: Int, y: Int, o: String) => {
-                println(s"p = ${p}")
-                println(s"x = ${x}")
-                println(s"y = ${y}")
-                println(s"o = ${o}")
+                //println(s"p = ${p}"); println(s"x = ${x}"); println(s"y = ${y}"); println(s"o = ${o}")
+                _directionsList += Place(x, y, o)
                 _inPlace = true
               }
-              case c: String => println(s"c = ${c}")
+              case "MOVE" => _directionsList += Move()
+              case "LEFT" => _directionsList += Left()
+              case "RIGHT" => _directionsList += Right()
+              case "REPORT" => _directionsList += Report()
               case _ => println("problem matching command value, ${value}") 
 
             } // match
