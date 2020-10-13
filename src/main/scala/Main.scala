@@ -26,13 +26,14 @@ object Main {
       if (args.length == 0)
         Input.fromStdIn
       else {
-        //try { // @TODO:
+        try
           Input.fromFile(args(0))
-        //}
-        /*catch {
-          case ex: java.io.FileNotFoundException =>
+        catch {
+          case ex: java.io.FileNotFoundException => {
             println(s"File '${args(0)}' does not exist.")
-        }*/
+            return
+          }
+        }
       } // else
     println(in)
 
