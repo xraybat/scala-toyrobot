@@ -1,30 +1,11 @@
 package directions
 
-import scala.io.StdIn.readLine
-import scala.io.Source
-
-import scala.collection.mutable.ListBuffer
-
 import fastparse._, SingleLineWhitespace._
 import commands._
 import orientation._
+import input._
 
-object SourceDirections {
-  type PreParsedDirectionsList = List[String]
-
-  def fromStdIn: PreParsedDirectionsList =
-    Iterator
-      .continually(readLine)
-      .takeWhile(Option(_).fold(false)(_.nonEmpty))
-      .toList
-
-  // simple list pass-through for testing
-  def fromList(l: PreParsedDirectionsList): PreParsedDirectionsList = l
-
-  def fromFile(fileName: String): PreParsedDirectionsList =
-    Source.fromFile(fileName).getLines.toList
-
-} // SourceDirections
+import scala.collection.mutable.ListBuffer
 
 // companion object
 object Directions {
@@ -40,7 +21,7 @@ class Directions {
     new CleanDirectionsListBuffer()
   def directionsList: Directions.CleanDirectionsList = _directionsList.toList
 
-  def parse(dl: SourceDirections.PreParsedDirectionsList): Boolean = {
+  def parse(dl: Input.PreParsedDirectionsList): Boolean = {
     def parserPlace[_: P] = 
       P(Commands.Place.toString.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)

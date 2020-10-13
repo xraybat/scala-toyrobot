@@ -1,6 +1,7 @@
 package board
 
 import org.scalatest.FlatSpec
+
 import point._
 
 //@Ignore

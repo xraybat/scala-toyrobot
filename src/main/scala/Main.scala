@@ -1,7 +1,8 @@
 import board._
 import point._
 import directions._
-import directions.SourceDirections.PreParsedDirectionsList
+import input._
+import input.Input.PreParsedDirectionsList
 import directions.Directions.CleanDirectionsList
 import robot._
 
@@ -23,10 +24,10 @@ object Main {
 
     val in: PreParsedDirectionsList =
       if (args.length == 0)
-        SourceDirections.fromStdIn
+        Input.fromStdIn
       else {
         //try { // @TODO:
-          SourceDirections.fromFile(args(0))
+          Input.fromFile(args(0))
         //}
         /*catch {
           case ex: java.io.FileNotFoundException =>

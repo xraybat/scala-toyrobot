@@ -1,10 +1,12 @@
 package robot
 
 import org.scalatest.FlatSpec
+
 import board._
 import point._
+import input._
+import input.Input.PreParsedDirectionsList
 import directions._
-import directions.SourceDirections.PreParsedDirectionsList
 import directions.Directions.CleanDirectionsList
 
 // TDD-ing through the Robot setup and walk()

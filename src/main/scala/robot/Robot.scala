@@ -6,9 +6,6 @@ import point._
 import directions._
 import directions.Directions.CleanDirectionsList
 
-import fastparse._, NoWhitespace._
-import commands._
-
 // @TODO: keep point arg for recursion???
 class Robot(
   val board: Board,
