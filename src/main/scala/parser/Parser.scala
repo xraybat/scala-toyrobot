@@ -1,4 +1,4 @@
-package directions
+package parser
 
 import fastparse._, SingleLineWhitespace._
 import commands._
@@ -8,18 +8,18 @@ import input._
 import scala.collection.mutable.ListBuffer
 
 // companion object
-object Directions {
+object Parser {
   type CleanDirectionsList = List[Command]
 }
 
-class Directions {
+class Parser {
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
 
   type CleanDirectionsListBuffer = ListBuffer[Command]
   private var _directionsList: CleanDirectionsListBuffer =
     new CleanDirectionsListBuffer()
-  def directionsList: Directions.CleanDirectionsList = _directionsList.toList
+  def directionsList: Parser.CleanDirectionsList = _directionsList.toList
 
   def parse(dl: Input.PreParsedDirectionsList): Boolean = {
     def parserPlace[_: P] = 
@@ -90,4 +90,4 @@ class Directions {
     result
 
   } // parse
-} // Directions
+} // Parser

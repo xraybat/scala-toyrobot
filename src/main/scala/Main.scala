@@ -1,9 +1,9 @@
 import board._
 import point._
-import directions._
 import input._
 import input.Input.PreParsedDirectionsList
-import directions.Directions.CleanDirectionsList
+import parser._
+import parser.Parser.CleanDirectionsList
 import robot._
 
 //object Main extends App {
@@ -19,8 +19,8 @@ object Main {
     val b = new Board
     println(s"${b.xExtent}x${b.yExtent}")
 
-    val p = new Point(0, 0)
-    println(s"(${p.x}, ${p.y})")
+    val pt = new Point(0, 0)
+    println(s"(${pt.x}, ${pt.y})")
 
     val in: PreParsedDirectionsList =
       if (args.length == 0)
@@ -36,10 +36,10 @@ object Main {
       } // else
     println(in)
 
-    val d = new Directions()
-    d.parse(in)
+    val p = new Parser()
+    p.parse(in)
 
-    val r = new Robot(b, p, d.directionsList)
+    val r = new Robot(b, pt, p.directionsList)
 
   } // main
 } // Main

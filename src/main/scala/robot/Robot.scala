@@ -3,8 +3,8 @@ package robot
 
 import board._
 import point._
-import directions._
-import directions.Directions.CleanDirectionsList
+import parser._
+import parser.Parser.CleanDirectionsList
 
 // @TODO: keep point arg for recursion???
 class Robot(
