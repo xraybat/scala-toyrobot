@@ -40,7 +40,7 @@ class Directions {
     new CleanDirectionsListBuffer()
   def directionsList: Directions.CleanDirectionsList = _directionsList.toList
 
-  def parse(dl: SourceDirections.PreParsedDirectionsList): Unit = {
+  def parse(dl: SourceDirections.PreParsedDirectionsList): Boolean = {
     def parserPlace[_: P] = 
       P(Commands.Place.toString.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -61,6 +61,8 @@ class Directions {
         | Commands.Report.toString.!
         ~ End)
 
+    var result = false
+
     for (command <- dl) {
       if (!_inPlace) {
         fastparse.parse(command, parserPlace(_)) match {
@@ -70,12 +72,13 @@ class Directions {
                 //println(s"p = ${p}"); println(s"x = ${x}"); println(s"y = ${y}"); println(s"o = ${o}")
                 _directionsList += Place(x, y, o)
                 _inPlace = true
+                result = true
               }
-              case _ => println("problem matching PLACE value, ${value}") 
+              case _ => println("problem matching PLACE value, ${value}"); result = false
             }
           }
-          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
-          case _ => println("Problem parsing for PLACE.")
+          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg); result = false
+          case _ => println("Problem parsing for PLACE."); result = false
 
         } // match
       } // if
@@ -92,15 +95,18 @@ class Directions {
               case "LEFT" => _directionsList += Left()
               case "RIGHT" => _directionsList += Right()
               case "REPORT" => _directionsList += Report()
-              case _ => println("problem matching command value, ${value}") 
+              case _ => println("problem matching command value, ${value}"); result = false
 
             } // match
           } // match
-          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg)
-          case _ => println("Problem parsing commands.")
+          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg); result = false
+          case _ => println("Problem parsing commands."); result = false
 
         } // match
       } // else
     } // for
+
+    result
+
   } // parse
 } // Directions

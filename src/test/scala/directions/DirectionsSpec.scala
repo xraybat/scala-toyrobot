@@ -23,28 +23,28 @@ class DirectionsSpec(/*ignore: String*/) extends FlatSpec {
     val place = SourceDirections.fromList(
       "PLACE 1,2,NORTH" :: Nil)
     val d = new Directions
-    d.parse(place)
-    assert(d.inPlace)
+    val p = d.parse(place)
+    assert(p && d.inPlace)
   }
   "A PreParsedDirectionsList parse" should "ignore all when no 'PLACE'" in {
     val noPlace = SourceDirections.fromList(
       "LEFT" :: "RIGHT" :: "REPORT" :: Nil)
     val d = new Directions
-    d.parse(noPlace)
-    assert(!d.inPlace)
+    val p = d.parse(noPlace)
+    assert(!p && !d.inPlace)
   }
   "A PreParsedDirectionsList parse" should "find 'PLACE' first and add 'REPORT'" in {
     val place = SourceDirections.fromList(
       "LEFT" :: "RIGHT" :: "PLACE 1,2,NORTH" :: "REPORT" :: Nil)
     val d = new Directions
-    d.parse(place)
-    assert(d.inPlace)
+    val p = d.parse(place)
+    assert(p && d.inPlace)
   }
   "A PreParsedDirectionsList parse" should "handle multiple 'PLACE's" in {
     val place = SourceDirections.fromList(
       "PLACE 1,2,NORTH" :: "REPORT" :: "PLACE 3,4,SOUTH" :: Nil)
     val d = new Directions
-    d.parse(place)
-    assert(d.inPlace)
+    val p = d.parse(place)
+    assert(p && d.inPlace)
   }
 } // DirectionsSpec
