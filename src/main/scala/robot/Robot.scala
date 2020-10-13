@@ -23,8 +23,6 @@ class Robot(
   
   // @TODO: make walk() recursive walk(point)?? or, no need to simple...
   def walk(): Unit = {
-    def parser[_: P] = P(Commands.Place.toString)
-
     for (command <- directions) {
       // once only
       // @TODO: directions as CleanDirectionsList passed in??...
