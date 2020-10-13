@@ -55,11 +55,14 @@ class Parser {
                 _inPlace = true
                 result = true
               }
-              case _ => println("problem matching PLACE value, ${value}"); result = false
+              case _ => result = false
             }
           }
-          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg); result = false
-          case _ => println("Problem parsing for PLACE."); result = false
+          case Parsed.Failure(expected, index, extra) => {
+            println(extra.trace().longMsg)
+            result = false
+          }
+          case _ => result = false
 
         } // match
       } // if
@@ -76,12 +79,15 @@ class Parser {
               case "LEFT" => _directionsList += Left()
               case "RIGHT" => _directionsList += Right()
               case "REPORT" => _directionsList += Report()
-              case _ => println("problem matching command value, ${value}"); result = false
+              case _ => result = false
 
             } // match
           } // match
-          case Parsed.Failure(expected, index, extra) => println(extra.trace().longMsg); result = false
-          case _ => println("Problem parsing commands."); result = false
+          case Parsed.Failure(expected, index, extra) => {
+            println(extra.trace().longMsg)
+            result = false
+          }
+          case _ => result = false
 
         } // match
       } // else
