@@ -37,9 +37,9 @@ object Main {
     println(in)
 
     val p = new Parser()
-    p.parse(in)
-
-    val r = new Robot(b, pt, p.directionsList)
+    if (p.parse(in)) {
+      val r = new Robot(b, pt, p.directionsList)
+    }
 
   } // main
 } // Main

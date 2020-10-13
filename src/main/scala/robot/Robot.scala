@@ -12,16 +12,16 @@ class Robot(
   val point: Point,
   val directions: CleanDirectionsList) {  // leave parse outside Robot
 
+  // @TODO: remove, and rely on Parser.inPlace??
   private var _inPlace: Boolean = false
-  def inPlace: Boolean = _inPlace
+  def inPlace: Boolean = _inPlace // @TODO: derive from Parser.inPlace()??...
 
   def inBounds: Boolean = if (_inPlace) board.inBounds(point) else false
   def outBounds: Boolean = !inBounds
   
-  // @TODO: make walk() recursive walk(point)?? or, no need to simple...
+  // @TODO: make walk() recursive walk(point)?? or, no need too simple...
   def walk(): Unit = {
     for (command <- directions) { // cleaned
-      // once only as CleanDirectionsList passed in??...
       
     } // for
   } // walk
