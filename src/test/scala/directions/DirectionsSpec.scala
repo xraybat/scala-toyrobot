@@ -3,7 +3,7 @@ package directions
 import org.scalatest.FlatSpec
 
 //@Ignore
-class SourceDirectionsSpec(/**/ignore: String/**/) extends FlatSpec {
+class SourceDirectionsSpec(/*ignore: String*/) extends FlatSpec {
   "A PreParsedDirections list" should "be returned unchanged (for testing)" in {
     val l = "hello," :: "how" :: "are" :: "you?" :: Nil
     val in = SourceDirections.fromList(l)
@@ -18,7 +18,7 @@ class SourceDirectionsSpec(/**/ignore: String/**/) extends FlatSpec {
   }
 } // SourceDirectionsSpec
 
-class DirectionsSpec extends FlatSpec {
+class DirectionsSpec(/*ignore: String*/) extends FlatSpec {
   "A PreParsedDirectionsList parse" should "parse 'PLACE X,Y,F'" in {
     val place = SourceDirections.fromList(
       "PLACE 1,2,NORTH" :: Nil)

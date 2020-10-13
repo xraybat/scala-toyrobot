@@ -3,7 +3,7 @@ package robot
 
 import board._
 import point._
-import directions.SourceDirections.PreParsedDirectionsList  // @TODO: delete line??
+import directions._
 import directions.Directions.CleanDirectionsList
 
 import fastparse._, NoWhitespace._
@@ -13,7 +13,7 @@ import commands._
 class Robot(
   val board: Board,
   val point: Point,
-  val directions: PreParsedDirectionsList) {  // @TODO: to CleanDirectionsList, or Directions.parse() below?? or, leave parse outside Robot??...better??
+  val directions: CleanDirectionsList) {  // @TODO: or, leave parse outside Robot??...better??
 
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
