@@ -38,7 +38,6 @@ class Directions {
   type CleanDirectionsListBuffer = ListBuffer[Command]
   private var _directionsList: CleanDirectionsListBuffer =
     new CleanDirectionsListBuffer()
-
   def directionsList: Directions.CleanDirectionsList = _directionsList.toList
 
   def parse(dl: SourceDirections.PreParsedDirectionsList): Unit = {

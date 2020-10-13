@@ -13,7 +13,7 @@ import commands._
 class Robot(
   val board: Board,
   val point: Point,
-  val directions: CleanDirectionsList) {  // @TODO: or, leave parse outside Robot??...better??
+  val directions: CleanDirectionsList) {  // leave parse outside Robot
 
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
@@ -23,9 +23,8 @@ class Robot(
   
   // @TODO: make walk() recursive walk(point)?? or, no need to simple...
   def walk(): Unit = {
-    for (command <- directions) {
-      // once only
-      // @TODO: directions as CleanDirectionsList passed in??...
+    for (command <- directions) { // cleaned
+      // once only as CleanDirectionsList passed in??...
       
     } // for
   } // walk

@@ -1,6 +1,9 @@
 import board._
 import point._
 import directions._
+import directions.SourceDirections.PreParsedDirectionsList
+import directions.Directions.CleanDirectionsList
+import robot._
 
 //object Main extends App {
 object Main {
@@ -18,20 +21,24 @@ object Main {
     val p = new Point(0, 0)
     println(s"(${p.x}, ${p.y})")
 
-    if (args.length == 0)
-      SourceDirections.fromStdIn
-    else {
-      try {
-        val in =
-          if (args.length == 0) SourceDirections.fromStdIn
-          else SourceDirections.fromFile(args(0))
+    val in: PreParsedDirectionsList =
+      if (args.length == 0)
+        SourceDirections.fromStdIn
+      else {
+        //try { // @TODO:
+          SourceDirections.fromFile(args(0))
+        //}
+        /*catch {
+          case ex: java.io.FileNotFoundException =>
+            println(s"File '${args(0)}' does not exist.")
+        }*/
+      } // else
+    println(in)
 
-        println(in)
-      }
-      catch {
-        case ex: java.io.FileNotFoundException =>
-          println(s"File '${args(0)}' does not exist.")
-      }
-    } // else
+    val d = new Directions()
+    d.parse(in)
+
+    val r = new Robot(b, p, d.directionsList)
+
   } // main
 } // Main
