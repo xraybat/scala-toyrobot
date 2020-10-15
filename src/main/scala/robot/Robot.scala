@@ -5,6 +5,8 @@ import board._
 import point._
 import parser._
 import parser.Parser.CleanDirectionsList
+import commands._
+import orientation._
 
 // @TODO: keep point arg for recursion???
 class Robot(
@@ -22,7 +24,13 @@ class Robot(
   // @TODO: make walk() recursive walk(point)?? or, no need too simple...
   def walk(): Unit = {
     for (command <- directions) { // cleaned
-      
+      command match {
+        case Place(x, y, o) => println(s"Robot.walk :: found PLACE ${x}, ${y}, ${o}")
+        case Move() => println("Robot.walk :: found MOVE")
+        case Left() => println("Robot.walk :: found LEFT")
+        case Right() => println("Robot.walk :: found RIGHT")
+        case Report() => println("Robot.walk :: found REPORT")
+      }
     } // for
   } // walk
 

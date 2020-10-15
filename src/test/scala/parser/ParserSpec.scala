@@ -4,7 +4,7 @@ import org.scalatest.FlatSpec
 
 import input._
 
-class ParserSpec(/*ignore: String*/) extends FlatSpec {
+class ParserSpec(/**/ignore: String/**/) extends FlatSpec {
   "A PreParsedDirectionsList parse" should "parse 'PLACE X,Y,F'" in {
     val place = Input.fromList(
       "PLACE 1,2,NORTH" :: Nil)

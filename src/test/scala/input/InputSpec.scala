@@ -3,7 +3,7 @@ package input
 import org.scalatest.FlatSpec
 
 //@Ignore
-class InputSpec(ignore: String) extends FlatSpec {
+class InputSpec(/**/ignore: String/**/) extends FlatSpec {
   "A PreParsedDirections list" should "be returned unchanged (for testing)" in {
     val l = "hello," :: "how" :: "are" :: "you?" :: Nil
     val in = Input.fromList(l)
