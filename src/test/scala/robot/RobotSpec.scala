@@ -48,5 +48,16 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     else
       assert(false)
   }
+  "A Robot" should "NOT walk an incorrect CleanDirectionsList" in {
+    val in: PreParsedDirectionsList = "LEFT" :: "RIGHT" :: "REPORT" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      assert(false)
+      //val r = new Robot(b, pt, p.directionsList)
+      //r.walk
+    }
+    else
+      assert(true)
+  }
 
 } // RobotSpec
