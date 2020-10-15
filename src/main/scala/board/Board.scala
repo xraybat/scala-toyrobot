@@ -4,9 +4,9 @@ import point._
 
 class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
 
-  def inBounds(p: Point): Boolean = 
-    (p.x >= 0 && p.x < this.xExtent) && (p.y >= 0 && p.y < this.yExtent)
+  def inBounds(pt: Point): Boolean = 
+    (pt.x >= 0 && pt.x < this.xExtent) && (pt.y >= 0 && pt.y < this.yExtent)
 
-  def outBounds(p: Point): Boolean = !inBounds(p)
+  def outBounds(pt: Point): Boolean = !inBounds(pt)
 
 } // Board

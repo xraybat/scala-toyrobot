@@ -19,9 +19,6 @@ object Main {
     val b = new Board
     println(s"${b.xExtent}x${b.yExtent}")
 
-    val pt = new Point(0, 0)
-    println(s"(${pt.x}, ${pt.y})")
-
     val in: PreParsedDirectionsList =
       if (args.length == 0)
         Input.fromStdIn
@@ -39,7 +36,7 @@ object Main {
 
     val p = new Parser()
     if (p.parse(in)) {
-      val r = new Robot(b, pt, p.directionsList)
+      val r = new Robot(b, p.directionsList)
     }
 
   } // main

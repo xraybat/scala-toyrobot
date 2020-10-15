@@ -14,25 +14,23 @@ import parser.Parser.CleanDirectionsList
 class RobotSpec(/*ignore: String*/) extends FlatSpec {
 
   private val b = new Board
-  private val pt = new Point(0, 0)
 
-  "A simple Robot" should "have a default Board, Point, and CleanDirectionsList" in {
+  "A simple Robot" should "have a default Board, and CleanDirectionsList" in {
     val p = new Parser
-    val r = new Robot(b, pt, p.directionsList)
+    val r = new Robot(b, p.directionsList)
     assert(
       r.board.xExtent == 5 && r.board.yExtent == 5
-      && r.point.x == 0 && r.point.y == 0
       && r.directions.length == 0)
   }
-  "A simple Robot" should "start as not inPlace, not inBounds, and outBounds" in {
+  "A simple Robot" should "start as not inPlace" in {
     val p = new Parser
-    val r = new Robot(b, pt, p.directionsList)
-    assert(!r.inPlace && !r.inBounds && r.outBounds)
+    val r = new Robot(b, p.directionsList)
+    assert(!r.inPlace)
   }
 
   "A simple Robot" should "be able to walk an empty CleanDirectionsList without exception" in {
     val p = new Parser
-    val r = new Robot(b, pt, p.directionsList)
+    val r = new Robot(b, p.directionsList)
     r.walk
     assert(true)
   }
@@ -41,7 +39,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 1,2,NORTH" :: "REPORT" :: Nil
     val p = new Parser
     if (p.parse(in)) {
-      val r = new Robot(b, pt, p.directionsList)
+      val r = new Robot(b, p.directionsList)
       r.walk
       assert(true)
     }
