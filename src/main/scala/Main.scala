@@ -37,6 +37,7 @@ object Main {
     val p = new Parser()
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
+      r.walk
     }
 
   } // main

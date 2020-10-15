@@ -2,7 +2,9 @@ package parser
 
 import fastparse._, SingleLineWhitespace._
 import commands._
+import point._
 import orientation._
+import orientation.Orientation._
 import input._
 
 import scala.collection.mutable.ListBuffer
@@ -50,8 +52,8 @@ class Parser {
           case Parsed.Success(value, index) => {
             value match {
               case (p: String, x: Int, y: Int, o: String) => {
-                //println(s"p = ${p}"); println(s"x = ${x}"); println(s"y = ${y}"); println(s"o = ${o}")
-                _directionsList += Place(x, y, o)
+                //println(s"Parser.parse: ${p} (${x}, ${y}, ${o})")
+                _directionsList += Place(new Point(x, y), Orientation.withName(o))
                 _inPlace = true
                 result = true
               }
@@ -71,8 +73,8 @@ class Parser {
           case Parsed.Success(value, index) => {
             value match {
               case (p: String, x: Int, y: Int, o: String) => {
-                //println(s"p = ${p}"); println(s"x = ${x}"); println(s"y = ${y}"); println(s"o = ${o}")
-                _directionsList += Place(x, y, o)
+                //println(s"Parser.parse: ${p} (${x}, ${y}, ${o})")
+                _directionsList += Place(new Point(x, y), Orientation.withName(o))
                 _inPlace = true
               }
               case "MOVE" => _directionsList += Move()

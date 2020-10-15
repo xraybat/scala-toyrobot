@@ -25,7 +25,7 @@ class ParserSpec(/**/ignore: String/**/) extends FlatSpec {
   }
   "A PreParsedDirectionsList parse" should "handle multiple 'PLACE's" in {
     val place = Input.fromList(
-      "PLACE 1,2,NORTH" :: "REPORT" :: "PLACE 3,4,SOUTH" :: Nil)
+      "PLACE 2,3,NORTH" :: "REPORT" :: "PLACE 3,4,SOUTH" :: Nil)
     val p = new Parser
     assert(p.parse(place) && p.inPlace)
   }
