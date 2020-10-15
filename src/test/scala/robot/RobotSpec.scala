@@ -57,8 +57,19 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     else
       assert(true)
   }
-  "A Robot" should "handle multiple 'PLACE's" in {
+  "A Robot" should "handle multiple PLACEs" in {
     val in: PreParsedDirectionsList = "PLACE 2,3,NORTH" :: "REPORT" :: "PLACE 3,4,SOUTH" :: "REPORT" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(true)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "turn LEFT and RIGHT" in {
+    val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "REPORT" :: "LEFT" :: "REPORT" :: "LEFT" :: "REPORT" :: "RIGHT" :: "REPORT" :: "RIGHT" :: "REPORT" :: Nil
     val p = new Parser
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)

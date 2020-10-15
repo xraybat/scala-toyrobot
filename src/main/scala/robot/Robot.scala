@@ -29,17 +29,38 @@ class Robot(
     for (command <- directions) { // cleaned
       command match {
         case Place(pt: Point, o: Orientation) => {
-          println(s"Robot.walk: found PLACE in place (${pt.x}, ${pt.y}, ${o})")
+          println(s"Robot.walk: PLACEd at (${pt.x}, ${pt.y}, ${o})")
           _inPlace = inBounds(pt)
           if (_inPlace) {
             _currPoint = pt
             _currOrientation = o
           }
         }
-        case Move() => { if (_inPlace) println(s"Robot.walk: found MOVE in place") }
-        case Left() => { if (_inPlace) println(s"Robot.walk: found LEFT in place") }
-        case Right() => { if (_inPlace) println(s"Robot.walk: found RIGHT in place") }
-        case Report() => { if (_inPlace) println(s"Robot.walk: found REPORT in place") }
+        case Move() => {
+          if (_inPlace) {
+            println(s"Robot.walk: MOVE in place") 
+          }
+        }
+        case Left() => {
+          if (_inPlace) {
+            //println(s"Robot.walk: LEFT in place")
+            _currOrientation = turnLeft(_currOrientation)
+          }
+        }
+        case Right() => {
+          if (_inPlace) {
+             //println(s"Robot.walk: RIGHT in place")
+            _currOrientation = turnRight(_currOrientation)
+          }
+        }
+        case Report() => {
+          if (_inPlace)
+            println(s"Robot.walk: REPORTing from"
+              + s" point (${_currPoint.x}, ${_currPoint.y})"
+              + s", orientation ${_currOrientation}")
+          else
+            println(s"Robot.walk: REPORTing that i'm not in PLACE!")
+        }
       }
     } // for
   } // walk
