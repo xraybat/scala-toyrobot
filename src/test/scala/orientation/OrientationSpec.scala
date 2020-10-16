@@ -11,8 +11,4 @@ class OrientationSpec(/**/ignore: String/**/) extends FlatSpec {
            && Orientation.South.toString == "SOUTH"
            && Orientation.West.toString == "WEST")
   }
-  "The Orientation enumeration" should "allow var setting" in {
-    var orientation: Orientation = Orientation.North
-    assert(true)
-  }
 } // OrientationSpec

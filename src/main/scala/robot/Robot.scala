@@ -1,4 +1,5 @@
-// @TODO: turn into a castor actor; a robot *is* an actor after all...
+// @TODO: turn into a castor actor; a robot *is* an actor
+// after all...
 package robot
 
 import board._
@@ -14,18 +15,21 @@ class Robot(
   val board: Board,
   val directions: CleanDirectionsList) {
 
+  // @MUTABLE:
   var _currPoint: Point = new Point                       // @TODO: ok to default??
   var _currOrientation: Orientation = Orientation.North   // @TODO: ok to default??
 
   // @TODO: derive from Parser.inPlace()?? @ANS: no, leave logic
   // here and remove Parser.inPlace() logic...
+  // @MUTABLE:
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
 
   def inBounds(point: Point): Boolean = board.inBounds(point)
   def outBounds(point: Point): Boolean = !inBounds(point)
   
-  // @TODO: make walk() recursive walk(point)?? @ANS: no need, too simple
+  // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
+  // simple
   def walk(): Unit = {
     for (command <- directions) { // cleaned
       command match {

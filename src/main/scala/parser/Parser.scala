@@ -17,10 +17,13 @@ object Parser {
 class Parser {
   // @TODO: remove, and rely only on Robot.inPlace()?? @ANS: possibly,
   // further investigation...(and let all Commands go thru)
+  // @MUTABLE:
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
 
+  // mutable ListBuffer only visible outside as immutable List
   type CleanDirectionsListBuffer = ListBuffer[Command]
+  // @MUTABLE:
   private var _directionsList: CleanDirectionsListBuffer =
     new CleanDirectionsListBuffer()
   def directionsList: Parser.CleanDirectionsList = _directionsList.toList
@@ -46,6 +49,7 @@ class Parser {
         | Commands.Report.toString.!
         ~ End)
 
+    // @MUTABLE:
     var result = false
 
     for (command <- dl) {
