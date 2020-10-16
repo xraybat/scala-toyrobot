@@ -32,6 +32,7 @@ and similar for testing:
    16  
    18:   // @TODO: remove, and rely only on Robot.inPlace()?? @ANS: possibly,
    19    // further investigation...(and let all Commands go thru)
+   20:   // @TODO: if yes, may allow 'if'-branch to be removed...
 
 /home/psc/src/scala/REA/toyrobot/src/main/scala/robot/Robot.scala:
     1: // @TODO: turn into a castor actor; a robot *is* an actor
@@ -39,8 +40,7 @@ and similar for testing:
     .
    22:   // @TODO: derive from Parser.inPlace()?? @ANS: no, leave logic
    23    // here and remove Parser.inPlace() logic...
-   24    // @MUTABLE:
-   30    
+    .    
    31:   // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
    32    // simple
    33    def walk(): Unit = {
