@@ -2,7 +2,7 @@
 
 a scala toy robot
 
-## to run in general
+## to run (in general)
 
 from OS CLI (either):
 
@@ -59,6 +59,6 @@ see [installing scala](https://www.scala-lang.org/download/)
 
 * have used scala as a general purpose language
 * with certain scala-ecosystem additions, most notably:
-    - "org.scalatest" % "scalatest_2.13" % "3.0.8" (standard scala test framework)
-    - "com.lihaoyi" %% "os-lib" % "0.7.1" (see [os-lib](https://github.com/lihaoyi/os-lib))
-    - "com.lihaoyi" %% "fastparse" % "2.2.2" (see [fastparse](http://www.lihaoyi.com/fastparse/))
+    - `"org.scalatest" % "scalatest_2.13" % "3.0.8"` (standard scala test framework)
+    - `"com.lihaoyi" %% "os-lib" % "0.7.1"` (see [os-lib](https://github.com/lihaoyi/os-lib))
+    - `"com.lihaoyi" %% "fastparse" % "2.2.2"` (see [fastparse](http://www.lihaoyi.com/fastparse/))
