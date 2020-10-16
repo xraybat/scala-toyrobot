@@ -2,6 +2,8 @@
 
 scala toy robot
 
+## to run
+
 from OS CLI:
 
     $ sbt "run <filename>"

@@ -79,5 +79,27 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     else
       assert(false)
   }
+  "A Robot" should "walk NORTH and SOUTH, all in bounds" in {
+    val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "LEFT" :: "LEFT" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(true)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "walk NORTH and SOUTH, ignoring out of bounds" in {
+    val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "LEFT" :: "LEFT" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(true)
+    }
+    else
+      assert(false)
+  }
 
 } // RobotSpec
