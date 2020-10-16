@@ -3,7 +3,6 @@ package robot
 import org.scalatest.FlatSpec
 
 import board._
-import point._
 import input._
 import input.Input.PreParsedDirectionsList
 import parser._
