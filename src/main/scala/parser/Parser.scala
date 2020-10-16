@@ -15,6 +15,8 @@ object Parser {
 }
 
 class Parser {
+  // @TODO: remove, and rely only on Robot.inPlace()?? @ANS: possibly,
+  // further investigation...(and let all Commands go thru)
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
 

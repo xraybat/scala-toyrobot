@@ -17,14 +17,15 @@ class Robot(
   var _currPoint: Point = new Point                       // @TODO: ok to default??
   var _currOrientation: Orientation = Orientation.North   // @TODO: ok to default??
 
-  // @TODO: remove, and rely on Parser.inPlace?? NO...
+  // @TODO: derive from Parser.inPlace()?? @ANS: no, leave logic
+  // here and remove Parser.inPlace() logic...
   private var _inPlace: Boolean = false
-  def inPlace: Boolean = _inPlace // @TODO: derive from Parser.inPlace()??...
+  def inPlace: Boolean = _inPlace
 
   def inBounds(point: Point): Boolean = board.inBounds(point)
   def outBounds(point: Point): Boolean = !inBounds(point)
   
-  // @TODO: make walk() recursive walk(point)?? or, no need, too simple...
+  // @TODO: make walk() recursive walk(point)?? @ANS: no need, too simple
   def walk(): Unit = {
     for (command <- directions) { // cleaned
       command match {
