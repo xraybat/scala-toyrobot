@@ -84,6 +84,8 @@ class Parser {
                 _directionsList += Place(new Point(x, y), Orientation.withName(o))
                 _inPlace = true
               }
+              // @TODO: use enum strings once '.toString' compile
+              // error is resolved
               case "MOVE" => _directionsList += Move()
               case "LEFT" => _directionsList += Left()
               case "RIGHT" => _directionsList += Right()
