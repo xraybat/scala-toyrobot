@@ -14,6 +14,7 @@ object Parser {
   type DirectionsList = List[Command]
 }
 
+// parse to correct syntax, but not correct list logic (yet).
 class Parser {
 
   // mutable ListBuffer only visible outside as immutable List

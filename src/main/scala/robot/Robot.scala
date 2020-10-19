@@ -10,7 +10,7 @@ import commands._
 import orientation._
 import orientation.Orientation._
 
-// leave parse outside of Robot
+// leave parse outside of Robot, but handle correct list logic here.
 class Robot(
   val board: Board,
   val directions: DirectionsList) {

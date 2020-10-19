@@ -31,7 +31,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     val r = new Robot(b, p.directionsList)
     r.walk
-    assert(true)
+    assert(!r.inPlace)
   }
 
   "A Robot" should "be able to walk a correct PARSED DirectionsList without exception" in {

@@ -1,6 +1,6 @@
 # scala-toy-robot
 
-a scala toy robot
+a scala toy robot. minimal commentrary as smaller source files (Point, Board, Command, Orientation) are self-explanatory (with tests), while larger source files have some comments and rely on larger test suites as explanatory document.
 
 ## to run (in general)
 

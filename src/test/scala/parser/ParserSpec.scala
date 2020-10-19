@@ -5,6 +5,12 @@ import org.scalatest.FlatSpec
 import input._
 
 class ParserSpec(/*ignore: String*/) extends FlatSpec {
+  "A PreParsedDirectionsList parse" should "not parse rubbish" in {
+    val rubbish = Input.fromList(
+      "hello," :: "how" :: "are" :: "you?" :: Nil)
+    val p = new Parser
+    assert(!p.parse(rubbish))
+  }
   "A PreParsedDirectionsList parse" should "parse PLACE X,Y,F" in {
     val place = Input.fromList(
       "PLACE 1,2,NORTH" :: Nil)
