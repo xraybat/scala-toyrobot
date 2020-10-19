@@ -6,7 +6,7 @@ import board._
 import point._
 import parser._
 import parser.Parser.DirectionsList
-import commands._
+import command._
 import orientation._
 import orientation.Orientation._
 

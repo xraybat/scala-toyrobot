@@ -1,10 +1,10 @@
-package commands
+package command
 
 import org.scalatest.FlatSpec
-import commands.Commands._
+import command.Command._
 
 //@Ignore
-class CommandsSpec(/*ignore: String*/) extends FlatSpec {
+class CommandSpec(/*ignore: String*/) extends FlatSpec {
   "The Commands" should "have uppercase values" in {
     assert(Place.toString == "PLACE"
            && Move.toString == "MOVE"
@@ -12,4 +12,4 @@ class CommandsSpec(/*ignore: String*/) extends FlatSpec {
            && Right.toString == "RIGHT"
            && Report.toString == "REPORT")
   }
-} // CommandsSpec
+} // CommandSpec

@@ -1,7 +1,7 @@
 package parser
 
 import fastparse._, SingleLineWhitespace._
-import commands._
+import command._
 import point._
 import orientation._
 import orientation.Orientation._
@@ -26,7 +26,7 @@ class Parser {
 
   def parse(dl: Input.PreParsedDirectionsList): Boolean = {
     def parserPlace[_: P] = 
-      P(Commands.Place.!
+      P(Command.Place.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
           ~ ","
           ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -38,10 +38,10 @@ class Parser {
         ~ End)
     def parserCommands[_: P] = 
       P(parserPlace
-        | Commands.Move.!
-        | Commands.Left.!
-        | Commands.Right.!
-        | Commands.Report.!
+        | Command.Move.!
+        | Command.Left.!
+        | Command.Right.!
+        | Command.Report.!
         ~ End)
 
     var result = true
@@ -53,10 +53,10 @@ class Parser {
             case (p: String, x: Int, y: Int, o: String) => 
               _directionsList += Place(new Point(x, y), Orientation.withName(o))
 
-            case Commands.Move => _directionsList += Move()
-            case Commands.Left => _directionsList += Left()
-            case Commands.Right => _directionsList += Right()
-            case Commands.Report => _directionsList += Report()
+            case Command.Move => _directionsList += Move()
+            case Command.Left => _directionsList += Left()
+            case Command.Right => _directionsList += Right()
+            case Command.Report => _directionsList += Report()
             case _ => result = false
 
           } // match
