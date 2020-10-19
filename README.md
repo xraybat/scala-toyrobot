@@ -25,26 +25,25 @@ and similar for testing:
     $sbt "run src/resources/eg2.txt"
     $sbt "run src/resources/eg3.txt"
 
-## major TODOs (for further investigation)
+## some TODOs/QUs (for further investigation)
 
+Searching 171 files for "@TODO:"
 ```
 /home/psc/src/scala/REA/toyrobot/src/main/scala/parser/Parser.scala:
-   16  
-   18:   // @TODO: remove, and rely only on Robot.inPlace()?? @ANS: possibly,
-   19    // further investigation...(and let all Commands go thru)
-   20:   // @TODO: if yes, may allow 'if'-branch to be removed...
+   56: // @TODO: use enum strings once '.toString' compile
+   57  // error is resolved
+   58  case "MOVE" => _directionsList += Move()
 
 /home/psc/src/scala/REA/toyrobot/src/main/scala/robot/Robot.scala:
     1: // @TODO: turn into a castor actor; a robot *is* an actor
     2  // after all...
+    3  package robot
     .
-   22:   // @TODO: derive from Parser.inPlace()?? @ANS: no, leave logic
-   23    // here and remove Parser.inPlace() logic...
-    .    
-   31:   // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
-   32    // simple
-   33    def walk(): Unit = {
+   29: // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
+   30  // simple
+   31  def walk(): Unit = {
 ```
+5 matches across 2 files
 
 ## requirements
 

@@ -5,7 +5,7 @@ package robot
 import board._
 import point._
 import parser._
-import parser.Parser.CleanDirectionsList
+import parser.Parser.DirectionsList
 import commands._
 import orientation._
 import orientation.Orientation._
@@ -13,14 +13,12 @@ import orientation.Orientation._
 // leave parse outside of Robot
 class Robot(
   val board: Board,
-  val directions: CleanDirectionsList) {
+  val directions: DirectionsList) {
 
   // @MUTABLE:
   var _currPoint: Point = new Point                       // @TODO: ok to default??
   var _currOrientation: Orientation = Orientation.North   // @TODO: ok to default??
 
-  // @TODO: derive from Parser.inPlace()?? @ANS: no, leave logic
-  // here and remove Parser.inPlace() logic...
   // @MUTABLE:
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
@@ -31,15 +29,19 @@ class Robot(
   // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
   // simple
   def walk(): Unit = {
-    for (command <- directions) { // cleaned
+    for (command <- directions) {
       command match {
         case Place(pt: Point, o: Orientation) => {
-          println(s"Robot.walk: PLACEd at (${pt.x}, ${pt.y}, ${o})")
           _inPlace = inBounds(pt)
           if (_inPlace) {
+            println(s"Robot.walk: PLACEd at (${pt.x}, ${pt.y}, ${o})")
             _currPoint = pt
             _currOrientation = o
           }
+          else
+            println(
+              s"Robot.walk: can't PLACE at point (${pt.x}, ${pt.y})"
+              + s" on a ${board.xExtent}x${board.xExtent} board!")
         }
         case Move() => {
           if (_inPlace) {

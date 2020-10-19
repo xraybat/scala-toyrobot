@@ -11,23 +11,17 @@ import scala.collection.mutable.ListBuffer
 
 // companion object
 object Parser {
-  type CleanDirectionsList = List[Command]
+  type DirectionsList = List[Command]
 }
 
 class Parser {
-  // @TODO: remove, and rely only on Robot.inPlace()?? @ANS: possibly,
-  // further investigation...(and let all Commands go thru)
-  // @TODO: if yes, may allow 'if'-branch to be removed...
-  // @MUTABLE:
-  private var _inPlace: Boolean = false
-  def inPlace: Boolean = _inPlace
 
   // mutable ListBuffer only visible outside as immutable List
-  type CleanDirectionsListBuffer = ListBuffer[Command]
+  type DirectionsListBuffer = ListBuffer[Command]
   // @MUTABLE:
-  private var _directionsList: CleanDirectionsListBuffer =
-    new CleanDirectionsListBuffer()
-  def directionsList: Parser.CleanDirectionsList = _directionsList.toList
+  private var _directionsList: DirectionsListBuffer =
+    new DirectionsListBuffer()
+  def directionsList: Parser.DirectionsList = _directionsList.toList
 
   def parse(dl: Input.PreParsedDirectionsList): Boolean = {
     def parserPlace[_: P] = 
@@ -41,7 +35,6 @@ class Parser {
           | Orientation.South.toString.!
           | Orientation.West.toString.!)
         ~ End)
-
     def parserCommands[_: P] = 
       P(parserPlace
         | Commands.Move.toString.!
@@ -51,39 +44,14 @@ class Parser {
         ~ End)
 
     // @MUTABLE:
-    var result = false
+    var result = true
 
     for (command <- dl) {
-      if (!_inPlace) {
-        fastparse.parse(command, parserPlace(_)) match {
-          case Parsed.Success(value, index) => {
-            value match {
-              case (p: String, x: Int, y: Int, o: String) => {
-                //println(s"Parser.parse: ${p} (${x}, ${y}, ${o})")
-                _directionsList += Place(new Point(x, y), Orientation.withName(o))
-                _inPlace = true
-                result = true
-              }
-              case _ => result = false
-            }
-          }
-          case Parsed.Failure(expected, index, extra) => {
-            println(extra.trace().longMsg)
-            result = false
-          }
-          case _ => result = false
-
-        } // match
-      } // if
-      else { // inPlace
         fastparse.parse(command, parserCommands(_)) match {
           case Parsed.Success(value, index) => {
             value match {
-              case (p: String, x: Int, y: Int, o: String) => {
-                //println(s"Parser.parse: ${p} (${x}, ${y}, ${o})")
+              case (p: String, x: Int, y: Int, o: String) => 
                 _directionsList += Place(new Point(x, y), Orientation.withName(o))
-                _inPlace = true
-              }
               // @TODO: use enum strings once '.toString' compile
               // error is resolved
               case "MOVE" => _directionsList += Move()
@@ -101,7 +69,6 @@ class Parser {
           case _ => result = false
 
         } // match
-      } // else
     } // for
 
     result

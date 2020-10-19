@@ -3,7 +3,7 @@ import point._
 import input._
 import input.Input.PreParsedDirectionsList
 import parser._
-import parser.Parser.CleanDirectionsList
+import parser.Parser.DirectionsList
 import robot._
 
 //object Main extends App {
@@ -17,7 +17,7 @@ object Main {
     }
 
     val b = new Board
-    println(s"${b.xExtent}x${b.yExtent}")
+    //println(s"${b.xExtent}x${b.yExtent}")
 
     val in: PreParsedDirectionsList =
       if (args.length == 0)
@@ -32,7 +32,7 @@ object Main {
           }
         }
       } // else
-    println(in)
+    //println(in)
 
     val p = new Parser()
     if (p.parse(in)) {
