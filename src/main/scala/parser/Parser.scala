@@ -47,27 +47,27 @@ class Parser {
     var result = true
 
     for (command <- dl) {
-        fastparse.parse(command, parserCommands(_)) match {
-          case Parsed.Success(value, index) => {
-            value match {
-              case (p: String, x: Int, y: Int, o: String) => 
-                _directionsList += Place(new Point(x, y), Orientation.withName(o))
+      fastparse.parse(command, parserCommands(_)) match {
+        case Parsed.Success(value, index) => {
+          value match {
+            case (p: String, x: Int, y: Int, o: String) => 
+              _directionsList += Place(new Point(x, y), Orientation.withName(o))
 
-              case Commands.Move => _directionsList += Move()
-              case Commands.Left => _directionsList += Left()
-              case Commands.Right => _directionsList += Right()
-              case Commands.Report => _directionsList += Report()
-              case _ => result = false
+            case Commands.Move => _directionsList += Move()
+            case Commands.Left => _directionsList += Left()
+            case Commands.Right => _directionsList += Right()
+            case Commands.Report => _directionsList += Report()
+            case _ => result = false
 
-            } // match
           } // match
-          case Parsed.Failure(expected, index, extra) => {
-            println(extra.trace().longMsg)
-            result = false
-          }
-          case _ => result = false
-
         } // match
+        case Parsed.Failure(expected, index, extra) => {
+          println(extra.trace().longMsg)
+          result = false
+        }
+        case _ => result = false
+
+      } // match
     } // for
 
     result

@@ -78,5 +78,4 @@ class Robot(
       }
     } // for
   } // walk
-
 } // Robot
