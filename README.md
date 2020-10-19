@@ -49,6 +49,11 @@ built using:
 
 see [installing scala](https://www.scala-lang.org/download/)
 
+tested on:
+
+    Debian 10 (buster)
+    macOS 10.15.x (catalina)
+
 ## general notes
 
 * have used scala as a general purpose language
