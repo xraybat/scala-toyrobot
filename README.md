@@ -29,11 +29,6 @@ and similar for testing:
 
 Searching 171 files for "@TODO:"
 ```
-/home/psc/src/scala/REA/toyrobot/src/main/scala/parser/Parser.scala:
-   56: // @TODO: use enum strings once '.toString' compile
-   57  // error is resolved
-   58  case "MOVE" => _directionsList += Move()
-
 /home/psc/src/scala/REA/toyrobot/src/main/scala/robot/Robot.scala:
     1: // @TODO: turn into a castor actor; a robot *is* an actor
     2  // after all...

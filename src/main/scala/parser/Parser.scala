@@ -26,7 +26,7 @@ class Parser {
 
   def parse(dl: Input.PreParsedDirectionsList): Boolean = {
     def parserPlace[_: P] = 
-      P(Commands.Place.toString.!
+      P(Commands.Place.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
           ~ ","
           ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -38,13 +38,12 @@ class Parser {
         ~ End)
     def parserCommands[_: P] = 
       P(parserPlace
-        | Commands.Move.toString.!
-        | Commands.Left.toString.!
-        | Commands.Right.toString.!
-        | Commands.Report.toString.!
+        | Commands.Move.!
+        | Commands.Left.!
+        | Commands.Right.!
+        | Commands.Report.!
         ~ End)
 
-    // @MUTABLE:
     var result = true
 
     for (command <- dl) {
@@ -53,12 +52,11 @@ class Parser {
             value match {
               case (p: String, x: Int, y: Int, o: String) => 
                 _directionsList += Place(new Point(x, y), Orientation.withName(o))
-              // @TODO: use enum strings once '.toString' compile
-              // error is resolved
-              case "MOVE" => _directionsList += Move()
-              case "LEFT" => _directionsList += Left()
-              case "RIGHT" => _directionsList += Right()
-              case "REPORT" => _directionsList += Report()
+
+              case Commands.Move => _directionsList += Move()
+              case Commands.Left => _directionsList += Left()
+              case Commands.Right => _directionsList += Right()
+              case Commands.Report => _directionsList += Report()
               case _ => result = false
 
             } // match

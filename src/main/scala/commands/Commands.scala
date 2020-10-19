@@ -4,18 +4,16 @@ import point._
 import orientation._
 import orientation.Orientation._
 
-// for use in directions list to be parsed
-object Commands extends Enumeration {
-  type Commands = Value
-  
-  val Place = Value("PLACE")
-  val Move = Value("MOVE")
-  val Left = Value("LEFT")
-  val Right = Value("RIGHT")
-  val Report = Value("REPORT")
+// for use in input to be parsed; not an enum (for matching)
+object Commands {
+  val Place = "PLACE"
+  val Move = "MOVE"
+  val Left = "LEFT"
+  val Right = "RIGHT"
+  val Report = "REPORT"
 }
 
-// for use in cleaned directions list
+// for use in parsed directions list
 abstract class Command {}
 case class Place(val pt: Point, val o: Orientation) extends Command {}
 case class Move() extends Command {}
