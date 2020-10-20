@@ -12,8 +12,7 @@ class InputSpec(/*ignore: String*/) extends FlatSpec {
 
   "The hello.txt file" should "return List('hello', 'how', 'are', 'you?')" in {
     val l = "hello," :: "how" :: "are" :: "you?" :: Nil
-    val in = Input.fromFile(
-      (os.pwd/"src"/"resources"/"hello.txt").toString)
+    val in = Input.fromFile((os.pwd/"resources"/"hello.txt").toString)
     assert(l == in)
   }
 } // InputSpec

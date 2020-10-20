@@ -21,9 +21,9 @@ and similar for testing:
 
 ## to see the three examples required from PROBLEM.md
 
-    $sbt "run src/resources/eg1.txt"
-    $sbt "run src/resources/eg2.txt"
-    $sbt "run src/resources/eg3.txt"
+    $sbt "run resources/eg1.txt"
+    $sbt "run resources/eg2.txt"
+    $sbt "run resources/eg3.txt"
 
 ## some TODOs/QUs (for further investigation)
 
