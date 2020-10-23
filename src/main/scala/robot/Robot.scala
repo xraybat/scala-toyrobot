@@ -17,7 +17,9 @@ class Robot(
 
   // @MUTABLE:
   var _currPoint: Point = new Point                       // @TODO: ok to default??
+  def point: Point = _currPoint
   var _currOrientation: Orientation = Orientation.North   // @TODO: ok to default??
+  def orientation: Orientation = _currOrientation
 
   // @MUTABLE:
   private var _inPlace: Boolean = false
