@@ -46,7 +46,6 @@ class Robot(
         }
         case Move() => {
           if (_inPlace) {
-            //println(s"Robot.walk: MOVE in place")
             val pt = Point.move(_currPoint, _currOrientation)
             if (inBounds(pt))
               _currPoint = pt
