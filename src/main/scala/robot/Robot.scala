@@ -43,7 +43,7 @@ class Robot(
           else
             println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
         }
-        case Move() => {
+        case Move() =>
           if (_inPlace) {
             val pt = Point.move(_currPoint, _currOrientation)
             if (inBounds(pt))
@@ -51,21 +51,17 @@ class Robot(
             else
               println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
           }
-        }
-        case Left() => {
+        case Left() =>
           if (_inPlace)
             _currOrientation = Orientation.turnLeft(_currOrientation)
-        }
-        case Right() => {
+        case Right() =>
           if (_inPlace)
             _currOrientation = Orientation.turnRight(_currOrientation)
-        }
-        case Report() => {
+        case Report() =>
           if (_inPlace)
             println(s"Robot.walk: REPORTing from ${point}, ${orientation}")
           else
             println(s"Robot.walk: REPORTing that i'm not in PLACE!")
-        }
       }
     } // for
   } // walk
