@@ -62,7 +62,8 @@ class Robot(
             println(s"Robot.walk: REPORTing from ${point}, ${orientation}")
           else
             println(s"Robot.walk: REPORTing that i'm not in PLACE!")
-      }
+
+      } // match
     } // for
   } // walk
 } // Robot
