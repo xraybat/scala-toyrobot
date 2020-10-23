@@ -48,7 +48,7 @@ class Parser {
 
     for (command <- dl) {
       fastparse.parse(command, parserCommands(_)) match {
-        case Parsed.Success(value, index) => {
+        case Parsed.Success(value, index) =>
           value match {
             case (p: String, x: Int, y: Int, o: String) => 
               _directionsList += Place(new Point(x, y), Orientation.withName(o))
@@ -60,7 +60,6 @@ class Parser {
             case _ => result = false
 
           } // match
-        } // match
         case Parsed.Failure(expected, index, extra) => {
           println(extra.trace().longMsg)
           result = false
