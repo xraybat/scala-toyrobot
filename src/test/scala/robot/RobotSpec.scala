@@ -3,13 +3,13 @@ package robot
 import org.scalatest.FlatSpec
 
 import board._
+import point._
+import orientation._
+import orientation.Orientation._
 import input._
 import input.Input.PreParsedDirectionsList
 import parser._
 import parser.Parser.DirectionsList
-import point._
-import orientation._
-import orientation.Orientation._
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
@@ -45,7 +45,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 1 && r.point.y == 2)
+        && r.point == new Point(1, 2)
         && r.orientation == Orientation.North)
     }
     else
@@ -70,7 +70,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 3 && r.point.y == 4)
+        && r.point == new Point(3, 4)
         && r.orientation == Orientation.South)
     }
     else
@@ -95,7 +95,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 0 && r.point.y == 0)
+        && r.point == new Point(0, 0)
         && r.orientation == Orientation.North)
     }
     else
@@ -109,7 +109,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 0 && r.point.y == 0)
+        && r.point == new Point(0, 0)
         && r.orientation == Orientation.South)
     }
     else
@@ -123,7 +123,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 0 && r.point.y == 0)
+        && r.point == new Point(0, 0)
         && r.orientation == Orientation.South)
     }
     else
@@ -144,7 +144,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 0 && r.point.y == 1)
+        && r.point == new Point(0, 1)
         && r.orientation == Orientation.North)
     }
     else
@@ -158,7 +158,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 0 && r.point.y == 0)
+        && r.point == new Point(0, 0)
         && r.orientation == Orientation.West)
     }
     else
@@ -172,7 +172,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && (r.point.x == 3 && r.point.y == 3)
+        && r.point == new Point(3, 3)
         && r.orientation == Orientation.North)
     }
     else

@@ -17,7 +17,7 @@ object Main {
     }
 
     val b = new Board
-    //println(s"${b.xExtent}x${b.yExtent}")
+    //println(s"${b}")
 
     val in: PreParsedDirectionsList =
       if (args.length == 0)
