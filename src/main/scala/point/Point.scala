@@ -4,8 +4,8 @@ import orientation._
 import orientation.Orientation._
 
 class Point(val x: Int = -1, val y: Int = -1) {
-
-} // Point
+  override def toString: String = s"(${x}, ${y})"
+}
 
 // companion object
 object Point {
