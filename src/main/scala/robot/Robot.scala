@@ -36,13 +36,13 @@ class Robot(
         case Place(pt: Point, o: Orientation) => {
           _inPlace = inBounds(pt)
           if (_inPlace) {
-            println(s"Robot.walk: PLACEd at ${pt}, ${o}")
             _currPoint = pt
             _currOrientation = o
+            println(s"Robot.walk: PLACEd at ${point}, ${orientation}")
           }
           else
             println(
-              s"Robot.walk: can't PLACE at point ${pt} on a ${board} board!")
+              s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
         }
         case Move() => {
           if (_inPlace) {
@@ -52,20 +52,16 @@ class Robot(
               _currPoint = pt
             else
               println(
-                s"Robot.walk: can't MOVE to point ${pt} on a ${board} board!")
+                s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
           }
         }
         case Left() => {
-          if (_inPlace) {
-            //println(s"Robot.walk: LEFT in place")
+          if (_inPlace)
             _currOrientation = Orientation.turnLeft(_currOrientation)
-          }
         }
         case Right() => {
-          if (_inPlace) {
-             //println(s"Robot.walk: RIGHT in place")
+          if (_inPlace)
             _currOrientation = Orientation.turnRight(_currOrientation)
-          }
         }
         case Report() => {
           if (_inPlace)
