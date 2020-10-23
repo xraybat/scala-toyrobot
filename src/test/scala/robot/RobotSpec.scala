@@ -7,10 +7,12 @@ import input._
 import input.Input.PreParsedDirectionsList
 import parser._
 import parser.Parser.DirectionsList
+import orientation._
+import orientation.Orientation._
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
-class RobotSpec(/*ignore: String*/) extends FlatSpec {
+class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
 
   private val b = new Board
 
@@ -112,3 +114,52 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
       assert(false)
   }
 } // RobotSpec
+
+// test PROBLEM.md examples
+class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
+
+  private val b = new Board
+
+  "A Robot" should "handle eg1.txt" in {
+    val in = Input.fromFile((os.pwd/"resources"/"eg1.txt").toString)
+    val p = new Parser()
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(
+        r.inPlace
+        && (r.point.x == 0 && r.point.y == 1)
+        && r.orientation == Orientation.North)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "handle eg2.txt" in {
+    val in = Input.fromFile((os.pwd/"resources"/"eg2.txt").toString)
+    val p = new Parser()
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(
+        r.inPlace
+        && (r.point.x == 0 && r.point.y == 0)
+        && r.orientation == Orientation.West)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "handle eg3.txt" in {
+    val in = Input.fromFile((os.pwd/"resources"/"eg3.txt").toString)
+    val p = new Parser()
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(
+        r.inPlace
+        && (r.point.x == 3 && r.point.y == 3)
+        && r.orientation == Orientation.North)
+    }
+    else
+      assert(false)
+  }
+} // RobotEgSpec
