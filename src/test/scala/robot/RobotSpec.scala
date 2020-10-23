@@ -12,7 +12,7 @@ import orientation.Orientation._
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
-class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
+class RobotSpec(/*ignore: String*/) extends FlatSpec {
 
   private val b = new Board
 
@@ -42,7 +42,10 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
       r.walk
-      assert(r.inPlace)
+      assert(
+        r.inPlace
+        && (r.point.x == 1 && r.point.y == 2)
+        && r.orientation == Orientation.North)
     }
     else
       assert(false)
@@ -64,7 +67,10 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
       r.walk
-      assert(r.inPlace)
+      assert(
+        r.inPlace
+        && (r.point.x == 3 && r.point.y == 4)
+        && r.orientation == Orientation.South)
     }
     else
       assert(false)
@@ -86,7 +92,10 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
       r.walk
-      assert(r.inPlace)
+      assert(
+        r.inPlace
+        && (r.point.x == 0 && r.point.y == 0)
+        && r.orientation == Orientation.North)
     }
     else
       assert(false)
@@ -97,7 +106,10 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
       r.walk
-      assert(r.inPlace)
+      assert(
+        r.inPlace
+        && (r.point.x == 0 && r.point.y == 0)
+        && r.orientation == Orientation.South)
     }
     else
       assert(false)
@@ -108,7 +120,10 @@ class RobotSpec(/**/ignore: String/**/) extends FlatSpec {
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
       r.walk
-      assert(r.inPlace)
+      assert(
+        r.inPlace
+        && (r.point.x == 0 && r.point.y == 0)
+        && r.orientation == Orientation.South)
     }
     else
       assert(false)
