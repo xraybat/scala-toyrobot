@@ -16,9 +16,9 @@ class Robot(
   val directions: DirectionsList) {
 
   // @MUTABLE:
-  var _currPoint: Point = new Point                       // @TODO: ok to default??
+  var _currPoint: Point = _
   def point: Point = _currPoint
-  var _currOrientation: Orientation = Orientation.North   // @TODO: ok to default??
+  var _currOrientation: Orientation = _
   def orientation: Orientation = _currOrientation
 
   // @MUTABLE:
