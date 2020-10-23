@@ -7,6 +7,7 @@ import input._
 import input.Input.PreParsedDirectionsList
 import parser._
 import parser.Parser.DirectionsList
+import point._
 import orientation._
 import orientation.Orientation._
 
