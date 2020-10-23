@@ -41,8 +41,7 @@ class Robot(
             println(s"Robot.walk: PLACEd at ${point}, ${orientation}")
           }
           else
-            println(
-              s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
+            println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
         }
         case Move() => {
           if (_inPlace) {
@@ -50,8 +49,7 @@ class Robot(
             if (inBounds(pt))
               _currPoint = pt
             else
-              println(
-                s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
+              println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
           }
         }
         case Left() => {
