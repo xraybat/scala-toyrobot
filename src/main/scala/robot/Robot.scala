@@ -28,14 +28,14 @@ class Robot(
   def inBounds(point: Point): Boolean = board.inBounds(point)
   def outBounds(point: Point): Boolean = !inBounds(point)
   
-  // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
-  // simple
+  // @TODO: make walk() recursive walk(point)??
+  // @ANS: no need, too simple
   def walk(): Unit = {
     for (command <- directions) {
       command match {
         case Place(pt: Point, o: Orientation) => {
           _inPlace = inBounds(pt)
-          if (_inPlace) {
+          if (inPlace) {
             _currPoint = pt
             _currOrientation = o
             println(s"Robot.walk: PLACEd at ${point}, ${orientation}")
@@ -44,21 +44,21 @@ class Robot(
             println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
         }
         case Move() =>
-          if (_inPlace) {
-            val pt = Point.move(_currPoint, _currOrientation)
+          if (inPlace) {
+            val pt = Point.move(point, orientation)
             if (inBounds(pt))
               _currPoint = pt
             else
               println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
           }
         case Left() =>
-          if (_inPlace)
-            _currOrientation = Orientation.turnLeft(_currOrientation)
+          if (inPlace)
+            _currOrientation = Orientation.turnLeft(orientation)
         case Right() =>
-          if (_inPlace)
-            _currOrientation = Orientation.turnRight(_currOrientation)
+          if (inPlace)
+            _currOrientation = Orientation.turnRight(orientation)
         case Report() =>
-          if (_inPlace)
+          if (inPlace)
             println(s"Robot.walk: REPORTing from ${point}, ${orientation}")
           else
             println(s"Robot.walk: REPORTing that i'm not in PLACE!")
