@@ -11,11 +11,9 @@ class Point(val x: Int = -1, val y: Int = -1) {
 
   override def equals(that: Any): Boolean =
     that match {
-      case that: Point => {
-        that.canEqual(this) &&
-        this.x == that.x &&
-        this.y == that.y
-      }
+      case that: Point =>
+        (that.canEqual(this)
+         && (this.x == that.x && this.y == that.y))
       case _ => false
     }
 
