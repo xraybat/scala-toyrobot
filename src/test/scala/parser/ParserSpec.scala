@@ -4,7 +4,7 @@ import org.scalatest.FlatSpec
 
 import input._
 
-class ParserSpec(/*ignore: String*/) extends FlatSpec {
+class ParserSpec(/**/ignore: String/**/) extends FlatSpec {
   "A PreParsedDirectionsList parse" should "not parse rubbish" in {
     val rubbish = Input.fromList(
       "hello," :: "how" :: "are" :: "you?" :: Nil)
