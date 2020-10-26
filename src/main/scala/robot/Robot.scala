@@ -25,12 +25,12 @@ class Robot(
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
 
-  def inBounds(point: Point): Boolean = board.inBounds(point)
-  def outBounds(point: Point): Boolean = !inBounds(point)
+  def inBounds(pt: Point): Boolean = board.inBounds(pt)
+  def outBounds(pt: Point): Boolean = !inBounds(pt)
   
   // @TODO: make walk() recursive walk(point)??
   // @ANS: no need, too simple
-  def walk(): Unit = {
+  def walk: Unit = {
     for (command <- directions) {
       command match {
         case Place(pt: Point, o: Orientation) => {

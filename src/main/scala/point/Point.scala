@@ -8,7 +8,6 @@ class Point(val x: Int = -1, val y: Int = -1) {
 
   // "equals" logic
   def canEqual(a: Any) = a.isInstanceOf[Point]
-
   override def equals(that: Any): Boolean =
     that match {
       case that: Point =>
@@ -19,10 +18,7 @@ class Point(val x: Int = -1, val y: Int = -1) {
 
   override def hashCode: Int = {
     val prime = 31
-    var result = 1
-    result = prime * result + x
-    result = prime * result + y
-    result
+    prime*(prime+x)+y
   }
 } // Point
 
