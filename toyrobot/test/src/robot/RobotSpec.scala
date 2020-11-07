@@ -50,7 +50,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     else
       assert(false)
   }
-  "A Robot" should "walk a DirectionsList with no PLACE but no nothing" in {
+  "A Robot" should "walk a DirectionsList with no PLACE" in {
     val in: PreParsedDirectionsList = "LEFT" :: "RIGHT" :: "REPORT" :: Nil
     val p = new Parser
     if (p.parse(in)) {
