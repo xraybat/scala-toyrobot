@@ -6,12 +6,13 @@ import toyrobot.orientation.Orientation._
 
 import scala.collection.mutable.ListBuffer
 
+/* @TODO: don't need until god-World class??
 // companion object
 object Board {
   // @TODO: move PointsList type to Point class??
-  type PointsList = List[Point] // @TODO: sparse list??
+  type BlockedPointsList = List[Point] // @TODO: sparse list??
 }
-
+*/
 class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
 
   def inBounds(pt: Point): Boolean = 
@@ -20,13 +21,29 @@ class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
   def outBounds(pt: Point): Boolean = !inBounds(pt)
 
   // mutable ListBuffer only visible outside as immutable List
-  type PointsListBuffer = ListBuffer[Point]   // @TODO: sparse list??
+  type BlockedPointsListBuffer = ListBuffer[Point]   // @TODO: sparse list??
   // @MUTABLE:
-  private var _pointsList: PointsListBuffer = new PointsListBuffer()
-  def pointsList: Board.PointsList = _pointsList.toList
-
-  def Block(pt: Point, o: Orientation) = ???  // sparse list of Points???
-  def isBlocked(pt: Point): Boolean = false
+  private var _blockedPointsList: BlockedPointsListBuffer =
+    new BlockedPointsListBuffer()
+  /* @TODO: don't need until god-World class??
+  def pointsList: Board.BlockedPointsList = _pointsList.toList
+  */
+  def Block(pt: Point, o: Orientation): Boolean = {
+    // @TODO: sparse list of Points???
+    // use existing move logic to get blocked point
+    val blockPoint: Point = Point.move(pt, o)
+    if (inBounds(blockPoint)) {
+      _blockedPointsList += blockPoint
+      true
+    }
+    else
+      false // @TODO: raise exception on out of bounds??
+  }
+  def isBlocked(pt: Point): Boolean =
+    if (inBounds(pt))
+      _blockedPointsList.contains(pt)
+    else
+      true  // @TODO: raise exception on out of bounds??
 
   override def toString: String = s"${xExtent}x${yExtent}"
 
