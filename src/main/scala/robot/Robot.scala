@@ -46,6 +46,8 @@ class Robot(
         case PlaceObject() =>
           if (inPlace) {
             println("hello from PLACE_OBJECT")
+            // use current point and orientation to set blocked point on board
+            board.Block(point, orientation)
           }
           else
             println(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
