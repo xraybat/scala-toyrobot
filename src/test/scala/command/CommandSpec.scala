@@ -5,7 +5,7 @@ import org.scalatest.FlatSpec
 import toyrobot.command.Command._
 
 //@Ignore
-class CommandSpec(/*ignore: String*/) extends FlatSpec {
+class CommandSpec(ignore: String) extends FlatSpec {
   "The Commands" should "have uppercase values" in {
     assert(
       PlaceRobot.toString == "PLACE"

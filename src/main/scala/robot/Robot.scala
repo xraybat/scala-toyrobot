@@ -44,8 +44,11 @@ class Robot(
             println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
         }
         case PlaceObject() =>
-          if (inPlace)
+          if (inPlace) {
             println("hello from PLACE_OBJECT")
+          }
+          else
+            println(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
        case Move() =>
           if (inPlace) {
             // only MOVE is concerned with PLACE_OBJECTs

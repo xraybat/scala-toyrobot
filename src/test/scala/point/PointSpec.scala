@@ -6,7 +6,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
 //@Ignore
-class PointSpec(/*ignore: String*/) extends FlatSpec {
+class PointSpec(ignore: String) extends FlatSpec {
   "A default Point" should "have coords (-1, -1)" in {
     val p = new Point
     assert(p == new Point(-1, -1))

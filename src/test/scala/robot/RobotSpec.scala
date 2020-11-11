@@ -13,7 +13,7 @@ import toyrobot.parser.Parser.DirectionsList
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
-class RobotSpec(/*ignore: String*/) extends FlatSpec {
+class RobotSpec(ignore: String) extends FlatSpec {
 
   private val b = new Board
 
@@ -132,7 +132,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
 } // RobotSpec
 
 // test PROBLEM.md examples
-class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
+class RobotEgSpec(ignore: String) extends FlatSpec {
 
   private val b = new Board
 
@@ -179,3 +179,32 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
       assert(false)
   }
 } // RobotEgSpec
+
+// PLACE_OBJECT tests
+class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
+
+  private val b = new Board
+
+  "A Robot" should "handle PLACE_OBJECT but not act on it if not in PLACE" in {
+    val in: PreParsedDirectionsList = "PLACE_OBJECT" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(!r.inPlace)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "handle PLACE_OBJECT and act on it if in PLACE" in {
+    val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "MOVE" :: "PLACE_OBJECT" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(r.inPlace)
+    }
+    else
+      assert(false)
+  }
+} // RobotPlaceObjectSpec
