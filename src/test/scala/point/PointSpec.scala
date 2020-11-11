@@ -1,8 +1,9 @@
-package point
+package toyrobot.point
 
 import org.scalatest.FlatSpec
-import orientation._
-import orientation.Orientation._
+
+import toyrobot.orientation._
+import toyrobot.orientation.Orientation._
 
 //@Ignore
 class PointSpec(/*ignore: String*/) extends FlatSpec {

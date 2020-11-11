@@ -1,7 +1,8 @@
-package command
+package toyrobot.command
 
 import org.scalatest.FlatSpec
-import command.Command._
+
+import toyrobot.command.Command._
 
 //@Ignore
 class CommandSpec(/*ignore: String*/) extends FlatSpec {

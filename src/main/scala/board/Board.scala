@@ -1,6 +1,6 @@
-package board
+package toyrobot.board
 
-import point._
+import toyrobot.point._
 
 class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
 

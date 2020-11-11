@@ -1,8 +1,8 @@
-package command
+package toyrobot.command
 
-import point._
-import orientation._
-import orientation.Orientation._
+import toyrobot.point._
+import toyrobot.orientation._
+import toyrobot.orientation.Orientation._
 
 // for use in parsed directions list
 abstract class Command {}

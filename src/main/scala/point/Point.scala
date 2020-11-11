@@ -1,7 +1,7 @@
-package point
+package toyrobot.point
 
-import orientation._
-import orientation.Orientation._
+import toyrobot.orientation._
+import toyrobot.orientation.Orientation._
 
 class Point(val x: Int = -1, val y: Int = -1) {
   override def toString: String = s"(${x}, ${y})"

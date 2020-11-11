@@ -1,11 +1,12 @@
-package parser
+package toyrobot.parser
 
 import fastparse._, SingleLineWhitespace._
-import command._
-import point._
-import orientation._
-import orientation.Orientation._
-import input._
+
+import toyrobot.command._
+import toyrobot.point._
+import toyrobot.orientation._
+import toyrobot.orientation.Orientation._
+import toyrobot.input._
 
 import scala.collection.mutable.ListBuffer
 

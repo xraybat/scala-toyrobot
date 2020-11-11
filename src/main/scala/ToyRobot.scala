@@ -1,13 +1,14 @@
-import board._
-import point._
-import input._
-import input.Input.PreParsedDirectionsList
-import parser._
-import parser.Parser.DirectionsList
-import robot._
+package toyrobot
 
-//object Main extends App {
-object Main {
+import toyrobot.board._
+import toyrobot.point._
+import toyrobot.input._
+import toyrobot.input.Input.PreParsedDirectionsList
+import toyrobot.parser._
+import toyrobot.parser.Parser.DirectionsList
+import toyrobot.robot._
+
+object ToyRobot {
   def main(args: Array[String]): Unit = {
 
     if (args.length > 1) {
@@ -41,4 +42,4 @@ object Main {
     }
 
   } // main
-} // Main
+} // ToyRobot

@@ -1,7 +1,8 @@
-package board
+package toyrobot.board
 
 import org.scalatest.FlatSpec
-import point._
+
+import toyrobot.point._
 
 //@Ignore
 class BoardSpec(/*ignore: String*/) extends FlatSpec {

@@ -1,8 +1,8 @@
-package parser
+package toyrobot.parser
 
 import org.scalatest.FlatSpec
 
-import input._
+import toyrobot.input._
 
 class ParserSpec(/*ignore: String*/) extends FlatSpec {
   "A PreParsedDirectionsList parse" should "not parse rubbish" in {

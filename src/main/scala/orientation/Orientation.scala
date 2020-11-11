@@ -1,4 +1,4 @@
-package orientation
+package toyrobot.orientation
 
 object Orientation extends Enumeration {
   type Orientation = Value

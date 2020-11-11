@@ -1,14 +1,12 @@
-// @TODO: turn into a castor actor; a robot *is* an actor
-// after all...
-package robot
+package toyrobot.robot
 
-import board._
-import point._
-import parser._
-import parser.Parser.DirectionsList
-import command._
-import orientation._
-import orientation.Orientation._
+import toyrobot.board._
+import toyrobot.point._
+import toyrobot.parser._
+import toyrobot.parser.Parser.DirectionsList
+import toyrobot.command._
+import toyrobot.orientation._
+import toyrobot.orientation.Orientation._
 
 // leave parse outside of Robot, but handle correct list logic here.
 class Robot(

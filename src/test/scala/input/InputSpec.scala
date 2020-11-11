@@ -1,4 +1,4 @@
-package input
+package toyrobot.input
 
 import org.scalatest.FlatSpec
 

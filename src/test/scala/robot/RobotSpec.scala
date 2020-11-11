@@ -1,15 +1,15 @@
-package robot
+package toyrobot.robot
 
 import org.scalatest.FlatSpec
 
-import board._
-import point._
-import orientation._
-import orientation.Orientation._
-import input._
-import input.Input.PreParsedDirectionsList
-import parser._
-import parser.Parser.DirectionsList
+import toyrobot.board._
+import toyrobot.point._
+import toyrobot.orientation._
+import toyrobot.orientation.Orientation._
+import toyrobot.input._
+import toyrobot.input.Input.PreParsedDirectionsList
+import toyrobot.parser._
+import toyrobot.parser.Parser.DirectionsList
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore

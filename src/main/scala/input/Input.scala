@@ -1,4 +1,4 @@
-package input
+package toyrobot.input
 
 import scala.io.StdIn.readLine
 import scala.io.Source
