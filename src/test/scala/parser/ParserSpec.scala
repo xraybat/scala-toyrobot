@@ -35,4 +35,10 @@ class ParserSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     assert(p.parse(place))
   }
+  "A PreParsedDirectionsList parse" should "parse PLACE_OBJECT" in {
+    val placeObject = Input.fromList(
+      "PLACE 2,3,NORTH" :: "MOVE" :: "PLACE_OBJECT" :: Nil)
+    val p = new Parser
+    assert(p.parse(placeObject))
+  }
 } // ParserSpec

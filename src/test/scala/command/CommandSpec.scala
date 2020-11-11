@@ -8,7 +8,7 @@ import toyrobot.command.Command._
 class CommandSpec(/*ignore: String*/) extends FlatSpec {
   "The Commands" should "have uppercase values" in {
     assert(
-      Place.toString == "PLACE"
+      PlaceRobot.toString == "PLACE"
       && PlaceObject.toString == "PLACE_OBJECT"
       && Move.toString == "MOVE"
       && Left.toString == "LEFT"

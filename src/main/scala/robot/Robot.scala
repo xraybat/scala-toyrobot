@@ -31,7 +31,7 @@ class Robot(
   def walk: Unit = {
     for (command <- directions) {
       command match {
-        case Place(pt: Point, o: Orientation) => {
+        case PlaceRobot(pt: Point, o: Orientation) => {
           _inPlace = inBounds(pt)
           if (inPlace) {
             _currPoint = pt
@@ -41,7 +41,10 @@ class Robot(
           else
             println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
         }
-        case Move() =>
+        case PlaceObject() =>
+          if (inPlace)
+            println("hello from PLACE_OBJECT")
+       case Move() =>
           if (inPlace) {
             val pt = Point.move(point, orientation)
             if (inBounds(pt))
