@@ -16,6 +16,7 @@ case class Report() extends Command {}
 // enum (for 'stable identifier' matching)
 object Command {
   val Place = "PLACE"
+  val PlaceObject = "PLACE_OBJECT"
   val Move = "MOVE"
   val Left = "LEFT"
   val Right = "RIGHT"
