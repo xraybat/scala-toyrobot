@@ -26,6 +26,8 @@ class Robot(
   def inBounds(pt: Point): Boolean = board.inBounds(pt)
   def outBounds(pt: Point): Boolean = !inBounds(pt)
   
+  def isBlocked(pt: Point): Boolean = board.isBlocked(pt)
+
   // @TODO: make walk() recursive walk(point)??
   // @ANS: no need, too simple
   def walk: Unit = {
@@ -46,8 +48,9 @@ class Robot(
             println("hello from PLACE_OBJECT")
        case Move() =>
           if (inPlace) {
+            // only MOVE is concerned with PLACE_OBJECTs
             val pt = Point.move(point, orientation)
-            if (inBounds(pt))
+            if (inBounds(pt) && !isBlocked(pt))
               _currPoint = pt
             else
               println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")

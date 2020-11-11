@@ -9,6 +9,8 @@ class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
 
   def outBounds(pt: Point): Boolean = !inBounds(pt)
 
+  def isBlocked(pt: Point): Boolean = false
+
   override def toString: String = s"${xExtent}x${yExtent}"
 
 } // Board
