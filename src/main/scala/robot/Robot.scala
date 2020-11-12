@@ -48,7 +48,7 @@ class Robot(
           }
           else
             println(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
-       case Move() =>
+        case Move() =>
           if (inPlace) {
             // only MOVE is concerned with PLACE_OBJECTs
             val pt = Point.move(point, orientation)
