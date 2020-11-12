@@ -28,8 +28,6 @@ class Robot(
   
   def isBlocked(pt: Point): Boolean = board.isBlocked(pt)
 
-  // @TODO: make walk() recursive walk(point)??
-  // @ANS: no need, too simple
   def walk: Unit = {
     for (command <- directions) {
       command match {
@@ -55,10 +53,14 @@ class Robot(
           if (inPlace) {
             // only MOVE is concerned with PLACE_OBJECTs
             val pt = Point.move(point, orientation)
-            if (inBounds(pt) && !isBlocked(pt))
-              _currPoint = pt
+            if (inBounds(pt)) {
+              if (!isBlocked(pt))
+                _currPoint = pt
+              else
+                println(s"Robot.walk: can't MOVE to ${pt} 'cos i'm blocked!")
+            }
             else
-              println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
+              println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board 'cos it's out of bounds!")
           }
         case Left() =>
           if (inPlace)

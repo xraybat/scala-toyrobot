@@ -59,7 +59,6 @@ class BoardSpec(ignore: String) extends FlatSpec {
 
 //@Ignore
 class BoardBlockSpec(/*ignore: String*/) extends FlatSpec {
-
   "A new Board" should "not be blocked on Point (0, 0)" in {
     val b = new Board
     assert(!b.isBlocked(new Point(0, 0)))
@@ -86,9 +85,9 @@ class BoardBlockSpec(/*ignore: String*/) extends FlatSpec {
     val b = new Board
     assert(b.isBlocked(new Point(-1, -1)))
   }
-  "A 5x5 Board" should "never be blocked on Point (6, 6)" in {
+  "A 5x5 Board" should "never be blocked on Point (5, 5)" in {
     val b = new Board
-    assert(b.isBlocked(new Point(6, 6)))
+    assert(b.isBlocked(new Point(5, 5)))
   }
 
   "A Board" should "be blocked on Point (1, 0) if PLACE_OBJECT from Point (0, 0), EAST" in {
@@ -110,6 +109,19 @@ class BoardBlockSpec(/*ignore: String*/) extends FlatSpec {
     val b = new Board
     b.Block(new Point(4, 4), Orientation.South)
     assert(b.isBlocked(new Point(4, 3)))
+  }
+
+  "A Board" should "be blocked on lots of Points if lots of PLACE_OBJECTs" in {
+    val b = new Board
+    b.Block(new Point(0, 0), Orientation.East)
+    b.Block(new Point(1, 0), Orientation.East)
+    b.Block(new Point(2, 0), Orientation.East)
+    b.Block(new Point(3, 0), Orientation.East)
+    assert(
+      b.isBlocked(new Point(1, 0))
+      && b.isBlocked(new Point(2, 0))     
+      && b.isBlocked(new Point(3, 0))     
+      && b.isBlocked(new Point(4, 0)))
   }
 
   "A Board" should "NOT be blocked on Point (0, 1) if PLACE_OBJECT from Point (0, 0), EAST" in {
