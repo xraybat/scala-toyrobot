@@ -53,7 +53,7 @@ class Parser {
         case Parsed.Success(value, index) =>
           value match {
             case (p: String, x: Int, y: Int, o: String) => 
-              _directionsList += PlaceRobot(new Point(x, y), Orientation.withName(o))
+              _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
 
             case Command.PlaceObject => _directionsList += PlaceObject()
             case Command.Move => _directionsList += Move()

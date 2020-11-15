@@ -45,7 +45,7 @@ class RobotSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(1, 2)
+        && r.point == Point(1, 2)
         && r.orientation == Orientation.North)
     }
     else
@@ -70,7 +70,7 @@ class RobotSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(3, 4)
+        && r.point == Point(3, 4)
         && r.orientation == Orientation.South)
     }
     else
@@ -95,7 +95,7 @@ class RobotSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(0, 0)
+        && r.point == Point(0, 0)
         && r.orientation == Orientation.North)
     }
     else
@@ -109,7 +109,7 @@ class RobotSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(0, 0)
+        && r.point == Point(0, 0)
         && r.orientation == Orientation.South)
     }
     else
@@ -123,7 +123,7 @@ class RobotSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(0, 0)
+        && r.point == Point(0, 0)
         && r.orientation == Orientation.South)
     }
     else
@@ -144,7 +144,7 @@ class RobotEgSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(0, 1)
+        && r.point == Point(0, 1)
         && r.orientation == Orientation.North)
     }
     else
@@ -158,7 +158,7 @@ class RobotEgSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(0, 0)
+        && r.point == Point(0, 0)
         && r.orientation == Orientation.West)
     }
     else
@@ -172,7 +172,7 @@ class RobotEgSpec(ignore: String) extends FlatSpec {
       r.walk
       assert(
         r.inPlace
-        && r.point == new Point(3, 3)
+        && r.point == Point(3, 3)
         && r.orientation == Orientation.North)
     }
     else
