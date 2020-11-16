@@ -183,9 +183,8 @@ class RobotEgSpec(ignore: String) extends FlatSpec {
 // PLACE_OBJECT tests
 class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
 
-  private val b = new Board
-
   "A Robot" should "handle PLACE_OBJECT but not act on it if not in PLACE" in {
+    val b = new Board
     val in: PreParsedDirectionsList = "PLACE_OBJECT" :: Nil
     val p = new Parser
     if (p.parse(in)) {
@@ -197,12 +196,45 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
       assert(false)
   }
   "A Robot" should "handle PLACE_OBJECT and act on it if in PLACE" in {
+    val b = new Board
     val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "MOVE" :: "PLACE_OBJECT" :: Nil
     val p = new Parser
     if (p.parse(in)) {
       val r = new Robot(b, p.directionsList)
       r.walk
-      assert(r.inPlace)
+      assert(
+        r.inPlace && r.isBlocked(Point(0, 2))
+        && r.orientation == Orientation.North)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "be blocked by MOVE after PLACE_OBJECT" in {
+    val b = new Board
+    val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "PLACE_OBJECT" :: "MOVE" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(
+        r.inPlace && r.isBlocked(Point(0, 1))
+        && r.point == Point(0, 0) // couldn't move, stays at same point
+        && r.orientation == Orientation.North)
+    }
+    else
+      assert(false)
+  }
+  "A Robot" should "be blocked even if MOVEing around a PLACEd_OBJECT" in {
+    val b = new Board
+    val in: PreParsedDirectionsList = "PLACE 2,2,EAST" :: "PLACE_OBJECT" :: "LEFT" :: "MOVE" :: "RIGHT" :: "MOVE" :: "MOVE" :: "RIGHT" :: "MOVE" :: "RIGHT" :: "MOVE" :: Nil
+    val p = new Parser
+    if (p.parse(in)) {
+      val r = new Robot(b, p.directionsList)
+      r.walk
+      assert(
+        r.inPlace && r.isBlocked(Point(3, 2))
+        && r.point == Point(4, 2) // couldn't move, stays at same point
+        && r.orientation == Orientation.West)
     }
     else
       assert(false)
