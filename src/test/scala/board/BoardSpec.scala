@@ -66,28 +66,28 @@ class BoardBlockSpec(ignore: String) extends FlatSpec {
 
   "A 5x5 Board" should "not allow a block from Point (4, 4), EAST" in {
     val b = new Board
-    assert(!b.Block(Point(4, 4), Orientation.East))
+    assert(!b.isBlocked(Point(5, 4)))
   }
   "A 5x5 Board" should "not allow a block from Point (4, 4), NORTH" in {
     val b = new Board
-    assert(!b.Block(Point(4, 4), Orientation.North))
+    assert(!b.isBlocked(Point(4, 5)))
   }
   "A 5x5 Board" should "not allow a block from Point (0, 0), WEST" in {
     val b = new Board
-    assert(!b.Block(Point(0, 0), Orientation.West))
+    assert(!b.isBlocked(Point(-1, 0)))
   }
   "A 5x5 Board" should "not allow a block from Point (0, 0), SOUTH" in {
     val b = new Board
-    assert(!b.Block(Point(0, 0), Orientation.South))
+    assert(!b.isBlocked(Point(0, -1)))
   }
 
-  "A 5x5 Board" should "never be blocked on Point (-1, -1)" in {
+  "A 5x5 Board" should "not be blocked on out of bounds Point (-1, -1)" in {
     val b = new Board
-    assert(b.isBlocked(Point(-1, -1)))
+    assert(!b.isBlocked(Point(-1, -1)))
   }
-  "A 5x5 Board" should "never be blocked on Point (5, 5)" in {
+  "A 5x5 Board" should "not be blocked on out of bounds Point (5, 5)" in {
     val b = new Board
-    assert(b.isBlocked(Point(5, 5)))
+    assert(!b.isBlocked(Point(5, 5)))
   }
 
   "A Board" should "be blocked on Point (1, 0) if PLACE_OBJECT from Point (0, 0), EAST" in {

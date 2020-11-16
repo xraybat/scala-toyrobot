@@ -28,22 +28,18 @@ class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
   /* @TODO: don't need until god-World class??
   def pointsList: Board.BlockedPointsList = _pointsList.toList
   */
-  def Block(pt: Point, o: Orientation): Boolean = {
-    // @TODO: sparse list of Points???
+
+  def Block(pt: Point, o: Orientation): Unit = {
     // use existing move logic to get blocked point
     val blockPoint: Point = Point.move(pt, o)
-    if (inBounds(blockPoint)) {
+
+    // only block in-bound points
+    if (inBounds(blockPoint))
       _blockedPointsList += blockPoint
-      true
-    }
-    else
-      false // @TODO: raise exception on out of bounds??
   }
-  def isBlocked(pt: Point): Boolean =
-    if (inBounds(pt))
-      _blockedPointsList.contains(pt)
-    else
-      true  // @TODO: raise exception on out of bounds??
+  
+  // out-of-bounds points never put into blocked points list
+  def isBlocked(pt: Point): Boolean = _blockedPointsList.contains(pt)
 
   override def toString: String = s"${xExtent}x${yExtent}"
 
