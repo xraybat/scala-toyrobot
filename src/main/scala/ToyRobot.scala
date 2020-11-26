@@ -7,6 +7,7 @@ import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
 import toyrobot.parser.Parser.DirectionsList
 import toyrobot.robot._
+import toyrobot.world._
 
 object ToyRobot {
   def main(args: Array[String]): Unit = {
@@ -16,9 +17,6 @@ object ToyRobot {
               + "\n$ sbt run [filename]")
       return
     }
-
-    val b = new Board
-    //println(s"${b}")
 
     val in: PreParsedDirectionsList =
       if (args.length == 0)
@@ -35,11 +33,11 @@ object ToyRobot {
       } // else
     //println(in)
 
+    // use the (abstract) world rather than a robot
     val p = new Parser()
     if (p.parse(in)) {
-      val r = new Robot(b, p.directionsList)
-      r.walk
+      val w = new World(p.directionsList)
+      w.robotWalk
     }
-
   } // main
 } // ToyRobot

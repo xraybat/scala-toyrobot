@@ -181,7 +181,7 @@ class RobotEgSpec(ignore: String) extends FlatSpec {
 } // RobotEgSpec
 
 // PLACE_OBJECT tests
-class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
+class RobotPlaceObjectSpec(ignore: String) extends FlatSpec {
 
   "A Robot" should "handle PLACE_OBJECT but not act on it if not in PLACE" in {
     val b = new Board

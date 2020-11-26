@@ -8,10 +8,7 @@ import toyrobot.command._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
-// leave parse outside of Robot, but handle correct list logic here.
-class Robot(
-  val board: Board,
-  val directions: DirectionsList) {
+class Robot(val board: Board, val directions: DirectionsList) {
 
   // @MUTABLE:
   var _currPoint: Point = _
