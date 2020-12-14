@@ -29,14 +29,16 @@ class Robot(val board: Board, val directions: DirectionsList) {
     for (command <- directions) {
       command match {
         case PlaceRobot(pt: Point, o: Orientation) => {
-          _inPlace = inBounds(pt)
-          if (inPlace) {
-            _currPoint = pt
-            _currOrientation = o
-            println(s"Robot.walk: PLACEd at ${point}, ${orientation}")
+          Command.placeRobot(board, pt, o) match {
+            case (true, pt, o) => _inPlace = true; _currPoint = pt; _currOrientation = o
+            case (false, pt, o) => _inPlace = false
+            case _ => // @QU: ??
           }
+
+          if (_inPlace)
+            println(s"Robot.walk: PLACEd at ${_currPoint}, ${_currOrientation}")
           else
-            println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
+            println(s"Robot.walk: can't PLACE robot!")
         }
         case PlaceObject() =>
           if (inPlace) {

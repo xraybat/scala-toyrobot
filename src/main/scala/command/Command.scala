@@ -1,5 +1,6 @@
 package toyrobot.command
 
+import toyrobot.board._
 import toyrobot.point._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
@@ -22,4 +23,7 @@ object Command {
   val Left = "LEFT"
   val Right = "RIGHT"
   val Report = "REPORT"
+
+  def placeRobot(b: Board, pt: Point, o: Orientation): (Boolean, Point, Orientation) =
+    if (b.inBounds(pt)) (true, pt, o) else (false, pt, o)
 }
