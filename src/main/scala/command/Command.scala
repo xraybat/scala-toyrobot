@@ -27,7 +27,8 @@ object Command {
   def placeRobot(b: Board, pt: Point, o: Orientation): (Boolean, Point, Orientation) =
     if (b.inBounds(pt)) (true, pt, o) else (false, pt, o)
 
-  def placeObject(b: Board, pt: Point, o: Orientation): Board = ???
+  // use current point and orientation to set blocked point on board
+  def placeObject(b: Board, pt: Point, o: Orientation): Unit = b.Block(pt, o)
 
   def move(b: Board, pt: Point, o: Orientation): (Boolean, Point) = {
     // only MOVE is concerned with blocked points
@@ -35,7 +36,9 @@ object Command {
     if (b.inBounds(movePt) && !b.isBlocked(movePt)) (true, movePt) else (false, movePt)
   }
 
-  def left(o: Orientation): Orientation = ???
-  def right(o: Orientation): Orientation = ???
+  def left(o: Orientation): Orientation = Orientation.turnLeft(o)
+  def right(o: Orientation): Orientation = Orientation.turnRight(o)
+
   def report = ???
-}
+
+} // Command

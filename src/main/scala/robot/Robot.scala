@@ -41,10 +41,8 @@ class Robot(val board: Board, val directions: DirectionsList) {
         }
 
         case PlaceObject() =>
-          if (inPlace) {
-            // use current point and orientation to set blocked point on board
-            board.Block(point, orientation)
-          }
+          if (inPlace)
+            Command.placeObject(board, point, orientation)
           else
             println(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
 
@@ -63,10 +61,10 @@ class Robot(val board: Board, val directions: DirectionsList) {
 
         case Left() =>
           if (inPlace)
-            _currOrientation = Orientation.turnLeft(orientation)
+            _currOrientation = Command.left(orientation)
         case Right() =>
           if (inPlace)
-            _currOrientation = Orientation.turnRight(orientation)
+            _currOrientation = Command.right(orientation)
 
         case Report() =>
           if (inPlace)
