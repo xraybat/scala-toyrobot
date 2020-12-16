@@ -60,11 +60,9 @@ class Robot(val board: Board, val directions: DirectionsList) {
           }
 
         case Left() =>
-          if (inPlace)
-            _currOrientation = Command.left(orientation)
+          if (inPlace) _currOrientation = Command.left(orientation)
         case Right() =>
-          if (inPlace)
-            _currOrientation = Command.right(orientation)
+          if (inPlace) _currOrientation = Command.right(orientation)
 
         case Report() =>
           if (inPlace)
