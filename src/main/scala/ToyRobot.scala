@@ -36,9 +36,11 @@ object ToyRobot {
 
     // use the (abstract) world rather than a robot
     val p = new Parser()
-    if (p.parse(in)) {
-      val w = new World(p.directionsList)
-      w.robotWalk
+    p.parse(in) match {
+      case Some(dl) => 
+        val w = new World(dl)
+        w.robotWalk
+      case _ => 
     }
   } // main
 } // ToyRobot

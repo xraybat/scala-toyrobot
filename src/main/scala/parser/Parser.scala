@@ -12,14 +12,15 @@ import toyrobot.directions._
 import toyrobot.directions.Directions.DirectionsList
 import toyrobot.directions.Directions.DirectionsListBuffer
 
+import util.control.Breaks._
+
 // parse to correct syntax, but not correct list logic (yet).
 class Parser {
 
   // @MUTABLE:
   private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer()
-  def directionsList: DirectionsList = _directionsList.toList
 
-  def parse(dl: PreParsedDirectionsList): Boolean = {
+  def parse(dl: PreParsedDirectionsList): Option[DirectionsList] = {
     def parserPlaceRobot[_: P] = 
       P(Command.PlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -42,31 +43,36 @@ class Parser {
 
     var result = true
 
-    for (command <- dl) {
-      fastparse.parse(command, parserCommands(_)) match {
-        case Parsed.Success(value, index) =>
-          value match {
-            case (p: String, x: Int, y: Int, o: String) => 
-              _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
+    for (command <- dl)
+      breakable {
+        fastparse.parse(command, parserCommands(_)) match {
+          case Parsed.Success(value, index) =>
+            value match {
+              case (p: String, x: Int, y: Int, o: String) => 
+                _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
 
-            case Command.PlaceObject => _directionsList += PlaceObject()
-            case Command.Move => _directionsList += Move()
-            case Command.Left => _directionsList += Left()
-            case Command.Right => _directionsList += Right()
-            case Command.Report => _directionsList += Report()
-            case _ => result = false
+              case Command.PlaceObject => _directionsList += PlaceObject()
+              case Command.Move => _directionsList += Move()
+              case Command.Left => _directionsList += Left()
+              case Command.Right => _directionsList += Right()
+              case Command.Report => _directionsList += Report()
+              case _ => result = false
 
-          } // match
-        case Parsed.Failure(expected, index, extra) => {
-          println(extra.trace().longMsg)
-          result = false
-        }
-        case _ => result = false
+            } // match
+          case Parsed.Failure(expected, index, extra) => {
+            println(extra.trace().longMsg)
+            result = false
+          }
+          case _ => result = false
 
-      } // match
-    } // for
+        } // match
 
-    result
+        // don't keep parsing
+        if (!result) break
+
+      } // breakable
+
+    if (result) Some(_directionsList.toList) else None
 
   } // parse
 } // Parser

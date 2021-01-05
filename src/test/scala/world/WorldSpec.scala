@@ -16,12 +16,12 @@ class WorldSpec(/*ignore: String*/) extends FlatSpec {
   "A World" should "accept a directions list and make a robot walk" in {
     val in: PreParsedDirectionsList = "PLACE 1,2,NORTH" :: "MOVE" :: "REPORT" :: Nil
     val p = new Parser
-    if (p.parse(in)) {
-      val w = new World(p.directionsList)
-      w.robotWalk
-      assert(true)
+    p.parse(in) match {
+      case Some(dl) => 
+        val w = new World(dl)
+        w.robotWalk
+        assert(true)
+      case _ => assert(false)
     }
-    else
-      assert(false)
   }
 } // WorldSpec
