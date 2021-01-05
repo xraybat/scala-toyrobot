@@ -4,7 +4,8 @@ import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.board._
 import toyrobot.parser._
-import toyrobot.parser.Parser.DirectionsList
+import toyrobot.directions._
+import toyrobot.directions.Directions.DirectionsList
 import toyrobot.robot._
 
 // leave input and parse outside of World, but handle

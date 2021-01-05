@@ -7,25 +7,19 @@ import toyrobot.point._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 import toyrobot.input._
-
-import scala.collection.mutable.ListBuffer
-
-// companion object
-object Parser {
-  type DirectionsList = List[Command]
-}
+import toyrobot.input.Input.PreParsedDirectionsList
+import toyrobot.directions._
+import toyrobot.directions.Directions.DirectionsList
+import toyrobot.directions.Directions.DirectionsListBuffer
 
 // parse to correct syntax, but not correct list logic (yet).
 class Parser {
 
-  // mutable ListBuffer only visible outside as immutable List
-  type DirectionsListBuffer = ListBuffer[Command]
   // @MUTABLE:
-  private var _directionsList: DirectionsListBuffer =
-    new DirectionsListBuffer()
-  def directionsList: Parser.DirectionsList = _directionsList.toList
+  private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer()
+  def directionsList: DirectionsList = _directionsList.toList
 
-  def parse(dl: Input.PreParsedDirectionsList): Boolean = {
+  def parse(dl: PreParsedDirectionsList): Boolean = {
     def parserPlaceRobot[_: P] = 
       P(Command.PlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)

@@ -5,7 +5,8 @@ import toyrobot.point._
 import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
-import toyrobot.parser.Parser.DirectionsList
+import toyrobot.directions._
+import toyrobot.directions.Directions.DirectionsList
 import toyrobot.robot._
 import toyrobot.world._
 
