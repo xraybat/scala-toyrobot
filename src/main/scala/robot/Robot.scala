@@ -4,12 +4,11 @@ import toyrobot.board._
 import toyrobot.point._
 import toyrobot.parser._
 import toyrobot.directions._
-import toyrobot.directions.Directions.DirectionsList
 import toyrobot.command._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
-class Robot(val board: Board, val directions: DirectionsList) {
+class Robot(val board: Board, val directions: Directions) {
 
   // @MUTABLE:
   var _currPoint: Point = _
@@ -27,16 +26,16 @@ class Robot(val board: Board, val directions: DirectionsList) {
   def isBlocked(pt: Point): Boolean = board.isBlocked(pt)
 
   def walk: Unit = {
-    for (command <- directions) {
+    for (command <- directions.directionsList) {
       command match {
         case PlaceRobot(pt: Point, o: Orientation) => {
           Command.placeRobot(board, pt, o) match {
             case (true, pt, o) =>
               _inPlace = true; _currPoint = pt; _currOrientation = o
-              println(s"Robot.walk: PLACEd at ${pt}, ${o}")
+              directions.addResult(s"Robot.walk: PLACEd at ${pt}, ${o}")
             case (false, pt, _) =>
               _inPlace = false
-              println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
+              directions.addResult(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
             case _ => // @QU: ??
           }
         }
@@ -45,7 +44,7 @@ class Robot(val board: Board, val directions: DirectionsList) {
           if (inPlace)
             Command.placeObject(board, point, orientation)
           else
-            println(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
+            directions.addResult(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
 
         case Move() =>
           if (inPlace) {
@@ -53,9 +52,9 @@ class Robot(val board: Board, val directions: DirectionsList) {
               case (true, pt) => _currPoint = pt
               case (false, pt) => 
                 if (inBounds(pt) && isBlocked(pt))
-                  println(s"Robot.walk: can't MOVE to ${pt} 'cos i'm blocked!")
+                  directions.addResult(s"Robot.walk: can't MOVE to ${pt} 'cos i'm blocked!")
                 else
-                  println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board 'cos it's out of bounds!")
+                  directions.addResult(s"Robot.walk: can't MOVE to ${pt} on a ${board} board 'cos it's out of bounds!")
               case _ => // @QU: ??
             }
           }
@@ -67,9 +66,9 @@ class Robot(val board: Board, val directions: DirectionsList) {
 
         case Report() =>
           if (inPlace)
-            println(s"Robot.walk: REPORTing from ${point}, ${orientation}")
+            directions.addResult(s"Robot.walk: REPORTing from ${point}, ${orientation}")
           else
-            println(s"Robot.walk: REPORTing that i'm not in PLACE!")
+            directions.addResult(s"Robot.walk: REPORTing that i'm not in PLACE!")
 
       } // match
     } // for
