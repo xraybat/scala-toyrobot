@@ -6,39 +6,44 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
 // for use in parsed directions list
-abstract class Command {}
-case class PlaceRobot(val pt: Point, val o: Orientation) extends Command {}
-case class PlaceObject() extends Command {}
-case class Move() extends Command {}
-case class Left() extends Command {}
-case class Right() extends Command {}
-case class Report() extends Command {}
+sealed abstract class Command {}
 
-// companion object. for use in input to be parsed; not an
-// enum (for 'stable identifier' matching)
-object Command {
-  val PlaceRobot = "PLACE"
-  val PlaceObject = "PLACE_OBJECT"
-  val Move = "MOVE"
-  val Left = "LEFT"
-  val Right = "RIGHT"
-  val Report = "REPORT"
+case class PlaceRobot(point: Point, orientation: Orientation) extends Command {
+  def place(board: Board): (Boolean, Point, Orientation) =
+    if (board.inBounds(point)) (true, point, orientation) else (false, point, orientation)
+}
 
-  def placeRobot(b: Board, pt: Point, o: Orientation): (Boolean, Point, Orientation) =
-    if (b.inBounds(pt)) (true, pt, o) else (false, pt, o)
-
+case class PlaceObject() extends Command {
   // use current point and orientation to set blocked point on board
-  def placeObject(b: Board, pt: Point, o: Orientation): Unit = b.Block(pt, o)
+  def place(board: Board, point: Point, orientation: Orientation): Unit =
+    board.Block(point, orientation)
+}
 
+case class Move() extends Command {
   def move(b: Board, pt: Point, o: Orientation): (Boolean, Point) = {
     // only MOVE is concerned with blocked points
     val movePt = Point.move(pt, o)
     if (b.inBounds(movePt) && !b.isBlocked(movePt)) (true, movePt) else (false, movePt)
   }
+}
 
-  def left(o: Orientation): Orientation = Orientation.turnLeft(o)
-  def right(o: Orientation): Orientation = Orientation.turnRight(o)
+case class Left() extends Command {
+  def turn(orientation: Orientation): Orientation = Orientation.turnLeft(orientation)
+}
 
-  def report = ???
+case class Right() extends Command {
+  def turn(orientation: Orientation): Orientation = Orientation.turnRight(orientation)
+}
 
-} // Command
+case class Report() extends Command {}
+
+// companion object. for use in input to be parsed; not an
+// enum (for 'stable identifier' matching)
+object Command {
+  val keywordPlaceRobot = "PLACE"
+  val keywordPlaceObject = "PLACE_OBJECT"
+  val keywordMove = "MOVE"
+  val keywordLeft = "LEFT"
+  val keywordRight = "RIGHT"
+  val keywordReport = "REPORT"
+}

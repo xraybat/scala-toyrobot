@@ -28,47 +28,43 @@ class Robot(val board: Board, val directions: Directions) {
   def walk: Unit = {
     for (command <- directions.directionsList) {
       command match {
-        case PlaceRobot(pt: Point, o: Orientation) => {
-          Command.placeRobot(board, pt, o) match {
+        case placeRobot: PlaceRobot =>
+          placeRobot.place(board) match {
             case (true, pt, o) =>
               _inPlace = true; _currPoint = pt; _currOrientation = o
-              directions.addResult(s"Robot.walk: PLACEd at ${pt}, ${o}")
+              directions.addResult(placeRobot, _inPlace, None)
             case (false, pt, _) =>
               _inPlace = false
-              directions.addResult(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
+              directions.addResult(placeRobot, _inPlace, Some(board))
             case _ => // @QU: ??
           }
-        }
 
-        case PlaceObject() =>
+        case placeObject: PlaceObject =>
           if (inPlace)
-            Command.placeObject(board, point, orientation)
+            placeObject.place(board, point, orientation)
           else
-            directions.addResult(s"Robot.walk: can't PLACE_OBJECTs until in PLACE!")
+            directions.addResult(placeObject, inPlace)
 
-        case Move() =>
+        case move: Move =>
           if (inPlace) {
-            Command.move(board, point, orientation) match {
+            move.move(board, point, orientation) match {
               case (true, pt) => _currPoint = pt
               case (false, pt) => 
-                if (inBounds(pt) && isBlocked(pt))
-                  directions.addResult(s"Robot.walk: can't MOVE to ${pt} 'cos i'm blocked!")
-                else
-                  directions.addResult(s"Robot.walk: can't MOVE to ${pt} on a ${board} board 'cos it's out of bounds!")
+                directions.addResult(move, pt, board)
               case _ => // @QU: ??
             }
           }
 
-        case Left() =>
-          if (inPlace) _currOrientation = Command.left(orientation)
-        case Right() =>
-          if (inPlace) _currOrientation = Command.right(orientation)
+        case left: Left =>
+          if (inPlace) _currOrientation = left.turn(orientation)
+        case right: Right =>
+          if (inPlace) _currOrientation = right.turn(orientation)
 
-        case Report() =>
+        case report: Report =>
           if (inPlace)
-            directions.addResult(s"Robot.walk: REPORTing from ${point}, ${orientation}")
+            directions.addResult(report, inPlace, Some(point), Some(orientation))
           else
-            directions.addResult(s"Robot.walk: REPORTing that i'm not in PLACE!")
+            directions.addResult(report, inPlace, None, None)
 
       } // match
     } // for
