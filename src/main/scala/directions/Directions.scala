@@ -28,7 +28,7 @@ class Directions(val directionsList: Directions.DirectionsList) {
     if (inPlace)
       _resultsList += s"${_prefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
     else
-      _resultsList += s"${_prefix}can't PLACE at ${placeRobot.point} on a ${Some(board)} board!"
+      _resultsList += s"${_prefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse(new Board(0, 0))} board!"
   }
 
   def addResult(placeObject: PlaceObject, inPlace: Boolean) =
