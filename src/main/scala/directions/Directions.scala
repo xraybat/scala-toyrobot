@@ -19,32 +19,33 @@ object Directions {
   private val ResultPrefix = "Robot.walk: "
 }
 
-class Directions(val directionsList: Directions.DirectionsList) {
+import Directions._
+
+class Directions(val directionsList: DirectionsList) {
 
   // @MUTABLE
-  private var _resultsList: Directions.ResultsListBuffer = new Directions.ResultsListBuffer()
+  private var _resultsList: ResultsListBuffer = new ResultsListBuffer()
 
-  def addResult(placeRobot: PlaceRobot, inPlace: Boolean, board: Option[Board]) = {
+  def addResult(placeRobot: PlaceRobot, inPlace: Boolean, board: Option[Board]) =
     if (inPlace)
-      _resultsList += s"${Directions.ResultPrefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
+      _resultsList += s"${ResultPrefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
     else
-      _resultsList += s"${Directions.ResultPrefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse(new Board(0, 0))} board!"
-  }
+      _resultsList += s"${ResultPrefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse(new Board(0, 0))} board!"
 
   def addResult(placeObject: PlaceObject, inPlace: Boolean) =
-    if (!inPlace) _resultsList += s"${Directions.ResultPrefix}can't PLACE_OBJECTs until in PLACE!"
+    if (!inPlace) _resultsList += s"${ResultPrefix}can't PLACE_OBJECTs until in PLACE!"
 
   def addResult(move: Move, point: Point, board: Board) = 
     if (board.inBounds(point) && board.isBlocked(point))
-      _resultsList += s"${Directions.ResultPrefix}can't MOVE to ${point} 'cos i'm blocked!"
+      _resultsList += s"${ResultPrefix}can't MOVE to ${point} 'cos i'm blocked!"
     else
-      _resultsList += s"${Directions.ResultPrefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
+      _resultsList += s"${ResultPrefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
 
   def addResult(report: Report, inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]) = 
     if (inPlace)
-      _resultsList += s"${Directions.ResultPrefix}REPORTing from ${point.getOrElse(Point(-1, -1))}, ${orientation.getOrElse(Orientation.North)}"
+      _resultsList += s"${ResultPrefix}REPORTing from ${point.getOrElse(Point(-1, -1))}, ${orientation.getOrElse(Orientation.North)}"
     else
-      _resultsList += s"${Directions.ResultPrefix}REPORTing that i'm not in PLACE!"
+      _resultsList += s"${ResultPrefix}REPORTing that i'm not in PLACE!"
 
   def printResults: Unit = _resultsList.foreach { println }
 
