@@ -12,15 +12,15 @@ import toyrobot.orientation.Orientation._
 class CommandSpec(/*ignore: String*/) extends FlatSpec {
   "The Commands" should "have uppercase values" in {
     assert(
-      keywordPlaceRobot.toString == "PLACE"
-      && keywordPlaceObject.toString == "PLACE_OBJECT"
-      && keywordMove.toString == "MOVE"
-      && keywordLeft.toString == "LEFT"
-      && keywordRight.toString == "RIGHT"
-      && keywordReport.toString == "REPORT")
+      KeywordPlaceRobot.toString == "PLACE"
+      && KeywordPlaceObject.toString == "PLACE_OBJECT"
+      && KeywordMove.toString == "MOVE"
+      && KeywordLeft.toString == "LEFT"
+      && KeywordRight.toString == "RIGHT"
+      && KeywordReport.toString == "REPORT")
   }
   "There is a new Command" should "called PLACE_OBJECT" in {
-    assert(keywordPlaceObject.toString == "PLACE_OBJECT")
+    assert(KeywordPlaceObject.toString == "PLACE_OBJECT")
   }
 
   private val board = new Board

@@ -22,7 +22,7 @@ class Parser {
 
   def parse(dl: PreParsedDirectionsList): Option[DirectionsList] = {
     def parserPlaceRobot[_: P] = 
-      P(Command.keywordPlaceRobot.!
+      P(Command.KeywordPlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
           ~ ","
           ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -34,11 +34,11 @@ class Parser {
         ~ End)
     def parserCommands[_: P] = 
       P(parserPlaceRobot
-        | Command.keywordPlaceObject.!
-        | Command.keywordMove.!
-        | Command.keywordLeft.!
-        | Command.keywordRight.!
-        | Command.keywordReport.!
+        | Command.KeywordPlaceObject.!
+        | Command.KeywordMove.!
+        | Command.KeywordLeft.!
+        | Command.KeywordRight.!
+        | Command.KeywordReport.!
         ~ End)
 
     var result = true
@@ -51,11 +51,11 @@ class Parser {
               case (p: String, x: Int, y: Int, o: String) => 
                 _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
 
-              case Command.keywordPlaceObject => _directionsList += PlaceObject()
-              case Command.keywordMove => _directionsList += Move()
-              case Command.keywordLeft => _directionsList += Left()
-              case Command.keywordRight => _directionsList += Right()
-              case Command.keywordReport => _directionsList += Report()
+              case Command.KeywordPlaceObject => _directionsList += PlaceObject()
+              case Command.KeywordMove => _directionsList += Move()
+              case Command.KeywordLeft => _directionsList += Left()
+              case Command.KeywordRight => _directionsList += Right()
+              case Command.KeywordReport => _directionsList += Report()
               case _ => result = false
 
             } // match

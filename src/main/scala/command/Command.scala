@@ -40,10 +40,10 @@ case class Report() extends Command {}
 // companion object. for use in input to be parsed; not an
 // enum (for 'stable identifier' matching)
 object Command {
-  val keywordPlaceRobot = "PLACE"
-  val keywordPlaceObject = "PLACE_OBJECT"
-  val keywordMove = "MOVE"
-  val keywordLeft = "LEFT"
-  val keywordRight = "RIGHT"
-  val keywordReport = "REPORT"
+  val KeywordPlaceRobot = "PLACE"
+  val KeywordPlaceObject = "PLACE_OBJECT"
+  val KeywordMove = "MOVE"
+  val KeywordLeft = "LEFT"
+  val KeywordRight = "RIGHT"
+  val KeywordReport = "REPORT"
 }
