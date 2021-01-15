@@ -50,17 +50,31 @@ class CommandSpec(/*ignore: String*/) extends FlatSpec {
       case _ => assert(false)
     }
   }
-  "A Command" should "NOT move when blocked" in {
+  "A Command" should "NOT move when an Object has been Place in front of it" in {
     val blockBoard = new Board
     val pt = Point(1, 2)
     val o = Orientation.North
 
     assert(!blockBoard.isBlocked(Point(1, 3)))
-    blockBoard.Block(pt, o)
+    PlaceObject().place(blockBoard, pt, o)
     assert(blockBoard.isBlocked(Point(1, 3)))
 
     Move().move(blockBoard, pt, o) match {
       case (false, _) => assert(true)
+      case _ => assert(false)
+    }
+  }
+  "A Command" should "move when an Object has been Placed elsewhere" in {
+    val blockBoard = new Board
+    val pt = Point(1, 2)
+    val o = Orientation.North
+
+    assert(!blockBoard.isBlocked(Point(1, 3)))
+    PlaceObject().place(blockBoard, pt, o)
+    assert(blockBoard.isBlocked(Point(1, 3)))
+
+    Move().move(blockBoard, pt, Right().turn(o)) match {
+      case (true, _) => assert(true)
       case _ => assert(false)
     }
   }
