@@ -24,7 +24,7 @@ import Directions._
 class Directions(val directionsList: DirectionsList) {
 
   // @MUTABLE
-  private var _results: ResultsListBuffer = new ResultsListBuffer()
+  private var _results: ResultsListBuffer = new ResultsListBuffer
 
   def addResult(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]) =
     if (inPlace)
