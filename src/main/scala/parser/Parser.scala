@@ -23,7 +23,7 @@ class Parser {
   // @MUTABLE:
   private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer
 
-  def parse(dl: PreParsedDirectionsList): Try[DirectionsList] = {
+  def parse(directions: PreParsedDirectionsList): Try[DirectionsList] = {
     def parserPlaceRobot[_: P] = 
       P(Command.KeywordPlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -47,7 +47,7 @@ class Parser {
     var result = true
     var error = ""
 
-    for (command <- dl) breakable {
+    for (command <- directions) breakable {
       fastparse.parse(command, parserCommands(_)) match {
         case Parsed.Success(value, index) =>
           value match {
