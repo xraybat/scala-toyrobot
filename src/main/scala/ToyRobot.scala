@@ -6,6 +6,7 @@ import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
 import toyrobot.directions._
+import toyrobot.results._
 import toyrobot.robot._
 import toyrobot.world._
 
@@ -39,10 +40,9 @@ object ToyRobot {
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) => 
-        val d = new Directions(dl)
-        val w = new World(d)
-        w.robotWalk
-        d.printResults
+        val w = new World(new Directions(dl))
+        val r = w.robotWalk
+        r.printResults
       case Failure(e) => println(s"$e")
     }
   } // main

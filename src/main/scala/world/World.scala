@@ -6,6 +6,7 @@ import toyrobot.board._
 import toyrobot.parser._
 import toyrobot.directions._
 import toyrobot.robot._
+import toyrobot.results._
 
 // leave input and parse outside of World, but handle
 // robot here.
@@ -14,7 +15,6 @@ class World(val directions: Directions) {
   private val board = new Board
   private val robot = new Robot(board, directions)
 
-  def robotWalk: Unit = {
-    robot.walk
-  }
+  def robotWalk: Results = robot.walk
+
 } // World

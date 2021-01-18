@@ -27,7 +27,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
         val r = new Robot(b, new Directions(dl))
         assert(
           r.board.xExtent == 5 && r.board.yExtent == 5
-          && r.directions.directionsList.length == 0)
+          && r.directions.list.length == 0)
       case _ => assert(false)
     }
   }

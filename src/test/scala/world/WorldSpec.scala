@@ -7,6 +7,7 @@ import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.board._
 import toyrobot.parser._
 import toyrobot.directions._
+import toyrobot.results._
 import toyrobot.robot._
 
 import scala.util.{Try,Success,Failure}
@@ -20,8 +21,8 @@ class WorldSpec(/*ignore: String*/) extends FlatSpec {
     p.parse(in) match {
       case Success(dl) => 
         val w = new World(new Directions(dl))
-        w.robotWalk
-        assert(true)
+        val r = w.robotWalk
+        assert(r.list.length == 2)
       case Failure(e) => assert(false)
     }
   }
