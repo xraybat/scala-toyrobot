@@ -9,6 +9,8 @@ import toyrobot.directions._
 import toyrobot.robot._
 import toyrobot.world._
 
+import scala.util.{Try,Success,Failure}
+
 object ToyRobot {
   def main(args: Array[String]): Unit = {
 
@@ -36,10 +38,12 @@ object ToyRobot {
     // use the (abstract) world rather than a robot
     val p = new Parser()
     p.parse(in) match {
-      case Some(dl) => 
-        val w = new World(new Directions(dl))
+      case Success(dl) => 
+        val d = new Directions(dl)
+        val w = new World(d)
         w.robotWalk
-      case _ => 
+        d.printResults
+      case Failure(e) => println(s"$e")
     }
   } // main
 } // ToyRobot

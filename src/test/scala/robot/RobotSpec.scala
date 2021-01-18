@@ -11,6 +11,8 @@ import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
 import toyrobot.directions._
 
+import scala.util.{Try,Success,Failure}
+
 // TDD-ing through the Robot setup and walk()
 //@Ignore
 class RobotSpec(/*ignore: String*/) extends FlatSpec {
@@ -21,7 +23,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         assert(
           r.board.xExtent == 5 && r.board.yExtent == 5
@@ -33,7 +35,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         assert(!r.inPlace)
       case _ => assert(false)
@@ -44,7 +46,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
@@ -56,7 +58,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 1,2,NORTH" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -70,7 +72,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "LEFT" :: "RIGHT" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
@@ -81,7 +83,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 2,3,NORTH" :: "REPORT" :: "PLACE 3,4,SOUTH" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -95,7 +97,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 5,5,NORTH" :: "MOVE" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
@@ -106,7 +108,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "REPORT" :: "LEFT" :: "REPORT" :: "LEFT" :: "REPORT" :: "RIGHT" :: "REPORT" :: "RIGHT" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -120,7 +122,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "LEFT" :: "LEFT" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -134,7 +136,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "LEFT" :: "LEFT" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: "MOVE" :: "REPORT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -155,7 +157,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val in = Input.fromFile((os.pwd/"resources"/"eg1.txt").toString)
     val p = new Parser()
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -169,7 +171,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val in = Input.fromFile((os.pwd/"resources"/"eg2.txt").toString)
     val p = new Parser()
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -183,7 +185,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val in = Input.fromFile((os.pwd/"resources"/"eg3.txt").toString)
     val p = new Parser()
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -203,7 +205,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE_OBJECT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
@@ -215,7 +217,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "MOVE" :: "PLACE_OBJECT" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -229,7 +231,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 0,0,NORTH" :: "PLACE_OBJECT" :: "MOVE" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(
@@ -244,7 +246,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val in: PreParsedDirectionsList = "PLACE 2,2,EAST" :: "PLACE_OBJECT" :: "LEFT" :: "MOVE" :: "RIGHT" :: "MOVE" :: "MOVE" :: "RIGHT" :: "MOVE" :: "RIGHT" :: "MOVE" :: Nil
     val p = new Parser
     p.parse(in) match {
-      case Some(dl) =>
+      case Success(dl) =>
         val r = new Robot(b, new Directions(dl))
         r.walk
         assert(

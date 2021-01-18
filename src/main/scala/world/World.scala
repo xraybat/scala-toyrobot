@@ -16,6 +16,5 @@ class World(val directions: Directions) {
 
   def robotWalk: Unit = {
     robot.walk
-    directions.printResults
   }
 } // World

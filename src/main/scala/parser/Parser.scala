@@ -13,14 +13,17 @@ import toyrobot.directions.Directions.DirectionsList
 import toyrobot.directions.Directions.DirectionsListBuffer
 
 import util.control.Breaks._
+import scala.util.{Try,Success,Failure }
+
+case class ParseException(private val message: String = "", private val cause: Throwable = None.orNull) extends Exception(message, cause)
 
 // parse to correct syntax, but not correct list logic (yet).
 class Parser {
 
   // @MUTABLE:
-  private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer()
+  private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer
 
-  def parse(dl: PreParsedDirectionsList): Option[DirectionsList] = {
+  def parse(dl: PreParsedDirectionsList): Try[DirectionsList] = {
     def parserPlaceRobot[_: P] = 
       P(Command.KeywordPlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -42,37 +45,32 @@ class Parser {
         ~ End)
 
     var result = true
+    var error = ""
 
-    for (command <- dl)
-      breakable {
-        fastparse.parse(command, parserCommands(_)) match {
-          case Parsed.Success(value, index) =>
-            value match {
-              case (p: String, x: Int, y: Int, o: String) => 
-                _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
+    for (command <- dl) breakable {
+      fastparse.parse(command, parserCommands(_)) match {
+        case Parsed.Success(value, index) =>
+          value match {
+            case (p: String, x: Int, y: Int, o: String) => 
+              _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
 
-              case Command.KeywordPlaceObject => _directionsList += PlaceObject()
-              case Command.KeywordMove => _directionsList += Move()
-              case Command.KeywordLeft => _directionsList += Left()
-              case Command.KeywordRight => _directionsList += Right()
-              case Command.KeywordReport => _directionsList += Report()
-              case _ => result = false
-
-            } // match
-          case Parsed.Failure(expected, index, extra) => {
-            println(extra.trace().longMsg)
-            result = false
+            case Command.KeywordPlaceObject => _directionsList += PlaceObject()
+            case Command.KeywordMove => _directionsList += Move()
+            case Command.KeywordLeft => _directionsList += Left()
+            case Command.KeywordRight => _directionsList += Right()
+            case Command.KeywordReport => _directionsList += Report()
           }
-          case _ => result = false
+        case Parsed.Failure(expected, index, extra) =>
+          error += extra.trace().longMsg + '\n'
+          result = false
+      }
 
-        } // match
+      // don't keep parsing
+      if (!result) break
 
-        // don't keep parsing
-        if (!result) break
+    } // for-breakable
 
-      } // breakable
-
-    if (result) Some(_directionsList.toList) else None
+    if (result) Success(_directionsList.toList) else Failure(ParseException(error))
 
   } // parse
 } // Parser
