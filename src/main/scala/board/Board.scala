@@ -6,13 +6,14 @@ import toyrobot.orientation.Orientation._
 
 import scala.collection.mutable.ListBuffer
 
-/* @TODO: don't need until god-World class??
 // companion object
 object Board {
-  // @TODO: move PointsList type to Point class??
-  type BlockedPointsList = List[Point] // @TODO: sparse list??
+  type BlockedPointsList = List[Point]
+  type BlockedPointsListBuffer = ListBuffer[Point]
 }
-*/
+
+import Board._
+
 class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
 
   def inBounds(pt: Point): Boolean = 
@@ -20,13 +21,11 @@ class Board(val xExtent: Int = 5, val yExtent: Int = 5) {
 
   def outBounds(pt: Point): Boolean = !inBounds(pt)
 
-  // mutable ListBuffer only visible outside as immutable List
-  type BlockedPointsListBuffer = ListBuffer[Point]   // @TODO: sparse list??
   // @MUTABLE:
-  private var _blockedPointsList: BlockedPointsListBuffer =
-    new BlockedPointsListBuffer()
+  private var _blockedPointsList: BlockedPointsListBuffer = new BlockedPointsListBuffer()
   /* @TODO: don't need until god-World class??
-  def pointsList: Board.BlockedPointsList = _pointsList.toList
+  // mutable ListBuffer only visible outside as immutable List
+  def blockedPointsList: Board.BlockedPointsList = _blockedPointsList.toList
   */
 
   def Block(pt: Point, o: Orientation): Unit = {
