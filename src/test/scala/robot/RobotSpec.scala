@@ -15,16 +15,16 @@ import scala.util.{Try,Success,Failure}
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
-class RobotSpec(/*ignore: String*/) extends FlatSpec {
+class RobotSpec(ignore: String) extends FlatSpec {
 
-  private val b = new Board
+  private val _b = new Board
 
   "A simple Robot" should "have a default Board, and DirectionsList" in {
     val in: PreParsedDirectionsList = Nil
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         assert(
           r.board.xExtent == 5 && r.board.yExtent == 5
           && r.directions.list.length == 0)
@@ -36,7 +36,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         assert(!r.inPlace)
       case _ => assert(false)
     }
@@ -47,7 +47,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -59,7 +59,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -73,7 +73,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -84,7 +84,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -98,7 +98,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -109,7 +109,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -123,7 +123,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -137,7 +137,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -149,16 +149,16 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
 } // RobotSpec
 
 // test PROBLEM.md examples
-class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
+class RobotEgSpec(ignore: String) extends FlatSpec {
 
-  private val b = new Board
+  private val _b = new Board
 
   "A Robot" should "handle eg1.txt" in {
     val in = Input.fromFile((os.pwd/"resources"/"eg1.txt").toString)
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -172,7 +172,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -186,7 +186,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(_b, new Directions(dl))
         r.walk
         assert(
           r.inPlace
@@ -198,7 +198,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
 } // RobotEgSpec
 
 // PLACE_OBJECT tests
-class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
+class RobotPlaceObjectSpec(ignore: String) extends FlatSpec {
 
   "A Robot" should "handle PLACE_OBJECT but not act on it if not in PLACE" in {
     val b = new Board

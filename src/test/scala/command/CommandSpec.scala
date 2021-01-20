@@ -9,7 +9,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
   
 //@Ignore
-class CommandSpec(/*ignore: String*/) extends FlatSpec {
+class CommandSpec(ignore: String) extends FlatSpec {
   "The Commands" should "have uppercase values" in {
     assert(
       KeywordPlaceRobot.toString == "PLACE"
@@ -23,29 +23,29 @@ class CommandSpec(/*ignore: String*/) extends FlatSpec {
     assert(KeywordPlaceObject.toString == "PLACE_OBJECT")
   }
 
-  private val board = new Board
+  private val _b = new Board
 
   "A Command" should "place a robot in place, with a Point and Orientation, when in bounds" in {
-    PlaceRobot(Point(1, 2), Orientation.North).place(board) match {
+    PlaceRobot(Point(1, 2), Orientation.North).place(_b) match {
       case (true, pt, o) => assert(pt == Point(1, 2) && o == Orientation.North)
       case _ => assert(false)
     }
   }
   "A Command" should "NOT place a robot when NOT in bounds" in {
-    PlaceRobot(Point(5, 5), Orientation.North).place(board) match {
+    PlaceRobot(Point(5, 5), Orientation.North).place(_b) match {
       case (false, _, _) => assert(true)
       case _ => assert(false)
     }
   }
 
   "A Command" should "move when when in bounds and not blocked" in {
-    Move().move(board, Point(1, 2), Orientation.North) match {
+    Move().move(_b, Point(1, 2), Orientation.North) match {
       case (true, pt) => assert(pt == Point(1, 3))
       case _ => assert(false)
     }
   }
   "A Command" should "NOT move when out of bounds" in {
-    Move().move(board, Point(1, 4), Orientation.North) match {
+    Move().move(_b, Point(1, 4), Orientation.North) match {
       case (false, _) => assert(true)
       case _ => assert(false)
     }
