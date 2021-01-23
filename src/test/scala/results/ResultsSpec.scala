@@ -18,10 +18,12 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
   private val _o = Orientation.North
 
   private val _prGood = PlaceRobot(_goodPt, _o)
-  private val _prGoodPlace = _prGood.place(_b)  // place it now
+  private val _prGoodPlace = _prGood.place(_b)  // place and...
+  assert(_prGoodPlace == (true, _goodPt, _o))   // ...test now
 
   private val _prBad = PlaceRobot(_badPt, _o)
-  private val _prBadPlace = _prBad.place(_b)    // place it now
+  private val _prBadPlace = _prBad.place(_b)    // place and...
+  assert(_prBadPlace == (false, _badPt, _o))    // ...test now
 
   "A Results list" should "add a successful PlaceRobot command result" in {
     _prGoodPlace match {
