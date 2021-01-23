@@ -17,28 +17,31 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
   private val _badPt = Point(5, 5)
   private val _o = Orientation.North
 
+  private val _prGood = PlaceRobot(_goodPt, _o)
+  private val _prGoodPlace = _prGood.place(_b)  // place it now
+
+  private val _prBad = PlaceRobot(_badPt, _o)
+  private val _prBadPlace = _prBad.place(_b)    // place it now
+
   "A Results list" should "add a successful PlaceRobot command result" in {
-    val pr = PlaceRobot(_goodPt, _o)
-    pr.place(_b) match {
+    _prGoodPlace match {
       case (true, _, _) => 
-        _r.add(pr)(true, None)
+        _r.add(_prGood)(true, None)
         assert(true)
       case _ => assert(false)
     }
   }
   "A Results list" should "add a failed PlaceRobot command result" in {
-    val pr = PlaceRobot(_badPt, _o)
-    pr.place(_b) match {
+    _prBadPlace match {
       case (false, _, _) => 
-        _r.add(pr)(false, Some(_b))
+        _r.add(_prBad)(false, Some(_b))
         assert(true)
       case _ => assert(false)
     }
   }
   "A Results list" should "add a failed PlaceObject command result" in {
-    val pr = PlaceRobot(_badPt, _o)
     val po = PlaceObject()
-    pr.place(_b) match {
+    _prBadPlace match {
       case (false, _, _) => 
         _r.add(po)(false)
         assert(true)
@@ -46,7 +49,6 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     }
   }
   "A Results list" should "add a failed Move command result" in {
-    val pr = PlaceRobot(_badPt, _o)
     val m = Move()
     m.move(_b, _badPt, _o) match {
       case (false, pt) => 
@@ -58,7 +60,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
   "A Results list" should "add a successful Report command result" in {
     val pr = PlaceRobot(_goodPt, _o)
     val r = Report()
-    pr.place(_b) match {
+    _prGoodPlace match {
       case (true, _, _) => 
         _r.add(r)(true, Some(_goodPt), Some(_o))
         assert(true)
@@ -66,9 +68,8 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     }
   }
   "A Results list" should "add a failed Report command result" in {
-    val pr = PlaceRobot(_badPt, _o)
     val r = Report()
-    pr.place(_b) match {
+    _prBadPlace match {
       case (false, _, _) => 
         _r.add(r)(false, None, None)
         assert(true)
