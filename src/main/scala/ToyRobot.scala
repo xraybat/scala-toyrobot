@@ -42,7 +42,7 @@ object ToyRobot {
       case Success(dl) => 
         val w = new World(new Directions(dl))
         val r = w.robotWalk
-        r.printResults
+        r.print
       case Failure(e) => println(s"$e")
     }
   } // main

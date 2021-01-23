@@ -13,7 +13,7 @@ object Results {
   type ResultsList = List[String] // @TODO: first cut here??
   type ResultsListBuffer = ListBuffer[String]
 
-  private val ResultPrefix = "Robot.walk: "
+  private val Prefix = "Robot.walk: "
 }
 
 import Results._
@@ -24,27 +24,30 @@ class Results {
   private var _list: ResultsListBuffer = new ResultsListBuffer
   def list: ResultsList = _list.toList
 
-  def addResult(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]) =
+  def add(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]) =
     if (inPlace)
-      _list += s"${ResultPrefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
+      _list += s"${Prefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
     else
-      _list += s"${ResultPrefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse("(no board!)")} board!"
+      _list += s"${Prefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse("(no board!)")} board!"
 
-  def addResult(placeObject: PlaceObject)(inPlace: Boolean) =
-    if (!inPlace) _list += s"${ResultPrefix}can't PLACE_OBJECTs until in PLACE!"
+  def add(placeObject: PlaceObject)(inPlace: Boolean) =
+    if (!inPlace) _list += s"${Prefix}can't PLACE_OBJECTs until in PLACE!"
 
-  def addResult(move: Move)(point: Point, board: Board) = 
+  def add(move: Move)(point: Point, board: Board) = 
     if (board.inBounds(point) && board.isBlocked(point))
-      _list += s"${ResultPrefix}can't MOVE to ${point} 'cos i'm blocked!"
+      _list += s"${Prefix}can't MOVE to ${point} 'cos i'm blocked!"
     else
-      _list += s"${ResultPrefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
+      _list += s"${Prefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
 
-  def addResult(report: Report)(inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]) = 
+  def add(report: Report)(inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]) = 
     if (inPlace)
-      _list += s"${ResultPrefix}REPORTing from ${point.getOrElse("(no point!)")}, ${orientation.getOrElse("(no orientation!)")}"
+      _list += s"${Prefix}REPORTing from ${point.getOrElse("(no point!)")}, ${orientation.getOrElse("(no orientation!)")}"
     else
-      _list += s"${ResultPrefix}REPORTing that i'm not in PLACE!"
+      _list += s"${Prefix}REPORTing that i'm not in PLACE!"
 
-  def printResults: Unit = list.foreach { println }
+  def print: Unit = list.foreach { println }
+
+  // @QU:?? override def toString: String = list.foreach { yield }
+
 
 } // Results
