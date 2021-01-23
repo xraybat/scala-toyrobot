@@ -15,7 +15,7 @@ import scala.util.{Try,Success,Failure}
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
-class RobotSpec(ignore: String) extends FlatSpec {
+class RobotSpec(/*ignore: String*/) extends FlatSpec {
 
   private val _b = new Board
 
@@ -149,7 +149,7 @@ class RobotSpec(ignore: String) extends FlatSpec {
 } // RobotSpec
 
 // test PROBLEM.md examples
-class RobotEgSpec(ignore: String) extends FlatSpec {
+class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
 
   private val _b = new Board
 
@@ -198,7 +198,7 @@ class RobotEgSpec(ignore: String) extends FlatSpec {
 } // RobotEgSpec
 
 // PLACE_OBJECT tests
-class RobotPlaceObjectSpec(ignore: String) extends FlatSpec {
+class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
 
   "A Robot" should "handle PLACE_OBJECT but not act on it if not in PLACE" in {
     val b = new Board

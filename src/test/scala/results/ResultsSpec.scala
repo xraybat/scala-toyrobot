@@ -9,7 +9,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
 //@Ignore
-class ResultsSpec(/*ignore: String*/) extends FlatSpec {
+class ResultsSpec(ignore: String) extends FlatSpec {
 
   private val _r = new Results
   private val _b = new Board
@@ -60,7 +60,6 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     }
   }
   "A Results list" should "add a successful Report command result" in {
-    val pr = PlaceRobot(_goodPt, _o)
     val r = Report()
     _prGoodPlace match {
       case (true, _, _) => 
@@ -79,7 +78,6 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     }
   }
   "A Results list" should "have six entries by the end of this Spec" in {
-    _r.print
     assert(_r.list.length == 6)
   }
 } // ResultsSpec

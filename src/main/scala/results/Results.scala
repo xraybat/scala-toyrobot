@@ -45,9 +45,6 @@ class Results {
     else
       _list += s"${Prefix}REPORTing that i'm not in PLACE!"
 
-  def print: Unit = list.foreach { println }
-
-  // @QU:?? override def toString: String = list.foreach { yield }
-
+  override def toString: String = _list.mkString("\n")
 
 } // Results

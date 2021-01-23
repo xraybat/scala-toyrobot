@@ -13,7 +13,7 @@ import toyrobot.robot._
 import scala.util.{Try,Success,Failure}
 
 //@Ignore
-class WorldSpec(ignore: String) extends FlatSpec {
+class WorldSpec(/*ignore: String*/) extends FlatSpec {
 
   "A World" should "accept a directions list and make a robot walk" in {
     val in: PreParsedDirectionsList = "PLACE 1,2,NORTH" :: "MOVE" :: "REPORT" :: Nil
