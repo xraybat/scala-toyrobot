@@ -12,9 +12,9 @@ import toyrobot.results._
 // robot here.
 class World(val directions: Directions) {
 
-  private val board = new Board
-  private val robot = new Robot(board, directions)
+  private val _board = new Board
+  private val _robot = new Robot(_board, directions)
 
-  def robotWalk: Results = robot.walk
+  def robotWalk: Results = _robot.walk
 
 } // World
