@@ -1,19 +1,15 @@
-// @TODO: turn into a castor actor; a robot *is* an actor
-// after all...
 package toyrobot.robot
 
 import toyrobot.board._
 import toyrobot.point._
 import toyrobot.parser._
-import toyrobot.parser.Parser.DirectionsList
+import toyrobot.directions._
+import toyrobot.results._
 import toyrobot.command._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
-// leave parse outside of Robot, but handle correct list logic here.
-class Robot(
-  val board: Board,
-  val directions: DirectionsList) {
+class Robot(val board: Board, val directions: Directions) {
 
   // @MUTABLE:
   var _currPoint: Point = _
@@ -28,42 +24,53 @@ class Robot(
   def inBounds(pt: Point): Boolean = board.inBounds(pt)
   def outBounds(pt: Point): Boolean = !inBounds(pt)
   
-  // @TODO: make walk() recursive walk(point)??
-  // @ANS: no need, too simple
-  def walk: Unit = {
-    for (command <- directions) {
+  def isBlocked(pt: Point): Boolean = board.isBlocked(pt)
+
+  val _results = new Results
+
+  def walk: Results = {
+    for (command <- directions.list) {
       command match {
-        case Place(pt: Point, o: Orientation) => {
-          _inPlace = inBounds(pt)
-          if (inPlace) {
-            _currPoint = pt
-            _currOrientation = o
-            println(s"Robot.walk: PLACEd at ${point}, ${orientation}")
+        case placeRobot: PlaceRobot =>
+          placeRobot.place(board) match {
+            case (true, pt, o) =>
+              _inPlace = true; _currPoint = pt; _currOrientation = o
+              _results.add(placeRobot)(_inPlace, None)
+            case (false, pt, _) =>
+              _inPlace = false
+              _results.add(placeRobot)(_inPlace, Some(board))
           }
+
+        case placeObject: PlaceObject =>
+          if (inPlace)
+            placeObject.place(board, point, orientation)
           else
-            println(s"Robot.walk: can't PLACE at ${pt} on a ${board} board!")
-        }
-        case Move() =>
+            _results.add(placeObject)(inPlace)
+
+        case move: Move =>
           if (inPlace) {
-            val pt = Point.move(point, orientation)
-            if (inBounds(pt))
-              _currPoint = pt
-            else
-              println(s"Robot.walk: can't MOVE to ${pt} on a ${board} board!")
+            move.move(board, point, orientation) match {
+              case (true, pt) => _currPoint = pt
+              case (false, pt) => 
+                _results.add(move)(pt, board)
+            }
           }
-        case Left() =>
+
+        case left: Left =>
+          if (inPlace) _currOrientation = left.turn(orientation)
+        case right: Right =>
+          if (inPlace) _currOrientation = right.turn(orientation)
+
+        case report: Report =>
           if (inPlace)
-            _currOrientation = Orientation.turnLeft(orientation)
-        case Right() =>
-          if (inPlace)
-            _currOrientation = Orientation.turnRight(orientation)
-        case Report() =>
-          if (inPlace)
-            println(s"Robot.walk: REPORTing from ${point}, ${orientation}")
+            _results.add(report)(inPlace, Some(point), Some(orientation))
           else
-            println(s"Robot.walk: REPORTing that i'm not in PLACE!")
+            _results.add(report)(inPlace, None, None)
 
       } // match
     } // for
+
+    _results
+
   } // walk
 } // Robot

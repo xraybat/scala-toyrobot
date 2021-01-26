@@ -1,23 +1,49 @@
 package toyrobot.command
 
+import toyrobot.board._
 import toyrobot.point._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
 // for use in parsed directions list
-abstract class Command {}
-case class Place(val pt: Point, val o: Orientation) extends Command {}
-case class Move() extends Command {}
-case class Left() extends Command {}
-case class Right() extends Command {}
+sealed abstract class Command {}
+
+case class PlaceRobot(point: Point, orientation: Orientation) extends Command {
+  def place(board: Board): (Boolean, Point, Orientation) =
+    if (board.inBounds(point)) (true, point, orientation) else (false, point, orientation)
+}
+
+case class PlaceObject() extends Command {
+  // use current point and orientation to set blocked point on board
+  def place(board: Board, point: Point, orientation: Orientation): Unit =
+    board.Block(point, orientation)
+}
+
+case class Move() extends Command {
+  def move(b: Board, pt: Point, o: Orientation): (Boolean, Point) = {
+    // only MOVE is concerned with blocked points
+    val movePt = Point.move(pt, o)
+    if (b.inBounds(movePt) && !b.isBlocked(movePt)) (true, movePt) else (false, movePt)
+  }
+}
+
+case class Left() extends Command {
+  def turn(orientation: Orientation): Orientation = Orientation.turnLeft(orientation)
+}
+
+case class Right() extends Command {
+  def turn(orientation: Orientation): Orientation = Orientation.turnRight(orientation)
+}
+
 case class Report() extends Command {}
 
 // companion object. for use in input to be parsed; not an
 // enum (for 'stable identifier' matching)
 object Command {
-  val Place = "PLACE"
-  val Move = "MOVE"
-  val Left = "LEFT"
-  val Right = "RIGHT"
-  val Report = "REPORT"
+  val KeywordPlaceRobot = "PLACE"
+  val KeywordPlaceObject = "PLACE_OBJECT"
+  val KeywordMove = "MOVE"
+  val KeywordLeft = "LEFT"
+  val KeywordRight = "RIGHT"
+  val KeywordReport = "REPORT"
 }
