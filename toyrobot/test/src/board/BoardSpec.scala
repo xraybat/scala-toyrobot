@@ -7,7 +7,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
 //@Ignore
-class BoardSpec(ignore: String) extends FlatSpec {
+class BoardSpec(/*ignore: String*/) extends FlatSpec {
   "A default Board" should "have extent 5x5" in {
     val b = new Board
     assert(b.xExtent == 5 && b.yExtent == 5)
@@ -58,7 +58,7 @@ class BoardSpec(ignore: String) extends FlatSpec {
 } // BoardSpec
 
 //@Ignore
-class BoardBlockSpec(ignore: String) extends FlatSpec {
+class BoardBlockSpec(/*ignore: String*/) extends FlatSpec {
   "A new Board" should "not be blocked on Point (0, 0)" in {
     val b = new Board
     assert(!b.isBlocked(Point(0, 0)))

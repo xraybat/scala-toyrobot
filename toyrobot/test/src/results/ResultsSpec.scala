@@ -9,7 +9,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
 //@Ignore
-class ResultsSpec(ignore: String) extends FlatSpec {
+class ResultsSpec(/*ignore: String*/) extends FlatSpec {
 
   private val _r = new Results
   private val _b = new Board

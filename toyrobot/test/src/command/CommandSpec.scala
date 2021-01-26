@@ -9,7 +9,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
   
 //@Ignore
-class CommandSpec(ignore: String) extends FlatSpec {
+class CommandSpec(/*ignore: String*/) extends FlatSpec {
   "The Commands" should "have uppercase values" in {
     assert(
       KeywordPlaceRobot.toString == "PLACE"
