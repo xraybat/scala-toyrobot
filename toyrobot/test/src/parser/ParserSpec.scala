@@ -7,7 +7,7 @@ import toyrobot.input.Input.PreParsedDirectionsList
 
 import scala.util.{Try,Success,Failure}
 
-class ParserSpec(ignore: String) extends FlatSpec {
+class ParserSpec(/*ignore: String*/) extends FlatSpec {
   "A PreParsedDirectionsList parse" should "not parse rubbish" in {
     val rubbish: PreParsedDirectionsList = "hello," :: "how" :: "are" :: "you?" :: Nil
     val p = new Parser

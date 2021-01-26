@@ -5,7 +5,7 @@ import org.scalatest.FlatSpec
 import toyrobot.orientation.Orientation._
 
 //@Ignore
-class OrientationSpec(ignore: String) extends FlatSpec {
+class OrientationSpec(/*ignore: String*/) extends FlatSpec {
   "The Orientation enumeration" should "have uppercase values" in {
     assert(Orientation.North.toString == "NORTH"
            && Orientation.East.toString == "EAST"
