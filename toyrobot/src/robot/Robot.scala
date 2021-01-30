@@ -29,8 +29,11 @@ class Robot(val board: Board, val directions: Directions) {
   val _results = new Results
 
   def walk: Results = {
-    for (command <- directions.list) {
-      command match {
+
+    directions.list.foreach { processCommand }
+
+    def processCommand(cmd: Command): Unit = {
+      cmd match {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
             case (true, pt, o) =>
@@ -68,7 +71,7 @@ class Robot(val board: Board, val directions: Directions) {
             _results.add(report)(inPlace, None, None)
 
       } // match
-    } // for
+    } // processCommand
 
     _results
 
