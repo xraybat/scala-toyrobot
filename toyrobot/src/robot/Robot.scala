@@ -40,24 +40,24 @@ class Robot(val board: Board, val directions: Directions) {
           placeRobot.place(board) match {
             case (true, pt, o) =>
               _inPlace = true; _currPoint = pt; _currOrientation = o
-              _results.add(placeRobot)(_inPlace, None)
+              _results.add(Results.msg(placeRobot)(_inPlace, None))
             case (false, pt, _) =>
               _inPlace = false
-              _results.add(placeRobot)(_inPlace, Some(board))
+              _results.add(Results.msg(placeRobot)(_inPlace, Some(board)))
           }
 
         case placeObject: PlaceObject =>
           if (inPlace)
             placeObject.place(board, point, orientation)
           else
-            _results.add(placeObject)(inPlace)
+            _results.add(Results.msg(placeObject)(inPlace))
 
         case move: Move =>
           if (inPlace) {
             move.move(board, point, orientation) match {
               case (true, pt) => _currPoint = pt
               case (false, pt) => 
-                _results.add(move)(pt, board)
+                _results.add(Results.msg(move)(pt, board))
             }
           }
 
@@ -68,9 +68,9 @@ class Robot(val board: Board, val directions: Directions) {
 
         case report: Report =>
           if (inPlace)
-            _results.add(report)(inPlace, Some(point), Some(orientation))
+            _results.add(Results.msg(report)(inPlace, Some(point), Some(orientation)))
           else
-            _results.add(report)(inPlace, None, None)
+            _results.add(Results.msg(report)(inPlace, None, None))
 
       } // match
     } // processCommand

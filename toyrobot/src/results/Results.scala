@@ -46,6 +46,9 @@ class Results {
   private var _list: ResultsListBuffer = new ResultsListBuffer
   def list: ResultsList = _list.toList
 
+  def add(s: String): Unit =
+    _list += s
+
   def add(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]): Unit =
     _list += msg(placeRobot)(inPlace, board)
 
