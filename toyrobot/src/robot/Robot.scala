@@ -30,7 +30,9 @@ class Robot(val board: Board, val directions: Directions) {
 
   def walk: Results = {
 
-    directions.list.foreach { processCommand }
+    directions.list.foreach { cmd =>
+      processCommand(cmd)
+    }
 
     def processCommand(cmd: Command): Unit = {
       cmd match {
