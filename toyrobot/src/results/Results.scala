@@ -13,8 +13,30 @@ object Results {
   type ResultsList = List[String] // @TODO: first cut here??
   type ResultsListBuffer = ListBuffer[String]
 
+  def msg(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]): String =
+    if (inPlace)
+      s"${Prefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
+    else
+      s"${Prefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse("(no board!)")} board!"
+
+  def msg(placeObject: PlaceObject)(inPlace: Boolean): String =
+    s"${Prefix}can't PLACE_OBJECTs until in PLACE!"
+
+  def msg(move: Move)(point: Point, board: Board): String = 
+    if (board.inBounds(point) && board.isBlocked(point))
+      s"${Prefix}can't MOVE to ${point} 'cos i'm blocked!"
+    else
+      s"${Prefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
+
+  def msg(report: Report)(inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]): String = 
+    if (inPlace)
+      s"${Prefix}REPORTing from ${point.getOrElse("(no point!)")}, ${orientation.getOrElse("(no orientation!)")}"
+    else
+      s"${Prefix}REPORTing that i'm not in PLACE!"
+
   private val Prefix = "Robot.walk: "
-}
+
+} // Results
 
 import Results._
 
@@ -24,26 +46,17 @@ class Results {
   private var _list: ResultsListBuffer = new ResultsListBuffer
   def list: ResultsList = _list.toList
 
-  def add(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]) =
-    if (inPlace)
-      _list += s"${Prefix}PLACEd at ${placeRobot.point}, ${placeRobot.orientation}"
-    else
-      _list += s"${Prefix}can't PLACE at ${placeRobot.point} on a ${board.getOrElse("(no board!)")} board!"
+  def add(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]): Unit =
+    _list += msg(placeRobot)(inPlace, board)
 
-  def add(placeObject: PlaceObject)(inPlace: Boolean) =
-    if (!inPlace) _list += s"${Prefix}can't PLACE_OBJECTs until in PLACE!"
+  def add(placeObject: PlaceObject)(inPlace: Boolean): Unit =
+    _list += msg(placeObject)(inPlace)
 
-  def add(move: Move)(point: Point, board: Board) = 
-    if (board.inBounds(point) && board.isBlocked(point))
-      _list += s"${Prefix}can't MOVE to ${point} 'cos i'm blocked!"
-    else
-      _list += s"${Prefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
+  def add(move: Move)(point: Point, board: Board): Unit = 
+   _list += msg(move)(point, board)
 
-  def add(report: Report)(inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]) = 
-    if (inPlace)
-      _list += s"${Prefix}REPORTing from ${point.getOrElse("(no point!)")}, ${orientation.getOrElse("(no orientation!)")}"
-    else
-      _list += s"${Prefix}REPORTing that i'm not in PLACE!"
+  def add(report: Report)(inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]): Unit = 
+    _list += msg(report)(inPlace, point, orientation)
 
   override def toString: String = _list.mkString("\n")
 
