@@ -15,8 +15,6 @@ object Robot {
   type Error = String
 }
 
-import Robot._
-
 class Robot(val board: Board, val directions: Directions) {
 
   // @MUTABLE:
@@ -57,7 +55,7 @@ class Robot(val board: Board, val directions: Directions) {
       }
     }
 
-    def processCommand(cmd: Command): Either[Error, State] = {
+    def processCommand(cmd: Command): scala.Either[Robot.Error, Robot.State] = {
       cmd match {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
