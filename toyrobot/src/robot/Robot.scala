@@ -51,7 +51,7 @@ class Robot(val board: Board, val directions: Directions) {
             case Some(msg) => _results.add(msg)
             case _ =>
           }
-        case scala.Left(error) => _results.add(error)
+        case scala.Left(err) => _results.add(err)
       }
     }
 
