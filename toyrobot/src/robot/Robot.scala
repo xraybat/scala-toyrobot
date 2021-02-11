@@ -9,6 +9,14 @@ import toyrobot.command._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
+// companion object
+object Robot {
+  type State = (Boolean, Point, Orientation, Option[String])
+  type Error = String
+}
+
+import Robot._
+
 class Robot(val board: Board, val directions: Directions) {
 
   // @MUTABLE:
@@ -31,47 +39,67 @@ class Robot(val board: Board, val directions: Directions) {
   def walk: Results = {
 
     directions.list.foreach { cmd =>
-      processCommand(cmd)
+      processCommand(cmd) match {
+        /* @TODO
+        case Right((ip, pt, o, info)) =>
+          _inPlace = ip; _currPoint = pt; _currOrientation = o
+          info match {
+            case Some(msg) => _results.add(msg)
+            case _ =>
+          }*/
+        case scala.Right(state) =>
+          _inPlace = state._1; _currPoint = state._2; _currOrientation = state._3
+          state._4 match {
+            case Some(msg) => _results.add(msg)
+            case _ =>
+          }
+        case scala.Left(error) => _results.add(error)
+      }
     }
 
-    def processCommand(cmd: Command): Unit = {
+    def processCommand(cmd: Command): Either[Error, State] = {
       cmd match {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
-            case (true, pt, o) =>
-              _inPlace = true; _currPoint = pt; _currOrientation = o
-              _results.add(Results.msg(placeRobot)(_inPlace, None))
-            case (false, pt, _) =>
-              _inPlace = false
-              _results.add(Results.msg(placeRobot)(_inPlace, Some(board)))
+            case (true, pt, o) => scala.Right((true, pt, o, Some(Results.msg(placeRobot)(true, None))))
+            case (false, pt, _) => scala.Left(Results.msg(placeRobot)(false, Some(board)))
           }
 
         case placeObject: PlaceObject =>
-          if (inPlace)
-            placeObject.place(board, point, orientation)
-          else
-            _results.add(Results.msg(placeObject)(inPlace))
+          inPlace match {
+            case true =>
+              placeObject.place(board, point, orientation)
+              scala.Right((true, point, orientation, None))
+            case false => scala.Left(Results.msg(placeObject)(inPlace))
+          }
 
         case move: Move =>
-          if (inPlace) {
-            move.move(board, point, orientation) match {
-              case (true, pt) => _currPoint = pt
-              case (false, pt) => 
-                _results.add(Results.msg(move)(pt, board))
-            }
+          inPlace match {
+            case true =>
+              move.move(board, point, orientation) match {
+                case (true, pt) => scala.Right((true, pt, orientation, None))
+                case (false, pt) => scala.Left(Results.msg(move)(pt, board))
+              }
+            case false => scala.Left("can't move when not inPlace") // @TODO
           }
 
         case left: Left =>
-          if (inPlace) _currOrientation = left.turn(orientation)
+          inPlace match {
+            case true => scala.Right((inPlace, point, left.turn(orientation), None))
+            case false => scala.Left("can't turn when not inPlace") // @TODO
+          }
+
         case right: Right =>
-          if (inPlace) _currOrientation = right.turn(orientation)
+          inPlace match {
+            case true => scala.Right((inPlace, point, right.turn(orientation), None))
+            case false => scala.Left("can't turn when not inPlace") // @TODO
+          }
 
         case report: Report =>
-          if (inPlace)
-            _results.add(Results.msg(report)(inPlace, Some(point), Some(orientation)))
-          else
-            _results.add(Results.msg(report)(inPlace, None, None))
-
+          inPlace match {
+            case true => scala.Right((inPlace, point, orientation, Some(Results.msg(report)(inPlace, Some(point), Some(orientation)))))
+            case false => scala.Left(Results.msg(report)(inPlace, None, None))
+          }
       } // match
     } // processCommand
 
