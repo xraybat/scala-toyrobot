@@ -46,20 +46,7 @@ class Results {
   private var _list: ResultsListBuffer = new ResultsListBuffer
   def list: ResultsList = _list.toList
 
-  def add(s: String): Unit =
-    _list += s
-
-  def add(placeRobot: PlaceRobot)(inPlace: Boolean, board: Option[Board]): Unit =
-    _list += msg(placeRobot)(inPlace, board)
-
-  def add(placeObject: PlaceObject)(inPlace: Boolean): Unit =
-    _list += msg(placeObject)(inPlace)
-
-  def add(move: Move)(point: Point, board: Board): Unit = 
-   _list += msg(move)(point, board)
-
-  def add(report: Report)(inPlace: Boolean, point: Option[Point], orientation: Option[Orientation]): Unit = 
-    _list += msg(report)(inPlace, point, orientation)
+  def add(s: String): Unit =  _list += s
 
   override def toString: String = _list.mkString("\n")
 

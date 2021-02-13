@@ -28,7 +28,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
   "A Results list" should "add a successful PlaceRobot command result" in {
     _prGoodPlace match {
       case (true, _, _) => 
-        _r.add(_prGood)(true, None)
+        _r.add(Results.msg(_prGood)(true, None))
         assert(true)
       case _ => assert(false)
     }
@@ -36,7 +36,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
   "A Results list" should "add a failed PlaceRobot command result" in {
     _prBadPlace match {
       case (false, _, _) => 
-        _r.add(_prBad)(false, Some(_b))
+        _r.add(Results.msg(_prBad)(false, Some(_b)))
         assert(true)
       case _ => assert(false)
     }
@@ -45,7 +45,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     val po = PlaceObject()
     _prBadPlace match {
       case (false, _, _) => 
-        _r.add(po)(false)
+        _r.add(Results.msg(po)(false))
         assert(true)
       case _ => assert(false)
     }
@@ -54,7 +54,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     val m = Move()
     m.move(_b, _badPt, _o) match {
       case (false, pt) => 
-        _r.add(m)(pt, _b)
+        _r.add(Results.msg(m)(pt, _b))
         assert(true)
       case _ => assert(false)
     }
@@ -63,7 +63,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     val r = Report()
     _prGoodPlace match {
       case (true, _, _) => 
-        _r.add(r)(true, Some(_goodPt), Some(_o))
+        _r.add(Results.msg(r)(true, Some(_goodPt), Some(_o)))
         assert(true)
       case _ => assert(false)
     }
@@ -72,7 +72,7 @@ class ResultsSpec(/*ignore: String*/) extends FlatSpec {
     val r = Report()
     _prBadPlace match {
       case (false, _, _) => 
-        _r.add(r)(false, None, None)
+        _r.add(Results.msg(r)(false, None, None))
         assert(true)
       case _ => assert(false)
     }
