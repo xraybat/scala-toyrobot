@@ -46,7 +46,7 @@ class Results {
   private var _list: ResultsListBuffer = new ResultsListBuffer
   def list: ResultsList = _list.toList
 
-  def add(s: String): Unit =  _list += s
+  def add(s: String): Unit = _list += s
 
   override def toString: String = _list.mkString("\n")
 
