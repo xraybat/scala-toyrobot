@@ -18,14 +18,10 @@ object Robot {
 class Robot(val board: Board, val directions: Directions) {
 
   // @MUTABLE:
-  var _currPoint: Point = _
-  def point: Point = _currPoint
-  var _currOrientation: Orientation = _
-  def orientation: Orientation = _currOrientation
-
-  // @MUTABLE:
-  private var _inPlace: Boolean = false
-  def inPlace: Boolean = _inPlace
+  var _state: Robot.State = (false, Point(0, 0), Orientation.North, None)
+  def inPlace: Boolean = _state._1
+  def point: Point = _state._2
+  def orientation: Orientation = _state._3
 
   def inBounds(pt: Point): Boolean = board.inBounds(pt)
   def outBounds(pt: Point): Boolean = !inBounds(pt)
@@ -38,8 +34,9 @@ class Robot(val board: Board, val directions: Directions) {
 
     directions.list.foreach { cmd =>
       processCommand(cmd) match {
-        case scala.Right((ip, pt, o, info)) =>
-          _inPlace = ip; _currPoint = pt; _currOrientation = o
+        case scala.Right(state) =>
+          _state = state
+          val (ip, pt, o, info) = _state
           info match {
             case Some(msg) => _results.add(msg)
             case _ =>
