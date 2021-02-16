@@ -1,11 +1,5 @@
 package toyrobot.results
 
-import toyrobot.command._
-import toyrobot.board._
-import toyrobot.point._
-import toyrobot.orientation._
-import toyrobot.orientation.Orientation._
-
 import scala.collection.mutable.ListBuffer
 
 // companion object
