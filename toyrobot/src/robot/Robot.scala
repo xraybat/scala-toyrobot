@@ -38,16 +38,9 @@ class Robot(val board: Board, val directions: Directions) {
 
     directions.list.foreach { cmd =>
       processCommand(cmd) match {
-        /* @TODO
-        case Right((ip, pt, o, info)) =>
+        case scala.Right((ip, pt, o, info)) =>
           _inPlace = ip; _currPoint = pt; _currOrientation = o
           info match {
-            case Some(msg) => _results.add(msg)
-            case _ =>
-          }*/
-        case scala.Right(state) =>
-          _inPlace = state._1; _currPoint = state._2; _currOrientation = state._3
-          state._4 match {
             case Some(msg) => _results.add(msg)
             case _ =>
           }
