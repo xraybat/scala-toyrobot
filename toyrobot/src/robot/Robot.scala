@@ -49,8 +49,8 @@ class Robot(val board: Board, val directions: Directions) {
       cmd match {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
-            case (true, pt, o) => scala.Right((true, pt, o, Some(Results.msg(placeRobot)(true, None))))
-            case (false, pt, _) => scala.Left(Results.msg(placeRobot)(false, Some(board)))
+            case (true, pt, o) => scala.Right((true, pt, o, Some(placeRobot.msg)))
+            case (false, pt, _) => scala.Left(placeRobot.msg(board))
           }
 
         case placeObject: PlaceObject =>
@@ -58,7 +58,7 @@ class Robot(val board: Board, val directions: Directions) {
             case true =>
               placeObject.place(board, point, orientation)
               scala.Right((true, point, orientation, None))
-            case false => scala.Left(Results.msg(placeObject)(inPlace))
+            case false => scala.Left(placeObject.msg)
           }
 
         case move: Move =>
@@ -66,27 +66,27 @@ class Robot(val board: Board, val directions: Directions) {
             case true =>
               move.move(board, point, orientation) match {
                 case (true, pt) => scala.Right((true, pt, orientation, None))
-                case (false, pt) => scala.Left(Results.msg(move)(pt, board))
+                case (false, pt) => scala.Left(move.msg(pt, board))
               }
-            case false => scala.Left("can't move when not inPlace") // @TODO
+            case false => scala.Left(move.msg)
           }
 
         case left: Left =>
           inPlace match {
             case true => scala.Right((inPlace, point, left.turn(orientation), None))
-            case false => scala.Left("can't turn when not inPlace") // @TODO
+            case false => scala.Left(left.msg)
           }
 
         case right: Right =>
           inPlace match {
             case true => scala.Right((inPlace, point, right.turn(orientation), None))
-            case false => scala.Left("can't turn when not inPlace") // @TODO
+            case false => scala.Left(right.msg)
           }
 
         case report: Report =>
           inPlace match {
-            case true => scala.Right((inPlace, point, orientation, Some(Results.msg(report)(inPlace, Some(point), Some(orientation)))))
-            case false => scala.Left(Results.msg(report)(inPlace, None, None))
+            case true => scala.Right((inPlace, point, orientation, Some(report.msg(point, orientation))))
+            case false => scala.Left(report.msg)
           }
       } // match
     } // processCommand
