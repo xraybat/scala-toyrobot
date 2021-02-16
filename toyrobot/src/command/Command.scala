@@ -54,14 +54,16 @@ case class Move() extends Command {
 
 } // Move
 
-case class Left() extends Command {
-  def turn(orientation: Orientation): Orientation = Orientation.turnLeft(orientation)
-  def msg: String = s"${msgPrefix}can't TURN LEFT when not in PLACE!"
+trait Turn {
+  def msg: String = s"${msgPrefix}can't TURN when not in PLACE!"
 }
 
-case class Right() extends Command {
+case class Left() extends Command with Turn {
+  def turn(orientation: Orientation): Orientation = Orientation.turnLeft(orientation)
+}
+
+case class Right() extends Command with Turn {
   def turn(orientation: Orientation): Orientation = Orientation.turnRight(orientation)
-  def msg: String = s"${msgPrefix}can't TURN RIGHT when not in PLACE!"
 }
 
 case class Report() extends Command {
