@@ -69,5 +69,4 @@ case class Right() extends Command with Turn {
 case class Report() extends Command {
   def msg(point: Point, orientation: Orientation): String = s"${msgPrefix}REPORTing from ${point}, ${orientation}"
   def msg: String = s"${msgPrefix}REPORTing that i'm not in PLACE!"
-
 }

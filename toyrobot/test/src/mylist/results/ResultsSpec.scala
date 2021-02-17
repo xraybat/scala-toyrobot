@@ -1,4 +1,4 @@
-package toyrobot.results
+package toyrobot.mylist.results
 
 import org.scalatest.FlatSpec
 

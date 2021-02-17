@@ -6,7 +6,7 @@ import toyrobot.board._
 import toyrobot.parser._
 import toyrobot.directions._
 import toyrobot.robot._
-import toyrobot.results._
+import toyrobot.mylist.results._
 
 // leave input and parse outside of World, but handle
 // robot here.

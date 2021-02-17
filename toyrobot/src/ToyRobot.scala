@@ -6,7 +6,7 @@ import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
 import toyrobot.directions._
-import toyrobot.results._
+import toyrobot.mylist.results._
 import toyrobot.robot._
 import toyrobot.world._
 

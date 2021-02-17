@@ -4,7 +4,7 @@ import toyrobot.board._
 import toyrobot.point._
 import toyrobot.parser._
 import toyrobot.directions._
-import toyrobot.results._
+import toyrobot.mylist.results._
 import toyrobot.command._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
