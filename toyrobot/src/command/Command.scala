@@ -54,7 +54,7 @@ case class Move() extends Command {
 
 } // Move
 
-trait Turn {
+sealed trait Turn extends Command {
   def msg: String = s"${msgPrefix}can't TURN when not in PLACE!"
 }
 
