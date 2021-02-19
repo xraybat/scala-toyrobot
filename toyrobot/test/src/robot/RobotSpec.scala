@@ -9,7 +9,7 @@ import toyrobot.orientation.Orientation._
 import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
-import toyrobot.directions._
+import toyrobot.mylist.directions._
 
 import scala.util.{Try,Success,Failure}
 
@@ -24,7 +24,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         assert(
           r.board.xExtent == 5 && r.board.yExtent == 5
           && r.directions.list.length == 0)
@@ -36,7 +36,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         assert(!r.inPlace)
       case _ => assert(false)
     }
@@ -47,7 +47,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -59,7 +59,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -73,7 +73,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -84,7 +84,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -98,7 +98,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -109,7 +109,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -123,7 +123,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -137,7 +137,7 @@ class RobotSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -158,7 +158,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -172,7 +172,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -186,7 +186,7 @@ class RobotEgSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser()
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(_b, new Directions(dl))
+        val r = new Robot(_b, dl)
         r.walk
         assert(
           r.inPlace
@@ -206,7 +206,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(b, dl)
         r.walk
         assert(!r.inPlace)
       case _ => assert(false)
@@ -218,7 +218,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(b, dl)
         r.walk
         assert(
           r.inPlace && r.isBlocked(Point(0, 2))
@@ -232,7 +232,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(b, dl)
         r.walk
         assert(
           r.inPlace && r.isBlocked(Point(0, 1))
@@ -247,7 +247,7 @@ class RobotPlaceObjectSpec(/*ignore: String*/) extends FlatSpec {
     val p = new Parser
     p.parse(in) match {
       case Success(dl) =>
-        val r = new Robot(b, new Directions(dl))
+        val r = new Robot(b, dl)
         r.walk
         assert(
           r.inPlace && r.isBlocked(Point(3, 2))

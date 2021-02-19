@@ -8,9 +8,7 @@ import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
-import toyrobot.directions._
-import toyrobot.directions.Directions.DirectionsList
-import toyrobot.directions.Directions.DirectionsListBuffer
+import toyrobot.mylist.directions._
 
 import util.control.Breaks._
 import scala.util.{Try,Success,Failure }
@@ -20,10 +18,9 @@ case class ParseException(private val message: String = "", private val cause: T
 // parse to correct syntax, but not correct list logic (yet).
 class Parser {
 
-  // @MUTABLE:
-  private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer
+  private val _directions: Directions = new Directions
 
-  def parse(directions: PreParsedDirectionsList): Try[DirectionsList] = {
+  def parse(directions: PreParsedDirectionsList): Try[Directions] = {
     def parserPlaceRobot[_: P] = 
       P(Command.KeywordPlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -52,13 +49,13 @@ class Parser {
         case Parsed.Success(value, index) =>
           value match {
             case (p: String, x: Int, y: Int, o: String) => 
-              _directionsList += PlaceRobot(Point(x, y), Orientation.withName(o))
+              _directions.add(PlaceRobot(Point(x, y), Orientation.withName(o)))
 
-            case Command.KeywordPlaceObject => _directionsList += PlaceObject()
-            case Command.KeywordMove => _directionsList += Move()
-            case Command.KeywordLeft => _directionsList += Left()
-            case Command.KeywordRight => _directionsList += Right()
-            case Command.KeywordReport => _directionsList += Report()
+            case Command.KeywordPlaceObject => _directions.add(PlaceObject())
+            case Command.KeywordMove => _directions.add(Move())
+            case Command.KeywordLeft => _directions.add(Left())
+            case Command.KeywordRight => _directions.add(Right())
+            case Command.KeywordReport => _directions.add(Report())
           }
         case Parsed.Failure(expected, index, extra) =>
           error += extra.trace().longMsg + '\n'
@@ -70,7 +67,7 @@ class Parser {
 
     } // for-breakable
 
-    if (result) Success(_directionsList.toList) else Failure(ParseException(error))
+    if (result) Success(_directions) else Failure(ParseException(error))
 
   } // parse
 } // Parser

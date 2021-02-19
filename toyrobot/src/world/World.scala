@@ -4,7 +4,7 @@ import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.board._
 import toyrobot.parser._
-import toyrobot.directions._
+import toyrobot.mylist.directions._
 import toyrobot.robot._
 import toyrobot.mylist.results._
 

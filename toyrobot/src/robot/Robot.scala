@@ -3,7 +3,7 @@ package toyrobot.robot
 import toyrobot.board._
 import toyrobot.point._
 import toyrobot.parser._
-import toyrobot.directions._
+import toyrobot.mylist.directions._
 import toyrobot.mylist.results._
 import toyrobot.command._
 import toyrobot.orientation._
