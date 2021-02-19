@@ -20,7 +20,7 @@ class Parser {
 
   private val _directions: Directions = new Directions
 
-  def parse(directions: PreParsedDirectionsList): Try[Directions] = {
+  def parse(preParsedDirections: PreParsedDirectionsList): Try[Directions] = {
     def parserPlaceRobot[_: P] = 
       P(Command.KeywordPlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
@@ -44,7 +44,7 @@ class Parser {
     var result = true
     var error = ""
 
-    for (command <- directions) breakable {
+    for (command <- preParsedDirections) breakable {
       fastparse.parse(command, parserCommands(_)) match {
         case Parsed.Success(value, index) =>
           value match {
