@@ -14,14 +14,14 @@ object Command {
   val KeywordLeft = "LEFT"
   val KeywordRight = "RIGHT"
   val KeywordReport = "REPORT"
-
-  val msgPrefix = "Robot.walk: "  // @TODO: make private??
 }
 
 import Command._
 
 // for use in parsed directions list
-sealed abstract class Command
+sealed abstract class Command {
+  protected val msgPrefix = "Robot.walk: "
+}
 
 case class PlaceRobot(point: Point, orientation: Orientation) extends Command {
   def place(board: Board): (Boolean, Point, Orientation) =
