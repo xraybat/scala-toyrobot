@@ -23,17 +23,15 @@ sealed abstract class Command {
   protected val msgPrefix = "Robot.walk: "
 }
 
-case class PlaceRobot(point: Point, orientation: Orientation) extends Command {
-  def place(board: Board): (Boolean, Point, Orientation) =
-    if (board.inBounds(point)) (true, point, orientation) else (false, point, orientation)
-
-  def msg: String = s"${msgPrefix}PLACEd at ${point}, ${orientation}"
-  def msg(board: Board): String = s"${msgPrefix}can't PLACE at ${point} on a ${board} board!"
+case class PlaceRobot(pt: Point, o: Orientation) extends Command {
+  def place(b: Board): (Boolean, Point, Orientation) = if (b.inBounds(pt)) (true, pt, o) else (false, pt, o)
+  def msg: String = s"${msgPrefix}PLACEd at ${pt}, ${o}"
+  def msg(b: Board): String = s"${msgPrefix}can't PLACE at ${pt} on a ${b} board!"
 }
 
 case class PlaceObject() extends Command {
   // use current point and orientation to set blocked point on board
-  def place(board: Board, point: Point, orientation: Orientation): Unit = board.Block(point, orientation)
+  def place(b: Board, pt: Point, o: Orientation): Unit = b.Block(pt, o)
   def msg: String = s"${msgPrefix}can't PLACE_OBJECTs until in PLACE!"
 }
 
@@ -44,30 +42,30 @@ case class Move() extends Command {
     if (b.inBounds(movePt) && !b.isBlocked(movePt)) (true, movePt) else (false, movePt)
   }
 
-  def msg(point: Point, board: Board): String = 
-    if (board.inBounds(point) && board.isBlocked(point))
-      s"${msgPrefix}can't MOVE to ${point} 'cos i'm blocked!"
+  def msg(pt: Point, b: Board): String = 
+    if (b.inBounds(pt) && b.isBlocked(pt))
+      s"${msgPrefix}can't MOVE to ${pt} 'cos i'm blocked!"
     else
-      s"${msgPrefix}can't MOVE to ${point} on a ${board} board 'cos it's out of bounds!"
+      s"${msgPrefix}can't MOVE to ${pt} on a ${b} board 'cos it's out of bounds!"
 
   def msg: String = s"${msgPrefix}can't MOVE when not in PLACE!"
 
 } // Move
 
 sealed trait Turn extends Command {
-  def turn(orientation: Orientation): Orientation
+  def turn(o: Orientation): Orientation
   def msg: String = s"${msgPrefix}can't TURN when not in PLACE!"
 }
 
 case class Left() extends Command with Turn {
-  def turn(orientation: Orientation): Orientation = Orientation.turnLeft(orientation)
+  def turn(o: Orientation): Orientation = Orientation.turnLeft(o)
 }
 
 case class Right() extends Command with Turn {
-  def turn(orientation: Orientation): Orientation = Orientation.turnRight(orientation)
+  def turn(o: Orientation): Orientation = Orientation.turnRight(o)
 }
 
 case class Report() extends Command {
-  def msg(point: Point, orientation: Orientation): String = s"${msgPrefix}REPORTing from ${point}, ${orientation}"
+  def msg(pt: Point, o: Orientation): String = s"${msgPrefix}REPORTing from ${pt}, ${o}"
   def msg: String = s"${msgPrefix}REPORTing that i'm not in PLACE!"
 }
