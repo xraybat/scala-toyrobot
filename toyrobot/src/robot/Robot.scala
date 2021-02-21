@@ -41,7 +41,7 @@ class Robot(val board: Board, val directions: Directions) {
           }
         case scala.Left(err) => _results.add(err)
       }
-    }
+    } // foreach
 
     def step(cmd: Command): scala.Either[Robot.Error, Robot.State] = {
       cmd match {
