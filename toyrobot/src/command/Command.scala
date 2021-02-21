@@ -16,8 +16,6 @@ object Command {
   val KeywordReport = "REPORT"
 }
 
-import Command._
-
 // for use in parsed directions list
 sealed abstract class Command {
   protected val msgPrefix = "Robot.walk: "
