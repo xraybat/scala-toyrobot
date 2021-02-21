@@ -22,7 +22,7 @@ sealed abstract class Command {
 }
 
 case class PlaceRobot(pt: Point, o: Orientation) extends Command {
-  def place(b: Board): (Boolean, Point, Orientation) = if (b.inBounds(pt)) (true, pt, o) else (false, pt, o)
+  def place(b: Board): (Boolean, Point, Orientation) = (b.inBounds(pt), pt, o)
   def msg: String = s"${msgPrefix}PLACEd at ${pt}, ${o}"
   def msg(b: Board): String = s"${msgPrefix}can't PLACE at ${pt} on a ${b} board!"
 }
