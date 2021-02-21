@@ -30,9 +30,8 @@ class Robot(val board: Board, val directions: Directions) {
   val _results = new Results
 
   def walk: Results = {
-
     directions.list.foreach { cmd =>
-      processCommand(cmd) match {
+      step(cmd) match {
         case scala.Right(state) =>
           _state = state
           val (ip, pt, o, info) = _state
@@ -44,7 +43,7 @@ class Robot(val board: Board, val directions: Directions) {
       }
     }
 
-    def processCommand(cmd: Command): scala.Either[Robot.Error, Robot.State] = {
+    def step(cmd: Command): scala.Either[Robot.Error, Robot.State] = {
       cmd match {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
@@ -88,7 +87,7 @@ class Robot(val board: Board, val directions: Directions) {
             case false => scala.Left(report.msg)
           }
       } // match
-    } // processCommand
+    } // step
 
     _results
 
