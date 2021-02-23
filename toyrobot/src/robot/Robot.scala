@@ -48,7 +48,7 @@ class Robot(val board: Board, val directions: Directions) {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
             case (true, pt, o) => scala.Right((true, pt, o, Some(placeRobot.msg)))
-            case (false, pt, _) => scala.Left(placeRobot.msg(board))
+            case (false, _, _) => scala.Left(placeRobot.msg(board))
           }
 
         case placeObject: PlaceObject =>
