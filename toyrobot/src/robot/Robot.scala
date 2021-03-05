@@ -9,16 +9,10 @@ import toyrobot.command._
 import toyrobot.orientation._
 import toyrobot.orientation.Orientation._
 
-// companion object
-object Robot {
-  type State = (Boolean, Point, Orientation, Option[String])
-  type Error = String
-}
-
 class Robot(val board: Board, val directions: Directions) {
 
   // @MUTABLE:
-  var _state: Robot.State = (false, Point(0, 0), Orientation.North, None)
+  var _state: Command.State = (false, Point(0, 0), Orientation.North, None)
   def inPlace: Boolean = _state._1
   def point: Point = _state._2
   def orientation: Orientation = _state._3
@@ -43,7 +37,7 @@ class Robot(val board: Board, val directions: Directions) {
       }
     } // foreach
 
-    def step(cmd: Command): scala.Either[Robot.Error, Robot.State] = {
+    def step(cmd: Command): scala.Either[Command.Error, Command.State] = {
       cmd match {
         case placeRobot: PlaceRobot =>
           placeRobot.place(board) match {
