@@ -6,48 +6,35 @@ minimal commentary as smaller source files (Point, Board, Command, Orientation) 
 
 ## to run (in general)
 
-from OS CLI (either):
+from OS CLI:
 
-    $ sbt "run <filename>"
-    $ sbt run
-
-from within  sbt:
-
-    sbt> run <filename>
-    sbt> run
+    $ mill toyrobot.run <filename>
 
 and similar for testing:
 
-    $ sbt test
-    sbt> test
+    $ mill toyrobot.test
 
 ## to see the three examples required from PROBLEM.md
 
-    $sbt "run resources/eg1.txt"
-    $sbt "run resources/eg2.txt"
-    $sbt "run resources/eg3.txt"
+    $mill toyrobot.run resources/eg1.txt
+    $mill toyrobot.run resources/eg2.txt
+    $mill toyrobot.run resources/eg3.txt
 
 ## some TODOs/QUs (for further investigation)
 
-Searching 171 files for "@TODO:"
 ```
 /home/psc/src/scala/REA/toyrobot/src/main/scala/robot/Robot.scala:
     1: // @TODO: turn into a castor actor; a robot *is* an actor
     2  // after all...
     3  package robot
-    .
-   29: // @TODO: make walk() recursive walk(point)?? @ANS: no need, too
-   30  // simple
-   31  def walk(): Unit = {
 ```
-5 matches across 2 files
 
 ## requirements
 
 built using:
 
     scala 2.13.x
-    sbt 1.3.x
+    mill 0.8.x
 
 see [installing scala](https://www.scala-lang.org/download/)
 
