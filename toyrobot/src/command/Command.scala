@@ -8,6 +8,9 @@ import toyrobot.orientation.Orientation._
 // companion object. for use in input to be parsed; not an
 // enum (for 'stable identifier' matching)
 object Command {
+  type State = (Boolean, Point, Orientation, Option[String])
+  type Error = String
+
   val KeywordPlaceRobot = "PLACE"
   val KeywordPlaceObject = "PLACE_OBJECT"
   val KeywordMove = "MOVE"
