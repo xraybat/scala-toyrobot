@@ -13,7 +13,7 @@ import toyrobot.directions.Directions.DirectionsList
 import toyrobot.directions.Directions.DirectionsListBuffer
 
 import util.control.Breaks._
-import scala.util.{Try,Success,Failure }
+import scala.util.{ Try, Success, Failure }
 
 case class ParseException(private val message: String = "", private val cause: Throwable = None.orNull) extends Exception(message, cause)
 

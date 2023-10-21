@@ -10,7 +10,7 @@ import toyrobot.results._
 import toyrobot.robot._
 import toyrobot.world._
 
-import scala.util.{Try,Success,Failure}
+import scala.util.{ Try, Success, Failure}
 
 object ToyRobot {
   def main(args: Array[String]): Unit = {

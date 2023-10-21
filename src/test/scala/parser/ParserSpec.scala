@@ -5,7 +5,7 @@ import org.scalatest.FlatSpec
 import toyrobot.input._
 import toyrobot.input.Input.PreParsedDirectionsList
 
-import scala.util.{Try,Success,Failure}
+import scala.util.{ Try, Success, Failure }
 
 class ParserSpec(ignore: String) extends FlatSpec {
   "A PreParsedDirectionsList parse" should "not parse rubbish" in {

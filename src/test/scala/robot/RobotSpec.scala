@@ -11,7 +11,7 @@ import toyrobot.input.Input.PreParsedDirectionsList
 import toyrobot.parser._
 import toyrobot.directions._
 
-import scala.util.{Try,Success,Failure}
+import scala.util.{ Try, Success, Failure }
 
 // TDD-ing through the Robot setup and walk()
 //@Ignore
