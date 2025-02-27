@@ -4,7 +4,7 @@ organization := "au.com.example"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.13.16"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
