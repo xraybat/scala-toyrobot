@@ -16,4 +16,7 @@ project/plugins/project/
 .cache
 .lib/
 project/project/
+project/target/
 .bsp/
+metals.sbt
+.metals/
