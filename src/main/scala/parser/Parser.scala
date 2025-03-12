@@ -24,7 +24,7 @@ class Parser {
   private var _directionsList: DirectionsListBuffer = new DirectionsListBuffer
 
   def parse(directions: PreParsedDirectionsList): Try[DirectionsList] = {
-    def parserPlaceRobot[_: P] = 
+    def parserPlaceRobot[p: P] = 
       P(Command.KeywordPlaceRobot.!
         ~ CharIn("0-9").rep(1).!.map(_.toInt)
           ~ ","
@@ -35,7 +35,7 @@ class Parser {
           | Orientation.South.toString.!
           | Orientation.West.toString.!)
         ~ End)
-    def parserCommands[_: P] = 
+    def parserCommands[p: P] = 
       P(parserPlaceRobot
         | Command.KeywordPlaceObject.!
         | Command.KeywordMove.!
@@ -66,7 +66,7 @@ class Parser {
       }
 
       // don't keep parsing
-      if (!result) break
+      if (!result) break()
 
     } // for-breakable
 

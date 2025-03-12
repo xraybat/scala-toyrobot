@@ -8,7 +8,7 @@ object Input {
 
   def fromStdIn: PreParsedDirectionsList =
     Iterator
-      .continually(readLine)
+      .continually(readLine())
       .takeWhile(Option(_).fold(false)(_.nonEmpty))
       .toList
 
@@ -16,6 +16,6 @@ object Input {
   def fromList(l: PreParsedDirectionsList): PreParsedDirectionsList = l
 
   def fromFile(fileName: String): PreParsedDirectionsList =
-    Source.fromFile(fileName).getLines.toList
+    Source.fromFile(fileName).getLines().toList
 
 } // Input
