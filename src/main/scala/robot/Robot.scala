@@ -20,10 +20,8 @@ class Robot(val board: Board, val directions: Directions) {
   // @MUTABLE:
   private var _inPlace: Boolean = false
   def inPlace: Boolean = _inPlace
-
   def inBounds(pt: Point): Boolean = board.inBounds(pt)
-  def outBounds(pt: Point): Boolean = !inBounds(pt)
-  
+  def outBounds(pt: Point): Boolean = !inBounds(pt)  
   def isBlocked(pt: Point): Boolean = board.isBlocked(pt)
 
   val _results = new Results
